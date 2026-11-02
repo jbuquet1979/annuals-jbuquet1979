@@ -108,8 +108,6 @@ FRONTEND_VERSION_STORE_VERSION = 1
 
 
 def _platforms_for(config_entry: ConfigEntry) -> list[Platform]:
-    if config_entry.data.get(CONF_TELEWORK):
-        return []
     return HUB_PLATFORMS if config_entry.data.get(CONF_HUB) else EVENT_PLATFORMS
 
 

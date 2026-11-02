@@ -136,6 +136,7 @@ from .helpers import (
     holiday_span_suffix,
     hub_title,
     async_telework_label,
+    telework_person_name,
     library_language,
     translations_csv_text,
     ui_language,
@@ -2021,8 +2022,14 @@ def _telework_schema(defaults: dict | None = None) -> vol.Schema:
         {
             vol.Required(
                 CONF_TELEWORK_USER,
-                default=defaults.get(CONF_TELEWORK_USER, ""),
-            ): str,
+                description={
+                    "suggested_value": (
+                        defaults.get(CONF_TELEWORK_USER)
+                        if str(defaults.get(CONF_TELEWORK_USER, "")).startswith("person.")
+                        else None
+                    )
+                },
+            ): selector({"entity": {"domain": "person"}}),
             vol.Required(
                 CONF_TELEWORK_START_DATE,
                 description={"suggested_value": defaults.get(CONF_TELEWORK_START_DATE)},
@@ -2054,8 +2061,8 @@ def _telework_schema(defaults: dict | None = None) -> vol.Schema:
 
 def _validate_telework(user_input: dict) -> tuple[dict | None, dict[str, str]]:
     errors: dict[str, str] = {}
-    user = user_input.get(CONF_TELEWORK_USER, "").strip()
-    if not user:
+    user = str(user_input.get(CONF_TELEWORK_USER) or "").strip()
+    if not user.startswith("person."):
         return None, {"base": "telework_user_required"}
 
     start = parse_iso_date(str(user_input.get(CONF_TELEWORK_START_DATE, "")))
@@ -2088,7 +2095,7 @@ def _validate_telework(user_input: dict) -> tuple[dict | None, dict[str, str]]:
 
 
 async def _telework_entry_title(hass: HomeAssistant, data: dict) -> str:
-    return f"{await async_telework_label(hass)}: {data[CONF_TELEWORK_USER]}"
+    return f"{await async_telework_label(hass)}: {telework_person_name(hass, data)}"
 
 
 class AnnualsConfigFlow(ConfigFlow, domain=DOMAIN):

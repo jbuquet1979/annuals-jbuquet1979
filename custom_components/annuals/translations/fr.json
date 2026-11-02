@@ -124,7 +124,7 @@
                 "title": "Ajouter un planning de télétravail à domicile",
                 "description": "Ajoutez une journée ponctuelle de travail à domicile ou un planning hebdomadaire. Choisissez des jours pour répéter chaque semaine ; laissez-les vides pour une seule journée. Une date de fin limite le planning ; laissez-la vide pour une répétition sans fin.",
                 "data": {
-                    "telework_user": "Utilisateur",
+                    "telework_user": "Personne",
                     "telework_start_date": "Date de début",
                     "telework_weekdays": "Jours de la semaine",
                     "telework_end_date": "Date de fin"
@@ -274,7 +274,7 @@
             }
         },
         "error": {
-            "telework_user_required": "Veuillez saisir un nom d'utilisateur.",
+            "telework_user_required": "Veuillez sélectionner une personne.",
             "invalid_weekday": "Choisissez des jours de la semaine valides.",
             "telework_end_before_start": "La date de fin doit être égale ou postérieure à la date de début.",
             "telework_end_requires_weekdays": "Une date de fin ne peut être utilisée qu'avec un planning hebdomadaire.",
@@ -302,7 +302,7 @@
                 "title": "Modifier le planning de télétravail à domicile",
                 "description": "Modifiez la journée ou le planning hebdomadaire de travail à domicile de cet utilisateur.",
                 "data": {
-                    "telework_user": "Utilisateur",
+                    "telework_user": "Personne",
                     "telework_start_date": "Date de début",
                     "telework_weekdays": "Jours de la semaine",
                     "telework_end_date": "Date de fin"

@@ -43,6 +43,7 @@ from .const import (
     CONF_PERSON,
     CONF_TIME,
     CONF_TELEWORK,
+    CONF_TELEWORK_USER,
     CONF_NAME_TRANSLATIONS,
     CONF_DECEASED,
     CONF_VIP,
@@ -380,6 +381,20 @@ async def async_telework_label(hass: HomeAssistant) -> str:
     return translations.get(
         f"component.{DOMAIN}.entity.calendar.homeworking.name", "Homeworking"
     )
+
+
+def telework_person_name(hass: HomeAssistant, data: dict) -> str:
+    """Resolve a linked person entity to its display name.
+
+    Older schedules stored a free-text name in CONF_TELEWORK_USER; keeping
+    that as the fallback lets those entries remain readable until edited.
+    """
+    person_id = str(data.get(CONF_TELEWORK_USER) or "")
+    if person_id.startswith("person."):
+        state = hass.states.get(person_id)
+        if state:
+            return state.attributes.get("friendly_name") or person_id
+    return person_id
 
 
 async def async_category_labels(

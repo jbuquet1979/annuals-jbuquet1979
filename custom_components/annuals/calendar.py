@@ -26,7 +26,6 @@ from .const import (
     CONF_TELEWORK,
     CONF_TELEWORK_END_DATE,
     CONF_TELEWORK_START_DATE,
-    CONF_TELEWORK_USER,
     CONF_TELEWORK_WEEKDAYS,
     DOMAIN,
     TYPE_CUSTOM,
@@ -46,12 +45,18 @@ from .dates import (
     interval_rule,
     next_event_occurrence,
     next_holiday_occurrence,
+    next_telework_occurrence,
     occurrence_number,
     one_time_date,
     one_time_span,
     parse_time,
 )
-from .helpers import async_event_type_labels, async_telework_label, full_name
+from .helpers import (
+    async_event_type_labels,
+    async_telework_label,
+    full_name,
+    telework_person_name,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -333,33 +338,13 @@ class AnnualsTeleworkCalendar(CalendarEntity):
 
     @staticmethod
     def _next_occurrence(entry: ConfigEntry, today: date) -> date | None:
-        data = entry.data
-        schedule_start = date.fromisoformat(data[CONF_TELEWORK_START_DATE])
-        first = max(today, schedule_start)
-        last = (
-            date.fromisoformat(data[CONF_TELEWORK_END_DATE])
-            if data.get(CONF_TELEWORK_END_DATE)
-            else date.max
-        )
-        if first > last:
-            return None
-        weekdays = data.get(CONF_TELEWORK_WEEKDAYS, [])
-        if not weekdays:
-            return first if first == schedule_start else None
-        return min(
-            (
-                first + timedelta(days=(int(weekday) - first.weekday()) % 7)
-                for weekday in weekdays
-                if first + timedelta(days=(int(weekday) - first.weekday()) % 7) <= last
-            ),
-            default=None,
-        )
+        return next_telework_occurrence(entry.data, today)
 
     def _calendar_event(self, entry: ConfigEntry, occurrence: date) -> CalendarEvent:
         return CalendarEvent(
             start=occurrence,
             end=occurrence + timedelta(days=1),
-            summary=f"{entry.data[CONF_TELEWORK_USER]} - {self._telework_label}",
+            summary=f"{telework_person_name(self.hass, entry.data)} - {self._telework_label}",
             uid=f"{DOMAIN}-telework-{entry.entry_id}-{occurrence.isoformat()}",
         )
 
