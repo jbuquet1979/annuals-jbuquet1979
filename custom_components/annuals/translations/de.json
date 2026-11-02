@@ -1,0 +1,754 @@
+{
+    "title": "Annuals",
+    "selector": {
+        "holiday_span": {
+            "options": {
+                "start": "Beginn",
+                "end": "Ende",
+                "day": "Tag {day}"
+            }
+        },
+        "holiday_breaks": {
+            "options": {
+                "note": "Mehrtägige Ferien wie Schulferien werden wieder zu ganzen Ferien zusammengefasst - unten ist wählbar, welche Teile davon importiert werden."
+            }
+        },
+        "event_type": {
+            "options": {
+                "birthday": "Geburtstag",
+                "anniversary": "Jahrestag",
+                "name_day": "Namenstag",
+                "wedding_anniversary": "Hochzeitstag",
+                "memorial": "Todestag",
+                "pet_birthday": "Tiergeburtstag",
+                "work_anniversary": "Firmenjubiläum",
+                "custom": "Frei wählbar",
+                "one_time": "Einmaliges Ereignis",
+                "holiday": "Feiertag",
+                "market": "Börse"
+            }
+        },
+        "month": {
+            "options": {
+                "1": "Januar",
+                "2": "Februar",
+                "3": "März",
+                "4": "April",
+                "5": "Mai",
+                "6": "Juni",
+                "7": "Juli",
+                "8": "August",
+                "9": "September",
+                "10": "Oktober",
+                "11": "November",
+                "12": "Dezember"
+            }
+        },
+        "holiday_category": {
+            "options": {
+                "public": "Gesetzlich",
+                "bank": "Bankfeiertag",
+                "government": "Behörden",
+                "school": "Schulferien",
+                "optional": "Optional",
+                "optional_women": "Optional (Frauen)",
+                "unofficial": "Inoffiziell",
+                "half_day": "Halber Tag",
+                "armed_forces": "Streitkräfte",
+                "workday": "Arbeitstag",
+                "catholic": "Katholisch",
+                "christian": "Christlich",
+                "orthodox": "Orthodox",
+                "hebrew": "Jüdisch",
+                "islamic": "Islamisch",
+                "hindu": "Hinduistisch",
+                "buddhist": "Buddhistisch",
+                "de_facto": "De facto",
+                "protestant": "Protestantisch",
+                "sabian": "Sabäisch",
+                "yazidi": "Jesidisch",
+                "albanian": "Albanisch",
+                "armenian": "Armenisch",
+                "bosnian": "Bosnisch",
+                "roma": "Roma",
+                "serbian": "Serbisch",
+                "turkish": "Türkisch",
+                "vlach": "Vlachisch"
+            }
+        },
+        "nth": {
+            "options": {
+                "1": "Ersten",
+                "2": "Zweiten",
+                "3": "Dritten",
+                "4": "Vierten",
+                "last": "Letzten"
+            }
+        },
+        "weekday": {
+            "options": {
+                "0": "Montag",
+                "1": "Dienstag",
+                "2": "Mittwoch",
+                "3": "Donnerstag",
+                "4": "Freitag",
+                "5": "Samstag",
+                "6": "Sonntag"
+            }
+        },
+        "interval_unit": {
+            "options": {
+                "months": "Monate",
+                "years": "Jahre"
+            }
+        },
+        "market_category": {
+            "options": {
+                "public": "Geschlossen",
+                "half_day": "Verkürzter Handel",
+                "restricted_settlement": "Ohne Abwicklung"
+            }
+        },
+        "market_status": {
+            "options": {
+                "closed": "{market} geschlossen",
+                "closes_at": "{market} geschlossen ab {time}",
+                "closes_early": "{market} schließt früher",
+                "no_settlement": "{market} ohne Abwicklung"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "telework": {
+                "title": "Homeoffice-Plan hinzufügen",
+                "description": "Füge einen einzelnen Homeoffice-Tag oder einen Wochenplan hinzu. Wähle Wochentage für eine wöchentliche Wiederholung; lasse sie für einen einzelnen Tag leer. Ein Enddatum begrenzt den Wochenplan; ohne Enddatum wird er unbegrenzt wiederholt.",
+                "data": {
+                    "telework_user": "Benutzer",
+                    "telework_start_date": "Startdatum",
+                    "telework_weekdays": "Wochentage",
+                    "telework_end_date": "Enddatum"
+                },
+                "data_description": {
+                    "telework_weekdays": "Wähle einen oder mehrere Tage für einen Wochenplan. Leer lassen, um nur das Startdatum einzutragen.",
+                    "telework_end_date": "Gilt nur für Wochenpläne. Leer lassen für ein unbegrenztes Ende."
+                }
+            },
+            "user": {
+                "title": "Ereignis hinzufügen",
+                "description": "Um welche Art von Ereignis geht es?\n\n**Jährlich** umfasst Geburtstag, Jahrestag, Namenstag, Hochzeitstag, Gedenktag, Haustier-Geburtstag und Arbeitsjubiläum. **Einmalig** ist ein einzelnes Datum, das sich nach Ablauf selbst löscht. **Frei wählbar** ist dein eigenes jährliches Ereignis, an einem Tag oder nach einer Regel.",
+                "menu_options": {
+                    "telework": "{icon_telework} Ein Homeoffice-Plan",
+                    "recurring": "{icon_recurring} Ein jährliches Ereignis für jemanden",
+                    "one_time": "{icon_one_time} Ein einmaliges Ereignis",
+                    "custom": "{icon_custom} Ein frei wählbares Ereignis"
+                }
+            },
+            "recurring": {
+                "title": "Jährliches Ereignis hinzufügen",
+                "description": "Jedes Ereignis bekommt einen eigenen Eintrag, sodass du ihn später unter Einstellungen → Geräte & Dienste → Annuals über seinen Namen wiederfindest und bearbeiten kannst.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "person": "Person (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr (leer lassen, wenn unbekannt)",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual",
+                    "deceased": "Verstorben"
+                },
+                "data_description": {
+                    "person": "Eine Person in Home Assistant, deren Bild für dieses Ereignis steht – auf der Dashboard-Karte und in der Benachrichtigung der Erinnerung.",
+                    "deceased": "Die Person ist verstorben: Der Tag bleibt und wird markiert, die Karte sagt, was er gewesen wäre, und deine Automatisierungen können ihn unterscheiden."
+                }
+            },
+            "one_time": {
+                "title": "Einmaliges Ereignis hinzufügen",
+                "description": "Ein einzelnes Datum, auf das heruntergezählt wird. Es wiederholt sich nie, deshalb ist das Jahr Pflicht, und der Eintrag wird in der Mitternacht nach dem Ereignis automatisch gelöscht.\n\nMit einem Enddatum wird daraus ein mehrtägiges Ereignis – eine Reise, eine Konferenz, ein Aufenthalt.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr",
+                    "end_date": "Enddatum (optional – macht daraus ein mehrtägiges Ereignis)",
+                    "time": "Uhrzeit (optional)",
+                    "end_time": "Endzeit (optional)",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "Wann es an diesem Tag beginnt. Der Kalendereintrag bekommt dann eine Uhrzeit, und die Dashboard-Karte zeigt sie.",
+                    "end_time": "Wann es endet – am Enddatum, falls es eines gibt, sonst am selben Tag. Braucht eine Startzeit; leer gelassen ist der Kalendereintrag eine Stunde lang."
+                }
+            },
+            "custom": {
+                "title": "Frei wählbares Ereignis hinzufügen",
+                "description": "Dein eigenes jährliches Ereignis, für alles, was die anderen Typen nicht beschreiben.\n\nEr kann statt auf einem Tag auf einer **Regel** liegen: Der Muttertag ist der zweite Sonntag im Mai, der Vatertag in Australien der erste Sonntag im September. Fülle die beiden Felder unten aus – der **Monat** darüber sagt, für welchen Monat die Regel gilt, der **Tag** wird dann nicht verwendet. Beide leer lassen ergibt ein festes Datum.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual",
+                    "interval": "Wiederholt sich alle",
+                    "interval_unit": "…Monate oder Jahre",
+                    "nth": "Wiederholt sich am",
+                    "weekday": "…Wochentag des Monats"
+                },
+                "data_description": {
+                    "interval": "Zusammen mit der Einheit daneben – alle 6 Monate, alle 2 Jahre. Gezählt ab dem Datum oben, das dann sein Jahr braucht. Beide leer lassen für einmal im Jahr.",
+                    "nth": "Erster, zweiter, dritter, vierter oder der letzte im Monat.",
+                    "weekday": "Zusammen mit dem Feld darüber setzen – oder beide leer lassen."
+                }
+            },
+            "reconfigure_recurring": {
+                "title": "Ereignis bearbeiten",
+                "description": "Ändere ein beliebiges Feld unten und speichere, um dieses Ereignis zu aktualisieren.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "person": "Person (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr (leer lassen, wenn unbekannt)",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual",
+                    "deceased": "Verstorben"
+                },
+                "data_description": {
+                    "person": "Eine Person in Home Assistant, deren Bild für dieses Ereignis steht – auf der Dashboard-Karte und in der Benachrichtigung der Erinnerung.",
+                    "deceased": "Die Person ist verstorben: Der Tag bleibt und wird markiert, die Karte sagt, was er gewesen wäre, und deine Automatisierungen können ihn unterscheiden."
+                }
+            },
+            "reconfigure_one_time": {
+                "title": "Einmaliges Ereignis bearbeiten",
+                "description": "Ändere ein beliebiges Feld unten und speichere, um dieses Ereignis zu aktualisieren.\n\nMit einem Enddatum wird daraus ein mehrtägiges Ereignis; ohne es wieder ein einzelner Tag.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr",
+                    "end_date": "Enddatum (optional – macht daraus ein mehrtägiges Ereignis)",
+                    "time": "Uhrzeit (optional)",
+                    "end_time": "Endzeit (optional)",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "Wann es an diesem Tag beginnt. Der Kalendereintrag bekommt dann eine Uhrzeit, und die Dashboard-Karte zeigt sie.",
+                    "end_time": "Wann es endet – am Enddatum, falls es eines gibt, sonst am selben Tag. Braucht eine Startzeit; leer gelassen ist der Kalendereintrag eine Stunde lang."
+                }
+            },
+            "reconfigure_custom": {
+                "title": "Frei wählbares Ereignis bearbeiten",
+                "description": "Ändere ein beliebiges Feld unten und speichere, um dieses Ereignis zu aktualisieren.\n\nEr kann statt auf einem Tag auf einer **Regel** liegen – *der zweite Sonntag im Mai*. Fülle die beiden Felder unten aus; der **Monat** darüber sagt, für welchen Monat die Regel gilt, der **Tag** wird dann nicht verwendet. Leerst du sie, liegt das Ereignis wieder auf diesem Tag.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual",
+                    "interval": "Wiederholt sich alle",
+                    "interval_unit": "…Monate oder Jahre",
+                    "nth": "Wiederholt sich am",
+                    "weekday": "…Wochentag des Monats"
+                },
+                "data_description": {
+                    "interval": "Zusammen mit der Einheit daneben – alle 6 Monate, alle 2 Jahre. Gezählt ab dem Datum oben, das dann sein Jahr braucht. Beide leer lassen für einmal im Jahr.",
+                    "nth": "Erster, zweiter, dritter, vierter oder der letzte im Monat.",
+                    "weekday": "Zusammen mit dem Feld darüber setzen – oder beide leer lassen."
+                }
+            }
+        },
+        "error": {
+            "telework_user_required": "Bitte gib einen Benutzernamen ein.",
+            "invalid_weekday": "Wähle gültige Wochentage aus.",
+            "telework_end_before_start": "Das Enddatum muss am oder nach dem Startdatum liegen.",
+            "telework_end_requires_weekdays": "Ein Enddatum ist nur bei einem Wochenplan zulässig.",
+            "name_required": "Bitte einen Namen eingeben.",
+            "end_date_one_time_only": "Ein Enddatum kann nur bei einem einmaligen Ereignis gesetzt werden.",
+            "end_date_before_start": "Das Enddatum muss nach dem Startdatum liegen.",
+            "invalid_date": "Diese Tag/Monat/Jahr-Kombination ist kein gültiges Datum.",
+            "year_required": "Einmalige Ereignisse benötigen ein Jahr.",
+            "rule_needs_both": "Eine wiederkehrende Regel braucht beide Felder – oder keines.",
+            "interval_needs_both": "Ein Wiederholungsintervall braucht beide Felder – oder keines.",
+            "interval_needs_year": "Ein Wiederholungsintervall wird ab dem Datum oben gezählt, daher ist das Jahr nötig.",
+            "interval_no_rule": "Ein Wiederholungsintervall lässt sich nicht mit einer Wochentagsregel kombinieren.",
+            "end_time_needs_time": "Eine Endzeit braucht eine Startzeit.",
+            "end_time_before_start": "Die Endzeit muss nach der Startzeit liegen."
+        },
+        "abort": {
+            "hub_not_configurable": "Der Annuals-Hub hat keine eigenen Einstellungen – er hält nur die gemeinsamen Kalender.",
+            "already_configured": "Der Annuals-Hub existiert bereits.",
+            "invalid_import_row": "Diese Zeile konnte nicht importiert werden."
+        }
+    },
+    "options": {
+        "step": {
+            "telework": {
+                "title": "Homeoffice-Plan bearbeiten",
+                "description": "Bearbeite den Homeoffice-Tag oder Wochenplan dieses Benutzers.",
+                "data": {
+                    "telework_user": "Benutzer",
+                    "telework_start_date": "Startdatum",
+                    "telework_weekdays": "Wochentage",
+                    "telework_end_date": "Enddatum"
+                },
+                "data_description": {
+                    "telework_weekdays": "Wähle einen oder mehrere Tage für einen Wochenplan. Leer lassen, um nur das Startdatum einzutragen.",
+                    "telework_end_date": "Gilt nur für Wochenpläne. Leer lassen für ein unbegrenztes Ende."
+                }
+            },
+            "import_csv": {
+                "title": "Ereignisse aus CSV importieren",
+                "description": "Spalten: name, type, day, month, year (optional), icon (optional), vip (optional), last_name (optional). Bei „type“ ist ausschließlich einer der folgenden englischen Schlüssel gültig: birthday, anniversary, name_day, wedding_anniversary, memorial, pet_birthday, work_anniversary, custom, one_time (unabhängig von deiner Spracheinstellung). Bei one_time ist year zwingend erforderlich. „vip“ akzeptiert 1/true/yes/y/x (Groß-/Kleinschreibung egal); leer lassen oder Spalte weglassen für ein nicht-VIP-Ereignis. Jede Spalte muss auch bei einem leeren Wert erhalten bleiben - fehlt ein Komma am Zeilenende, rutschen die folgenden Werte nach links. Ungültige Zeilen werden übersprungen und protokolliert.\n\nBeispiel:\n```\nname,type,day,month,year,icon,vip,last_name\nAnna,birthday,12,4,1988,,,Miller\nMax,pet_birthday,3,9,2020,mdi:dog,,\nTest Custom,custom,1,1,,mdi:test-tube,1,\nFamilienurlaub,one_time,15,7,2026,mdi:airplane,,\n```",
+                "data": {
+                    "csv_file": "CSV-Datei"
+                }
+            },
+            "import_ics": {
+                "title": "Ereignisse aus ICS-Kalender importieren",
+                "description": "Lade eine .ics-Kalenderdatei hoch - typischerweise ein exportierter Kalender. Es werden nur ganztägige Einträge ohne Wiederholungs-Override gelesen; Einträge mit Uhrzeit werden übersprungen. In den nächsten Schritten kannst du den vorgeschlagenen Vor-/Nachnamen-Split prüfen und korrigieren (und bei Bedarf für alle auf einmal vertauschen), bevor irgendetwas importiert wird.",
+                "data": {
+                    "ics_file": "ICS-Datei"
+                }
+            },
+            "import_vcard_menu": {
+                "title": "Ereignisse aus vCard importieren",
+                "description": "Der Geburtstag eines Kontakts und dessen weitere Termine (Jubiläen, individuelle Termine) laufen über getrennte Zweige, da nur Geburtstage einen einzigen Ereignistyp für den gesamten Import teilen - jedem weiteren Termin wird bei der Prüfung ein eigener Typ zugewiesen.",
+                "menu_options": {
+                    "import_vcard": "Geburtstage importieren",
+                    "import_vcard_other_dates": "Weitere Termine importieren (Jubiläen, ...)"
+                }
+            },
+            "import_vcard": {
+                "title": "Geburtstage aus vCard importieren",
+                "description": "Lade eine .vcf-Datei hoch - typischerweise exportierte Kontakte. Es werden nur Einträge mit gesetztem Geburtsdatum gelesen. Vor-/Nachname kommen aus den strukturierten Namensfeldern des Kontakts, nicht aus einer Schätzung, und ein Geburtsdatum ohne Jahr (so wie es vCard selbst vorsieht) bleibt als unbekannt erhalten, statt erfunden zu werden. In den nächsten Schritten kannst du alles prüfen und korrigieren (und bei Bedarf Vor-/Nachname für alle auf einmal vertauschen), bevor irgendetwas importiert wird.",
+                "data": {
+                    "vcard_file": "vCard-Datei"
+                }
+            },
+            "import_vcard_other_dates": {
+                "title": "Weitere Termine aus vCard importieren",
+                "description": "Lade eine .vcf-Datei hoch. Liest jeden Termin außer dem Geburtstag: das Standardfeld „Jubiläum“ (Anniversary), plus jeden individuell beschrifteten Termin, den deine Kontakte-App pro Kontakt erlaubt (z. B. „Anniversary“, „Other“, oder eine selbst eingegebene Beschriftung). Anders als Geburtstage sind das nicht alles Ereignisse desselben Typs - in den nächsten Schritten kannst du jeden Eintrag prüfen, samt erkannter Beschriftung zur Orientierung, und ihm einzeln den passenden Ereignistyp zuweisen.",
+                "data": {
+                    "vcard_file": "vCard-Datei"
+                }
+            },
+            "import_options": {
+                "title": "{source_label}-Import - Einstellungen",
+                "description": "Diese gelten für jeden in der Datei gefundenen Eintrag. Im nächsten Schritt kannst du einzelne Einträge prüfen und bearbeiten.",
+                "data": {
+                    "swap_names": "Vor-/Nachname für alle Einträge vertauschen",
+                    "use_description_year": "Statt des Jahres vom Startdatum das Jahr aus der Beschreibung des Eintrags verwenden, falls dort eines gefunden wird (z. B. „geb. 1985“)",
+                    "type": "Ereignistyp"
+                }
+            },
+            "import_review": {
+                "title": "{source_label}-Import - Prüfung ({page}/{total_pages})",
+                "description": "{legend}\n\nPrüfe den vorgeschlagenen Vor-/Nachnamen-Split unten und korrigiere, was nicht passt - auch der Geburtstag selbst ist editierbar - oder deaktiviere einen Eintrag, um ihn ganz auszulassen. Ein möglicher Duplikat-Treffer wird mit dem Namen des bestehenden Eintrags gekennzeichnet; lasse „Als neuen Eintrag anlegen“ deaktiviert, um diesen bestehenden Eintrag zu aktualisieren, statt einen zweiten anzulegen. Die Feldbeschriftungen hier werden unabhängig von deiner Spracheinstellung nur auf Englisch angezeigt.",
+                "data": {
+                    "go_back": "Zurück zur vorherigen Seite"
+                }
+            },
+            "remove_ics_imports": {
+                "title": "ICS-importierte Ereignisse entfernen",
+                "description": "{count} Ereignis(se) wurden durch einen vorherigen ICS-Import angelegt. Klicke auf OK, um alle zu entfernen - Einträge, die ein ICS-Import nur aktualisiert (statt angelegt) hat, sind davon nie betroffen, ebenso wenig manuell angelegte, per CSV oder per vCard importierte Ereignisse."
+            },
+            "remove_vcard_imports": {
+                "title": "vCard-importierte Ereignisse entfernen",
+                "description": "{count} Ereignis(se) wurden durch einen vorherigen vCard-Import angelegt. Klicke auf OK, um alle zu entfernen - Einträge, die ein vCard-Import nur aktualisiert (statt angelegt) hat, sind davon nie betroffen, ebenso wenig manuell angelegte, per CSV oder per ICS importierte Ereignisse."
+            },
+            "holiday_menu": {
+                "title": "Feiertag",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}",
+                "menu_options": {
+                    "holiday_settings": "⚙️ Einstellungen",
+                    "holiday_names": "🌐 Name und Übersetzungen"
+                }
+            },
+            "holiday_settings": {
+                "title": "Feiertag-Einstellungen",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nDatum, Typ und Region stammen aus der Feiertagsdatenbank und sind hier nicht änderbar.",
+                "data": {
+                    "icon": "Icon"
+                }
+            },
+            "holiday_names": {
+                "title": "Name und Übersetzungen",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nWähle die Sprache, für die du den Namen dieses Feiertags eintragen willst.",
+                "data": {
+                    "language": "Sprache"
+                }
+            },
+            "holiday_name_edit": {
+                "title": "Name des Feiertags",
+                "description": "{language}\n\n**{name}**\n\n{type} · {date} · {region} · {category}\n\nVorbelegt mit dem, was heute angezeigt wird. Leer lassen, um wieder die Feiertagsdatenbank zu verwenden.",
+                "data": {
+                    "name": "Name",
+                    "reason": "Anlass"
+                }
+            },
+            "holiday_translations": {
+                "title": "🌐 Feiertags-Übersetzungen",
+                "description": "Selbst geschriebene Feiertagsnamen exportieren und importieren.",
+                "menu_options": {
+                    "export_translations": "📤 Übersetzungen exportieren",
+                    "import_translations": "📥 Übersetzungen importieren"
+                }
+            },
+            "import_translations": {
+                "title": "Übersetzungen importieren",
+                "description": "Lade eine Übersetzungs-CSV hoch. Spalten: `country,subdivision,category,holiday_key,observed,language,name,status`. Zeilen werden über Land, Region, Kategorie, Feiertagsschlüssel und Observed-Kennzeichen zugeordnet - nicht über die Eintrags-ID, eine vor einem Neuimport exportierte Datei passt also weiterhin. Zeilen ohne passenden Feiertag werden übersprungen und gezählt. Bei einem Börsentag ist `name` der Anlass und `status` sein eigener Name; bei Feiertagen bleibt `status` leer.",
+                "data": {
+                    "csv_file": "CSV"
+                }
+            },
+            "hub_menu": {
+                "title": "Annuals Einstellungen",
+                "menu_options": {
+                    "annual_settings": "{icon_annual_settings} Annual Einstellung",
+                    "import_events": "{icon_import_events} Ereignisse importieren",
+                    "export_csv": "{icon_export_csv} Ereignisse als CSV exportieren",
+                    "holiday_translations": "{icon_holiday_translations} Feiertags-Übersetzungen",
+                    "remove_events": "{icon_remove_events} Ereignisse entfernen",
+                    "delete_all": "{icon_delete_all} Alle Annuals-Daten löschen"
+                }
+            },
+            "import_events": {
+                "title": "Ereignisse importieren",
+                "description": "Wähle eine Quelle für den Import.",
+                "menu_options": {
+                    "import_csv": "CSV",
+                    "import_ics": "ICS-Kalender",
+                    "import_vcard_menu": "vCard",
+                    "import_holidays": "Feiertage",
+                    "import_markets": "Börsen"
+                }
+            },
+            "remove_events": {
+                "title": "Ereignisse entfernen",
+                "description": "Wähle, welche zuvor importierten Ereignisse entfernt werden sollen.",
+                "menu_options": {
+                    "remove_ics_imports": "ICS-importiert",
+                    "remove_vcard_imports": "vCard-importiert",
+                    "remove_holidays": "Feiertage",
+                    "remove_markets": "Börsen"
+                }
+            },
+            "import_holidays": {
+                "title": "Feiertage importieren",
+                "description": "Wähle ein Land, um dessen Feiertage als Ereignisse zu importieren. Ein erneuter Import für dasselbe Land (und dieselbe Subdivision) aktualisiert bestehende Einträge, statt sie zu duplizieren - vor dem Import siehst du alle Feiertage und wählst die gewünschten aus.",
+                "data": {
+                    "country": "Land"
+                }
+            },
+            "import_markets": {
+                "title": "Börsenfeiertage importieren",
+                "description": "Wähle eine Börse, um die Tage zu importieren, an denen sie geschlossen ist - und, wo ihre Daten sie enthalten, die Tage mit verkürztem Handel. Vor dem Import siehst du alle Tage und wählst die gewünschten aus.",
+                "data": {
+                    "market": "Börse"
+                }
+            },
+            "import_markets_options": {
+                "title": "Börsentage importieren - {country}",
+                "description": "Welche Arten von Tagen importiert werden und in welcher Sprache ihre Namen stehen.",
+                "data": {
+                    "categories": "Tage",
+                    "language": "Sprache der Namen"
+                }
+            },
+            "import_markets_select": {
+                "title": "Börsentage importieren - {country}: auswählen",
+                "description": "{count} Tag(e) gefunden, jeweils mit dem nächsten Datum. Importiert werden nur die angehakten.\n\nEin Tag, der schon in Annuals ist, bleibt beim Abhaken unverändert - entfernen lassen sich Tage unter **Ereignisse entfernen → Börsen**.",
+                "data": {
+                    "holidays": "Tage"
+                }
+            },
+            "import_holidays_options": {
+                "title": "Feiertage importieren - {country}",
+                "description": "Bundesland/Provinz leer lassen für nur landesweite Feiertage - eine Auswahl fügt eigene regionale Feiertage hinzu. Kategorien und Sprache hängen davon ab, was für dieses Land verfügbar ist.{breaks}",
+                "data": {
+                    "include_actual": "Tatsächliches Datum importieren",
+                    "include_observed": "Nachgeholtes (verschobenes) Datum importieren",
+                    "break_start": "Ferienbeginn importieren",
+                    "break_end": "Ferienende importieren",
+                    "break_days": "Jeden Ferientag importieren",
+                    "subdivision": "Bundesland/Provinz (optional)",
+                    "categories": "Kategorien",
+                    "language": "Sprache der Feiertagsnamen"
+                },
+                "data_description": {
+                    "break_start": "Schulferien sind nur mit Schultagen hinterlegt, die Ferien beginnen also früher - hier wird über das Wochenende und angrenzende Feiertage zurückgerechnet bis zum ersten wirklich freien Tag.",
+                    "break_end": "Dasselbe in die andere Richtung: der letzte freie Tag, nicht der letzte hinterlegte.",
+                    "break_days": "Ein Ereignis pro Ferientag. Allein die Sommerferien ergeben so über vierzig Ereignisse.",
+                    "include_observed": "Feiertage dieses Landes werden manchmal auf einen nahegelegenen Wochentag verschoben, wenn sie auf ein Wochenende fallen (z. B. am Freitag davor oder Montag danach nachgeholt) - importiere dieses nachgeholte Datum zusätzlich als eigenes Ereignis."
+                }
+            },
+            "import_holidays_select": {
+                "title": "Feiertage importieren - {country}: auswählen",
+                "description": "{count} Feiertag(e) gefunden, jeweils mit dem nächsten Datum. Importiert werden nur die angehakten.\n\nEin Feiertag, der schon in Annuals ist, bleibt beim Abhaken unverändert - entfernen lassen sich Feiertage unter **Ereignisse entfernen → Feiertage**.",
+                "data": {
+                    "holidays": "Feiertage"
+                }
+            },
+            "remove_holidays": {
+                "title": "Importierte Feiertage entfernen",
+                "description": "Aktuell importiert: {total} Feiertags-Ereignis(se). Aktiviere die Checkbox unten, um alle zu entfernen, oder lasse sie deaktiviert und wähle stattdessen einen bestimmten Import aus. Manuell angelegte Ereignisse sind davon nie betroffen.",
+                "data": {
+                    "remove_all": "Alle importierten Feiertage entfernen",
+                    "batch": "Zu entfernender Import"
+                }
+            },
+            "remove_markets": {
+                "title": "Importierte Börsentage entfernen",
+                "description": "{total} Börsentag(e) importiert. Aktiviere das Feld unten, um alle zu entfernen, oder lass es aus und wähle eine oder mehrere Börsen. Alles andere bleibt unverändert.",
+                "data": {
+                    "remove_all": "Alle importierten Börsentage entfernen",
+                    "batch": "Zu entfernende Börsen"
+                }
+            },
+            "annual_settings": {
+                "title": "Annual Einstellung",
+                "sections": {
+                    "important_events": {
+                        "name": "❗ Important Events",
+                        "description": "Kommagetrennte Jubiläumszahlen, bei denen ein Ereignis dieses Typs automatisch als „Important“ markiert wird, z. B. „18,21,30,40,50“. Ein Feld leer lassen, um dies für diesen Typ zu deaktivieren.",
+                        "data": {
+                            "important_thresholds_birthday": "Geburtstag",
+                            "important_thresholds_anniversary": "Jahrestag",
+                            "important_thresholds_name_day": "Namenstag",
+                            "important_thresholds_wedding_anniversary": "Hochzeitstag",
+                            "important_thresholds_memorial": "Todestag",
+                            "important_thresholds_pet_birthday": "Tiergeburtstag",
+                            "important_thresholds_work_anniversary": "Firmenjubiläum",
+                            "important_thresholds_custom": "Frei wählbar"
+                        }
+                    },
+                    "todo": {
+                        "name": "📍 To-do-Listen",
+                        "description": "Offene Einträge auf diesen Listen markieren ein Ereignis: Jeder Ereignis-Sensor erhält dann ein Attribut \"todo\" - true, solange ihm mindestens ein noch offener Eintrag zugeordnet ist, sonst false - für eigene Automationen, Templates und Dashboards. Die Zuordnung erfolgt zuerst über das Fälligkeitsdatum, dann darüber, ob der Eintragstext das Ereignis nennt (vollständiger Name, Name, Typ, Nummer der Wiederholung); ein Eintrag, der zu zwei Ereignissen gleich gut passt, bleibt unzugeordnet. Leer lassen, um die Funktion abzuschalten. Unabhängig von der gleichnamigen Einstellung der Dashboard-Karte.",
+                        "data": {
+                            "todo_lists": "To-do-Listen"
+                        }
+                    }
+                }
+            },
+            "delete_all": {
+                "title": "Alle Annuals-Daten löschen",
+                "description": "Dies löscht dauerhaft alle {count} Ereignis(se), die gemeinsamen Kalender und den Annuals-Hub selbst – die komplette Integration inklusive aller angelegten Entitäten. Das kann nicht rückgängig gemacht werden. Zum Bestätigen auf „OK“ klicken."
+            },
+            "edit_recurring": {
+                "title": "Ereignis bearbeiten",
+                "description": "Ändere ein beliebiges Feld unten und speichere, um dieses Ereignis zu aktualisieren.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "person": "Person (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr (leer lassen, wenn unbekannt)",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual",
+                    "deceased": "Verstorben"
+                },
+                "data_description": {
+                    "person": "Eine Person in Home Assistant, deren Bild für dieses Ereignis steht – auf der Dashboard-Karte und in der Benachrichtigung der Erinnerung.",
+                    "deceased": "Die Person ist verstorben: Der Tag bleibt und wird markiert, die Karte sagt, was er gewesen wäre, und deine Automatisierungen können ihn unterscheiden."
+                }
+            },
+            "edit_one_time": {
+                "title": "Einmaliges Ereignis bearbeiten",
+                "description": "Ändere ein beliebiges Feld unten und speichere, um dieses Ereignis zu aktualisieren.\n\nMit einem Enddatum wird daraus ein mehrtägiges Ereignis; ohne es wieder ein einzelner Tag.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr",
+                    "end_date": "Enddatum (optional – macht daraus ein mehrtägiges Ereignis)",
+                    "time": "Uhrzeit (optional)",
+                    "end_time": "Endzeit (optional)",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "Wann es an diesem Tag beginnt. Der Kalendereintrag bekommt dann eine Uhrzeit, und die Dashboard-Karte zeigt sie.",
+                    "end_time": "Wann es endet – am Enddatum, falls es eines gibt, sonst am selben Tag. Braucht eine Startzeit; leer gelassen ist der Kalendereintrag eine Stunde lang."
+                }
+            },
+            "edit_custom": {
+                "title": "Frei wählbares Ereignis bearbeiten",
+                "description": "Ändere ein beliebiges Feld unten und speichere, um dieses Ereignis zu aktualisieren.\n\nEr kann statt auf einem Tag auf einer **Regel** liegen – *der zweite Sonntag im Mai*. Fülle die beiden Felder unten aus; der **Monat** darüber sagt, für welchen Monat die Regel gilt, der **Tag** wird dann nicht verwendet. Leerst du sie, liegt das Ereignis wieder auf diesem Tag.",
+                "data": {
+                    "name": "Name",
+                    "last_name": "Nachname (optional)",
+                    "type": "Ereignistyp",
+                    "day": "Tag",
+                    "month": "Monat",
+                    "year": "Jahr",
+                    "icon": "Icon überschreiben (optional)",
+                    "vip": "VIP Annual",
+                    "interval": "Wiederholt sich alle",
+                    "interval_unit": "…Monate oder Jahre",
+                    "nth": "Wiederholt sich am",
+                    "weekday": "…Wochentag des Monats"
+                },
+                "data_description": {
+                    "interval": "Zusammen mit der Einheit daneben – alle 6 Monate, alle 2 Jahre. Gezählt ab dem Datum oben, das dann sein Jahr braucht. Beide leer lassen für einmal im Jahr.",
+                    "nth": "Erster, zweiter, dritter, vierter oder der letzte im Monat.",
+                    "weekday": "Zusammen mit dem Feld darüber setzen – oder beide leer lassen."
+                }
+            }
+        },
+        "error": {
+            "name_required": "Bitte einen Namen eingeben.",
+            "end_date_one_time_only": "Ein Enddatum kann nur bei einem einmaligen Ereignis gesetzt werden.",
+            "end_date_before_start": "Das Enddatum muss nach dem Startdatum liegen.",
+            "invalid_date": "Diese Tag/Monat/Jahr-Kombination ist kein gültiges Datum.",
+            "year_required": "Einmalige Ereignisse benötigen ein Jahr.",
+            "invalid_csv": "Diese Datei konnte nicht als CSV gelesen werden. Prüfe Kodierung und Format.",
+            "no_valid_rows": "Keine gültigen Zeilen in dieser Datei gefunden. Details zu übersprungenen Zeilen stehen im Log.",
+            "invalid_ics": "Diese Datei konnte nicht als ICS-Kalender gelesen werden. Prüfe das Format.",
+            "no_valid_entries": "Keine verwertbaren ganztägigen Einträge in dieser Datei gefunden. Details zu übersprungenen Einträgen stehen im Log.",
+            "invalid_vcard": "Diese Datei konnte nicht als vCard gelesen werden. Prüfe das Format.",
+            "no_valid_vcard_entries": "Keine Kontakte mit verwertbarem Geburtsdatum in dieser Datei gefunden. Details zu übersprungenen Einträgen stehen im Log.",
+            "no_valid_vcard_dates": "Keine Jubiläen oder weiteren Termine (außer Geburtstagen) in dieser Datei gefunden. Details zu übersprungenen Einträgen stehen im Log.",
+            "no_batch_selected": "Aktiviere \"Alle importierten Feiertage entfernen\" oder wähle einen Import aus.",
+            "rule_needs_both": "Eine wiederkehrende Regel braucht beide Felder – oder keines.",
+            "interval_needs_both": "Ein Wiederholungsintervall braucht beide Felder – oder keines.",
+            "interval_needs_year": "Ein Wiederholungsintervall wird ab dem Datum oben gezählt, daher ist das Jahr nötig.",
+            "interval_no_rule": "Ein Wiederholungsintervall lässt sich nicht mit einer Wochentagsregel kombinieren.",
+            "end_time_needs_time": "Eine Endzeit braucht eine Startzeit.",
+            "end_time_before_start": "Die Endzeit muss nach der Startzeit liegen.",
+            "no_holiday_selected": "Hake mindestens einen Feiertag an.",
+            "category_needs_region": "{category} hat für {where} im Jahr {year} keine Feiertage - nur diese Regionen haben welche: {regions}. Wähle eine davon unter „Bundesland/Provinz“ oder lass {category} weg.",
+            "category_empty": "{category} hat für {where} im Jahr {year} keine Feiertage. Lass die Kategorie weg, um die anderen zu importieren.",
+            "no_market_day_selected": "Hake mindestens einen Tag an.",
+            "market_category_empty": "{category} hat für {where} im Jahr {year} keine Tage. Lass es weg, um die anderen zu importieren.",
+            "no_market_batch_selected": "Aktiviere \"Alle importierten Börsentage entfernen\" oder wähle eine Börse aus."
+        },
+        "abort": {
+            "translations_exported": "{count} Übersetzung(en) exportiert. [annuals_holiday_translations.csv herunterladen]({url}) (Strg/Cmd-Klick zum Herunterladen - ein einfacher Klick funktioniert hier nicht)\n\nOder kopiere die CSV unten:\n\n```\n{csv}\n```",
+            "translations_imported": "{updated} Feiertag(e) aktualisiert, {skipped} Zeile(n) übersprungen.",
+            "no_translations_to_export": "Es wurden noch keine Feiertagsnamen geschrieben - es gibt nichts zu exportieren.",
+            "hub_not_configurable": "Der Annuals-Hub hat keine eigenen Einstellungen – er hält nur die gemeinsamen Kalender.",
+            "import_started": "Import gestartet: {created} Ereignis(se) werden angelegt, {skipped} Zeile(n) übersprungen (Details im Log).",
+            "ics_import_started": "Import gestartet: {created} Ereignis(se) angelegt, {updated} aktualisiert, {skipped} Eintrag/Einträge übersprungen oder ausgeschlossen.",
+            "csv_exported": "{count} Ereignis(se) exportiert. [annuals_export.csv herunterladen]({url}) (Strg/Cmd-Klick zum Herunterladen - ein einfacher Klick funktioniert hier nicht)\n\nOder kopiere die CSV unten:\n\n```\n{csv}\n```",
+            "no_events_to_export": "Es gibt noch keine Ereignisse zum Exportieren.",
+            "deleted_all": "Alle Annuals-Ereignisse, Kalender und der Hub wurden entfernt.",
+            "holiday_import_started": "Import gestartet: {count} Feiertags-Ereignis(se) für {country} werden angelegt ({new} neu, {updated} aktualisiert).",
+            "no_holidays_imported": "Es wurden noch keine Feiertage importiert.",
+            "holidays_removed": "{count} Feiertags-Ereignis(se) entfernt.",
+            "no_ics_imports": "Es wurden keine durch einen ICS-Import angelegten Ereignisse gefunden.",
+            "ics_imports_removed": "{count} ICS-importierte(s) Ereignis(se) entfernt.",
+            "no_vcard_imports": "Es wurden keine durch einen vCard-Import angelegten Ereignisse gefunden.",
+            "vcard_imports_removed": "{count} vCard-importierte(s) Ereignis(se) entfernt.",
+            "market_import_started": "Import gestartet: {count} Tag(e) für {country} eingereiht ({new} neu, {updated} aktualisiert).",
+            "no_markets_imported": "Es wurden noch keine Börsentage importiert.",
+            "markets_removed": "{count} Börsentag(e) entfernt."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "birthday": {
+                "name": "Geburtstag {name}",
+                "unit_of_measurement": "Tage"
+            },
+            "anniversary": {
+                "name": "Jahrestag {name}",
+                "unit_of_measurement": "Tage"
+            },
+            "name_day": {
+                "name": "Namenstag {name}",
+                "unit_of_measurement": "Tage"
+            },
+            "wedding_anniversary": {
+                "name": "Hochzeitstag {name}",
+                "unit_of_measurement": "Tage"
+            },
+            "memorial": {
+                "name": "Todestag {name}",
+                "unit_of_measurement": "Tage"
+            },
+            "pet_birthday": {
+                "name": "Tiergeburtstag {name}",
+                "unit_of_measurement": "Tage"
+            },
+            "work_anniversary": {
+                "name": "Firmenjubiläum {name}",
+                "unit_of_measurement": "Tage"
+            },
+            "custom": {
+                "name": "{name}",
+                "unit_of_measurement": "Tage"
+            },
+            "one_time": {
+                "name": "{name}",
+                "unit_of_measurement": "Tage"
+            },
+            "holiday": {
+                "name": "{name}",
+                "unit_of_measurement": "Tage"
+            },
+            "market": {
+                "name": "{name}",
+                "unit_of_measurement": "Tage"
+            }
+        },
+        "calendar": {
+            "homeworking": {
+                "name": "Arbeiten von zu Hause"
+            },
+            "birthday": {
+                "name": "Geburtstage"
+            },
+            "anniversary": {
+                "name": "Jahrestage"
+            },
+            "name_day": {
+                "name": "Namenstage"
+            },
+            "wedding_anniversary": {
+                "name": "Hochzeitstage"
+            },
+            "memorial": {
+                "name": "Todestage"
+            },
+            "pet_birthday": {
+                "name": "Tiergeburtstage"
+            },
+            "work_anniversary": {
+                "name": "Firmenjubiläen"
+            },
+            "custom": {
+                "name": "Frei wählbare Ereignisse"
+            },
+            "one_time": {
+                "name": "Einmalige Ereignisse"
+            },
+            "holiday": {
+                "name": "Feiertage"
+            },
+            "market": {
+                "name": "Börsen"
+            }
+        }
+    }
+}

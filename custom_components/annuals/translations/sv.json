@@ -1,0 +1,754 @@
+{
+    "title": "Annuals",
+    "selector": {
+        "holiday_span": {
+            "options": {
+                "start": "start",
+                "end": "slut",
+                "day": "dag {day}"
+            }
+        },
+        "holiday_breaks": {
+            "options": {
+                "note": "Flerdagslov som skollov sätts åter ihop till hela lov - välj nedan vilka delar av dem som ska importeras."
+            }
+        },
+        "event_type": {
+            "options": {
+                "birthday": "Födelsedag",
+                "anniversary": "Årsdag",
+                "name_day": "Namnsdag",
+                "wedding_anniversary": "Bröllopsdag",
+                "memorial": "Dödsdag",
+                "pet_birthday": "Husdjurets födelsedag",
+                "work_anniversary": "Arbetsjubileum",
+                "custom": "Anpassad",
+                "one_time": "Engångshändelse",
+                "holiday": "Helgdag",
+                "market": "Börs"
+            }
+        },
+        "month": {
+            "options": {
+                "1": "januari",
+                "2": "februari",
+                "3": "mars",
+                "4": "april",
+                "5": "maj",
+                "6": "juni",
+                "7": "juli",
+                "8": "augusti",
+                "9": "september",
+                "10": "oktober",
+                "11": "november",
+                "12": "december"
+            }
+        },
+        "holiday_category": {
+            "options": {
+                "public": "Allmän",
+                "bank": "Bankfridag",
+                "government": "Myndighet",
+                "school": "Skollov",
+                "optional": "Valfri",
+                "optional_women": "Valfri (kvinnor)",
+                "unofficial": "Inofficiell",
+                "half_day": "Halvdag",
+                "armed_forces": "Försvarsmakten",
+                "workday": "Arbetsdag",
+                "catholic": "Katolsk",
+                "christian": "Kristen",
+                "orthodox": "Ortodox",
+                "hebrew": "Judisk",
+                "islamic": "Islamisk",
+                "hindu": "Hinduisk",
+                "buddhist": "Buddhistisk",
+                "de_facto": "De facto",
+                "protestant": "Protestantisk",
+                "sabian": "Sabeisk",
+                "yazidi": "Jazidisk",
+                "albanian": "Albansk",
+                "armenian": "Armenisk",
+                "bosnian": "Bosnisk",
+                "roma": "Romsk",
+                "serbian": "Serbisk",
+                "turkish": "Turkisk",
+                "vlach": "Vlakisk"
+            }
+        },
+        "nth": {
+            "options": {
+                "1": "Första",
+                "2": "Andra",
+                "3": "Tredje",
+                "4": "Fjärde",
+                "last": "Sista"
+            }
+        },
+        "weekday": {
+            "options": {
+                "0": "Måndag",
+                "1": "Tisdag",
+                "2": "Onsdag",
+                "3": "Torsdag",
+                "4": "Fredag",
+                "5": "Lördag",
+                "6": "Söndag"
+            }
+        },
+        "interval_unit": {
+            "options": {
+                "months": "månader",
+                "years": "år"
+            }
+        },
+        "market_category": {
+            "options": {
+                "public": "Stängd",
+                "half_day": "Förkortad handel",
+                "restricted_settlement": "Ingen avveckling"
+            }
+        },
+        "market_status": {
+            "options": {
+                "closed": "{market} stängd",
+                "closes_at": "{market} stängd från {time}",
+                "closes_early": "{market} stänger tidigare",
+                "no_settlement": "{market} utan avveckling"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "telework": {
+                "title": "Lägg till schema för arbete hemifrån",
+                "description": "Lägg till en enstaka dag för arbete hemifrån eller ett veckoschema. Välj veckodagar för att upprepa varje vecka; lämna tomt för en dag. Ett slutdatum begränsar veckoschemat; lämna tomt för obegränsad upprepning.",
+                "data": {
+                    "telework_user": "Användare",
+                    "telework_start_date": "Startdatum",
+                    "telework_weekdays": "Veckodagar",
+                    "telework_end_date": "Slutdatum"
+                },
+                "data_description": {
+                    "telework_weekdays": "Välj en eller flera dagar för ett veckoschema för arbete hemifrån. Lämna tomt för att bara registrera startdatumet.",
+                    "telework_end_date": "Gäller endast veckoscheman för arbete hemifrån. Lämna tomt för inget slutdatum."
+                }
+            },
+            "user": {
+                "title": "Lägg till händelse",
+                "description": "Vilken sorts händelse är detta?\n\n**Årlig** omfattar födelsedag, årsdag, namnsdag, bröllopsdag, dödsdag, husdjurets födelsedag och arbetsjubileum. **Engångs** är ett enda datum, som raderar sig självt när det har passerat. **Anpassad** är ditt eget årliga datum – på en bestämd dag eller enligt en regel.",
+                "menu_options": {
+                    "telework": "{icon_telework} Schema för arbete hemifrån",
+                    "recurring": "{icon_recurring} Ett årligt datum för någon",
+                    "one_time": "{icon_one_time} En engångshändelse",
+                    "custom": "{icon_custom} En anpassad händelse"
+                }
+            },
+            "recurring": {
+                "title": "Lägg till en årlig händelse",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "person": "Person (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År (lämna tomt om okänt)",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual",
+                    "deceased": "Avliden"
+                },
+                "description": "Varje händelse får en egen post, som du senare kan hitta och redigera under Inställningar → Enheter och tjänster → Annuals genom att söka på namnet.",
+                "data_description": {
+                    "person": "En person i Home Assistant vars bild står för den här händelsen – på kortet i instrumentpanelen och i påminnelsens avisering.",
+                    "deceased": "Personen har avlidit: dagen behålls och markeras, kortet säger vad den skulle ha varit och dina automationer kan skilja den åt."
+                }
+            },
+            "one_time": {
+                "title": "Lägg till en engångshändelse",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År",
+                    "end_date": "Slutdatum (valfritt – gör den till en flerdagshändelse)",
+                    "time": "Tid (valfritt)",
+                    "end_time": "Sluttid (valfritt)",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual"
+                },
+                "description": "Ett enda datum att räkna ned till. Det upprepas aldrig, så året är obligatoriskt, och posten raderas automatiskt vid midnatt efter att det har passerat.\n\nMed ett slutdatum blir det en flerdagshändelse – en resa, en konferens, en vistelse.",
+                "data_description": {
+                    "time": "När den börjar den dagen. Kalenderposten får då en tid, och kortet i instrumentpanelen visar den.",
+                    "end_time": "När den slutar – på slutdatumet om det finns ett, annars samma dag. Kräver en starttid; lämnad tom är kalenderposten en timme lång."
+                }
+            },
+            "custom": {
+                "title": "Lägg till en anpassad händelse",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual",
+                    "interval": "Upprepas var",
+                    "interval_unit": "…månad eller år",
+                    "nth": "Placering i månaden",
+                    "weekday": "Veckodag"
+                },
+                "description": "Ditt eget årliga datum, för allt som de andra typerna inte beskriver.\n\nDet kan följa en **regel** i stället för en bestämd dag: mors dag är den andra söndagen i maj, fars dag i Australien den första söndagen i september. Fyll i de två fälten längst ned – **Månad** ovanför anger vilken månad regeln gäller, och **Dag** används då inte. Lämna dem tomma för ett fast datum.",
+                "data_description": {
+                    "interval": "Tillsammans med enheten bredvid – var 6:e månad, vartannat år. Räknas från datumet ovan, som då behöver sitt år. Lämna båda tomma för en gång om året.",
+                    "nth": "Första, andra, tredje, fjärde eller den sista i månaden.",
+                    "weekday": "Ange tillsammans med fältet ovanför – eller lämna båda tomma."
+                }
+            },
+            "reconfigure_recurring": {
+                "title": "Redigera händelse",
+                "description": "Ändra valfritt fält nedan och skicka in för att uppdatera händelsen.",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "person": "Person (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År (lämna tomt om okänt)",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual",
+                    "deceased": "Avliden"
+                },
+                "data_description": {
+                    "person": "En person i Home Assistant vars bild står för den här händelsen – på kortet i instrumentpanelen och i påminnelsens avisering.",
+                    "deceased": "Personen har avlidit: dagen behålls och markeras, kortet säger vad den skulle ha varit och dina automationer kan skilja den åt."
+                }
+            },
+            "reconfigure_one_time": {
+                "title": "Redigera engångshändelse",
+                "description": "Ändra valfritt fält nedan och skicka in för att uppdatera händelsen.\n\nEtt slutdatum gör den till en flerdagshändelse; tömmer du det blir det åter en enda dag.",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År",
+                    "end_date": "Slutdatum (valfritt – gör den till en flerdagshändelse)",
+                    "time": "Tid (valfritt)",
+                    "end_time": "Sluttid (valfritt)",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "När den börjar den dagen. Kalenderposten får då en tid, och kortet i instrumentpanelen visar den.",
+                    "end_time": "När den slutar – på slutdatumet om det finns ett, annars samma dag. Kräver en starttid; lämnad tom är kalenderposten en timme lång."
+                }
+            },
+            "reconfigure_custom": {
+                "title": "Redigera anpassad händelse",
+                "description": "Ändra valfritt fält nedan och skicka in för att uppdatera händelsen.\n\nDet kan följa en **regel** i stället för en bestämd dag – *den andra söndagen i maj*. Fyll i de två fälten längst ned; **Månad** ovanför anger vilken månad regeln gäller, och **Dag** används då inte. Tömmer du dem infaller händelsen åter på den dagen.",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual",
+                    "interval": "Upprepas var",
+                    "interval_unit": "…månad eller år",
+                    "nth": "Placering i månaden",
+                    "weekday": "Veckodag"
+                },
+                "data_description": {
+                    "interval": "Tillsammans med enheten bredvid – var 6:e månad, vartannat år. Räknas från datumet ovan, som då behöver sitt år. Lämna båda tomma för en gång om året.",
+                    "nth": "Första, andra, tredje, fjärde eller den sista i månaden.",
+                    "weekday": "Ange tillsammans med fältet ovanför – eller lämna båda tomma."
+                }
+            }
+        },
+        "error": {
+            "telework_user_required": "Ange ett användarnamn.",
+            "invalid_weekday": "Välj giltiga veckodagar.",
+            "telework_end_before_start": "Slutdatumet måste vara samma som eller senare än startdatumet.",
+            "telework_end_requires_weekdays": "Ett slutdatum kan bara användas med ett veckoschema.",
+            "name_required": "Ange ett namn.",
+            "end_date_one_time_only": "Ett slutdatum kan bara anges för en engångshändelse.",
+            "end_date_before_start": "Slutdatumet måste vara efter startdatumet.",
+            "invalid_date": "Den här kombinationen av dag/månad/år är inte ett giltigt datum.",
+            "year_required": "Engångshändelser kräver ett år.",
+            "rule_needs_both": "En upprepningsregel kräver båda fälten – eller inget av dem.",
+            "interval_needs_both": "Ett upprepningsintervall kräver båda fälten, eller inget.",
+            "interval_needs_year": "Ett upprepningsintervall räknas från datumet ovan, så året behövs.",
+            "interval_no_rule": "Ett upprepningsintervall kan inte kombineras med en veckodagsregel.",
+            "end_time_needs_time": "En sluttid kräver en starttid.",
+            "end_time_before_start": "Sluttiden måste vara efter starttiden."
+        },
+        "abort": {
+            "hub_not_configurable": "Annuals-huben har inga egna inställningar - den innehåller bara de delade kalendrarna.",
+            "already_configured": "Annuals-huben finns redan.",
+            "invalid_import_row": "Den här raden kunde inte importeras."
+        }
+    },
+    "options": {
+        "step": {
+            "telework": {
+                "title": "Redigera schema för arbete hemifrån",
+                "description": "Ändra den här användarens dag för arbete hemifrån eller veckoschema.",
+                "data": {
+                    "telework_user": "Användare",
+                    "telework_start_date": "Startdatum",
+                    "telework_weekdays": "Veckodagar",
+                    "telework_end_date": "Slutdatum"
+                },
+                "data_description": {
+                    "telework_weekdays": "Välj en eller flera dagar för ett veckoschema för arbete hemifrån. Lämna tomt för att bara registrera startdatumet.",
+                    "telework_end_date": "Gäller endast veckoscheman för arbete hemifrån. Lämna tomt för inget slutdatum."
+                }
+            },
+            "import_csv": {
+                "title": "Importera händelser från CSV",
+                "description": "Kolumner: name, type, day, month, year (valfritt, krävs för one_time), icon (valfritt), vip (valfritt), last_name (valfritt). \"type\" måste vara en av dessa engelska nycklar: birthday, anniversary, name_day, wedding_anniversary, memorial, pet_birthday, work_anniversary, custom, one_time (alltid på engelska, oavsett språkinställning). \"vip\" accepterar 1/true/yes/y/x (skiftlägesokänsligt); lämna tomt eller utelämna kolumnen för en icke-VIP-händelse. Behåll alla kolumner även när ett värde är tomt - en rad utan avslutande kommatecken förskjuter efterföljande värden ett steg åt vänster. Ogiltiga rader hoppas över och loggas.\n\nExempel:\n```\nname,type,day,month,year,icon,vip,last_name\nAnna,birthday,12,4,1988,,,Miller\nMax,pet_birthday,3,9,2020,mdi:dog,,\nTest Custom,custom,1,1,,mdi:test-tube,1,\nFamiljesemester,one_time,15,7,2026,mdi:airplane,,\n```",
+                "data": {
+                    "csv_file": "CSV-fil"
+                }
+            },
+            "import_ics": {
+                "title": "Importera händelser från ICS-kalender",
+                "description": "Ladda upp en .ics-kalenderfil - vanligtvis en exporterad kalender. Endast heldagsposter utan upprepningsundantag läses in; tidsangivna händelser hoppas över. I nästa steg kan du granska och korrigera den föreslagna för-/efternamnsuppdelningen (och byta för- och efternamn för alla på en gång) innan något importeras.",
+                "data": {
+                    "ics_file": "ICS-fil"
+                }
+            },
+            "import_vcard_menu": {
+                "title": "Importera händelser från vCard",
+                "description": "En kontakts födelsedag och dess övriga datum (årsdagar, anpassade datum) hanteras i separata grenar, eftersom endast födelsedagar delar en enda händelsetyp för hela gruppen - varje annat datum tilldelas sin egen typ vid granskningen.",
+                "menu_options": {
+                    "import_vcard": "Importera födelsedagar",
+                    "import_vcard_other_dates": "Importera övriga datum (årsdagar, ...)"
+                }
+            },
+            "import_vcard": {
+                "title": "Importera födelsedagar från vCard",
+                "description": "Ladda upp en .vcf-fil - vanligtvis exporterade kontakter. Endast poster med en angiven födelsedag läses in. För- och efternamn hämtas från kontaktens strukturerade namnfält, inte en gissning, och en födelsedag utan angivet år (vCards eget sätt att uttrycka detta) behålls som okänd i stället för att hittas på. I nästa steg kan du granska och korrigera allt (och byta för- och efternamn för alla på en gång) innan något importeras.",
+                "data": {
+                    "vcard_file": "vCard-fil"
+                }
+            },
+            "import_vcard_other_dates": {
+                "title": "Importera övriga datum från vCard",
+                "description": "Ladda upp en .vcf-fil. Läser in alla datum utom födelsedagen: standardfältet \"Årsdag\" (Anniversary), samt alla anpassat märkta datum som din kontaktapp låter dig lägga till per kontakt (t.ex. \"Anniversary\", \"Other\", eller en egen skriven etikett). Till skillnad från födelsedagar är dessa inte alla av samma händelsetyp - i nästa steg kan du granska varje post, med dess identifierade etikett som stöd, och tilldela rätt händelsetyp individuellt.",
+                "data": {
+                    "vcard_file": "vCard-fil"
+                }
+            },
+            "import_options": {
+                "title": "Importera från {source_label} - inställningar",
+                "description": "Dessa gäller alla poster som hittas i filen. I nästa steg kan du granska och redigera enskilda poster.",
+                "data": {
+                    "swap_names": "Byt för- och efternamn för alla poster",
+                    "use_description_year": "Använd året som hittas i respektive posts beskrivning i stället för dess startdatum, där ett sådant hittas (t.ex. \"geb. 1985\")",
+                    "type": "Händelsetyp"
+                }
+            },
+            "import_review": {
+                "title": "Importera från {source_label} - granskning ({page}/{total_pages})",
+                "description": "{legend}\n\nKontrollera den föreslagna för-/efternamnsuppdelningen nedan och korrigera det som är fel - även själva födelsedagen går att redigera - eller avmarkera en post för att utesluta den helt. En möjlig dubblett flaggas med den befintliga postens namn; lämna \"skapa som ny\" avmarkerad för att i stället uppdatera den posten, i stället för att lägga till en andra. Fältetiketterna här visas endast på engelska, oavsett språkinställning.",
+                "data": {
+                    "go_back": "Gå tillbaka till föregående sida"
+                }
+            },
+            "remove_ics_imports": {
+                "title": "Ta bort ICS-importerade händelser",
+                "description": "{count} händelse(r) skapades av en tidigare ICS-import. Klicka på OK för att ta bort alla - poster som en ICS-import bara uppdaterat (i stället för skapat) påverkas aldrig, och inte heller manuellt tillagda, CSV- eller vCard-importerade händelser."
+            },
+            "remove_vcard_imports": {
+                "title": "Ta bort vCard-importerade händelser",
+                "description": "{count} händelse(r) skapades av en tidigare vCard-import. Klicka på OK för att ta bort alla - poster som en vCard-import bara uppdaterat (i stället för skapat) påverkas aldrig, och inte heller manuellt tillagda, CSV- eller ICS-importerade händelser."
+            },
+            "holiday_menu": {
+                "title": "Helgdag",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}",
+                "menu_options": {
+                    "holiday_settings": "⚙️ Inställningar",
+                    "holiday_names": "🌐 Namn och översättningar"
+                }
+            },
+            "holiday_settings": {
+                "title": "Helgdagsinställningar",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nDatum, typ och region kommer från helgdagsdatabasen och kan inte ändras här.",
+                "data": {
+                    "icon": "Ikon"
+                }
+            },
+            "holiday_names": {
+                "title": "Namn och översättningar",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nVälj det språk du vill skriva den här helgdagens namn på.",
+                "data": {
+                    "language": "Språk"
+                }
+            },
+            "holiday_name_edit": {
+                "title": "Helgdagens namn",
+                "description": "{language}\n\n**{name}**\n\n{type} · {date} · {region} · {category}\n\nFörifyllt med det som visas i dag. Lämna tomt för att återgå till helgdagsdatabasen.",
+                "data": {
+                    "name": "Namn",
+                    "reason": "Anledning"
+                }
+            },
+            "holiday_translations": {
+                "title": "🌐 Översättningar av helgdagar",
+                "description": "Exportera och importera de helgdagsnamn du har skrivit själv.",
+                "menu_options": {
+                    "export_translations": "📤 Exportera översättningar",
+                    "import_translations": "📥 Importera översättningar"
+                }
+            },
+            "import_translations": {
+                "title": "Importera översättningar",
+                "description": "Ladda upp en CSV med översättningar. Kolumner: `country,subdivision,category,holiday_key,observed,language,name,status`. Rader matchas mot helgdagar på land, underindelning, kategori, helgdagsnyckel och observed-flagga – inte på post-id, så en fil som exporterats innan ett land importeras om gäller fortfarande. Rader vars helgdag saknas hoppas över och räknas. För en börsdag är `name` anledningen och `status` dess eget namn; lämna `status` tomt för helgdagar.",
+                "data": {
+                    "csv_file": "CSV"
+                }
+            },
+            "hub_menu": {
+                "title": "Annuals Inställningar",
+                "menu_options": {
+                    "annual_settings": "{icon_annual_settings} Annual Inställningar",
+                    "import_events": "{icon_import_events} Importera händelser",
+                    "export_csv": "{icon_export_csv} Exportera händelser till CSV",
+                    "holiday_translations": "{icon_holiday_translations} Översättningar av helgdagar",
+                    "remove_events": "{icon_remove_events} Ta bort händelser",
+                    "delete_all": "{icon_delete_all} Ta bort all Annuals-data"
+                }
+            },
+            "import_events": {
+                "title": "Importera händelser",
+                "description": "Välj en källa att importera från.",
+                "menu_options": {
+                    "import_csv": "CSV",
+                    "import_ics": "ICS-kalender",
+                    "import_vcard_menu": "vCard",
+                    "import_holidays": "Helgdagar",
+                    "import_markets": "Börser"
+                }
+            },
+            "remove_events": {
+                "title": "Ta bort händelser",
+                "description": "Välj vilka tidigare importerade händelser som ska tas bort.",
+                "menu_options": {
+                    "remove_ics_imports": "ICS-importerade",
+                    "remove_vcard_imports": "vCard-importerade",
+                    "remove_holidays": "Helgdagar",
+                    "remove_markets": "Börser"
+                }
+            },
+            "import_holidays": {
+                "title": "Importera helgdagar",
+                "description": "Välj ett land för att importera dess helgdagar som händelser. Att köra detta igen senare för samma land (och delregion) uppdaterar befintliga poster i stället för att duplicera dem - innan något importeras ser du alla helgdagar och väljer de du vill ha.",
+                "data": {
+                    "country": "Land"
+                }
+            },
+            "import_markets": {
+                "title": "Importera börshelgdagar",
+                "description": "Välj en börs för att importera de dagar den är stängd - och, där dess data har dem, dagarna med förkortad handel. Innan något importeras ser du alla dagar och väljer de du vill ha.",
+                "data": {
+                    "market": "Börs"
+                }
+            },
+            "import_markets_options": {
+                "title": "Importera börsdagar - {country}",
+                "description": "Vilka slags dagar som importeras och på vilket språk deras namn står.",
+                "data": {
+                    "categories": "Dagar",
+                    "language": "Språk för namnen"
+                }
+            },
+            "import_markets_select": {
+                "title": "Importera börsdagar - {country}: välj",
+                "description": "{count} dag(ar) hittades, var och en med sitt nästa datum. Bara de markerade importeras.\n\nAvmarkerar du en dag som redan finns i Annuals lämnas den som den är - dagar tar du bort under **Ta bort händelser → Börser**.",
+                "data": {
+                    "holidays": "Dagar"
+                }
+            },
+            "import_holidays_options": {
+                "title": "Importera helgdagar - {country}",
+                "description": "Lämna delregionen tom för endast nationella helgdagar - ett län/provins lägger till sina egna regionala helgdagar. Kategorier och språk beror på vad detta lands helgdagsdata tillhandahåller.{breaks}",
+                "data": {
+                    "include_actual": "Importera det faktiska datumet",
+                    "include_observed": "Importera det observerade (flyttade) datumet",
+                    "break_start": "Importera lovets första dag",
+                    "break_end": "Importera lovets sista dag",
+                    "break_days": "Importera varje lovdag",
+                    "subdivision": "Delregion (län/provins, valfritt)",
+                    "categories": "Kategorier",
+                    "language": "Språk för helgdagsnamn"
+                },
+                "data_description": {
+                    "break_start": "Skollov anges bara med skoldagar, så lovet börjar tidigare - här räknas det bakåt över helgen och angränsande helgdagar till den första verkligt lediga dagen.",
+                    "break_end": "Samma sak åt andra hållet: den sista lediga dagen, inte den sist angivna.",
+                    "break_days": "En händelse per lovdag. Enbart sommarlovet ger över fyrtio.",
+                    "include_observed": "Detta lands helgdagar flyttas ibland till en närliggande vardag när de infaller på en helg (t.ex. observerad fredagen innan eller måndagen efter) - importera även detta flyttade datum som en separat händelse."
+                }
+            },
+            "import_holidays_select": {
+                "title": "Importera helgdagar - {country}: välj",
+                "description": "{count} helgdag(ar) hittades, var och en med sitt nästa datum. Bara de markerade importeras.\n\nAvmarkerar du en helgdag som redan finns i Annuals lämnas den som den är - helgdagar tar du bort under **Ta bort händelser → Helgdagar**.",
+                "data": {
+                    "holidays": "Helgdagar"
+                }
+            },
+            "remove_holidays": {
+                "title": "Ta bort importerade helgdagar",
+                "description": "{total} helgdag(ar) för närvarande importerade. Markera kryssrutan nedan för att ta bort alla, eller lämna den omarkerad och välj en grupp i stället. Manuellt tillagda händelser påverkas aldrig.",
+                "data": {
+                    "remove_all": "Ta bort alla importerade helgdagar",
+                    "batch": "Grupp att ta bort"
+                }
+            },
+            "remove_markets": {
+                "title": "Ta bort importerade börsdagar",
+                "description": "{total} börsdag(ar) importerade. Markera rutan nedan för att ta bort alla, eller lämna den tom och välj en eller flera börser. Inget annat påverkas.",
+                "data": {
+                    "remove_all": "Ta bort alla importerade börsdagar",
+                    "batch": "Börser att ta bort"
+                }
+            },
+            "annual_settings": {
+                "title": "Annual Inställningar",
+                "sections": {
+                    "important_events": {
+                        "name": "❗ Viktiga händelser",
+                        "description": "Kommaseparerade jubileumsnummer som automatiskt markerar en händelse av den typen som \"Important\", t.ex. \"18,21,30,40,50\". Lämna ett fält tomt för att inaktivera detta för den typen.",
+                        "data": {
+                            "important_thresholds_birthday": "Födelsedag",
+                            "important_thresholds_anniversary": "Årsdag",
+                            "important_thresholds_name_day": "Namnsdag",
+                            "important_thresholds_wedding_anniversary": "Bröllopsdag",
+                            "important_thresholds_memorial": "Dödsdag",
+                            "important_thresholds_pet_birthday": "Husdjurets födelsedag",
+                            "important_thresholds_work_anniversary": "Arbetsjubileum",
+                            "important_thresholds_custom": "Anpassad"
+                        }
+                    },
+                    "todo": {
+                        "name": "📍 Uppgiftslistor",
+                        "description": "Öppna uppgifter på dessa listor märker en händelse: varje händelsesensor får då ett attribut ”todo” - sant så länge minst en ännu öppen uppgift är matchad till den, annars falskt - för dina egna automationer, mallar och instrumentpaneler. Matchningen sker först på förfallodatum och därefter på om uppgiftens text nämner händelsen (fullständigt namn, namn, typ, ordningsnummer); en uppgift som passar två händelser lika bra lämnas omatchad. Lämna tomt för att stänga av. Fristående från kortets egen inställning med samma namn.",
+                        "data": {
+                            "todo_lists": "Uppgiftslistor"
+                        }
+                    }
+                }
+            },
+            "delete_all": {
+                "title": "Ta bort all Annuals-data",
+                "description": "Detta tar bort alla {count} händelse(r), de delade kalendrarna och Annuals-huben permanent - hela integrationen och allt den skapat. Detta kan inte ångras. Klicka på \"OK\" för att bekräfta."
+            },
+            "edit_recurring": {
+                "title": "Redigera händelse",
+                "description": "Ändra valfritt fält nedan och skicka in för att uppdatera händelsen.",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "person": "Person (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År (lämna tomt om okänt)",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual",
+                    "deceased": "Avliden"
+                },
+                "data_description": {
+                    "person": "En person i Home Assistant vars bild står för den här händelsen – på kortet i instrumentpanelen och i påminnelsens avisering.",
+                    "deceased": "Personen har avlidit: dagen behålls och markeras, kortet säger vad den skulle ha varit och dina automationer kan skilja den åt."
+                }
+            },
+            "edit_one_time": {
+                "title": "Redigera engångshändelse",
+                "description": "Ändra valfritt fält nedan och skicka in för att uppdatera händelsen.\n\nEtt slutdatum gör den till en flerdagshändelse; tömmer du det blir det åter en enda dag.",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År",
+                    "end_date": "Slutdatum (valfritt – gör den till en flerdagshändelse)",
+                    "time": "Tid (valfritt)",
+                    "end_time": "Sluttid (valfritt)",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "När den börjar den dagen. Kalenderposten får då en tid, och kortet i instrumentpanelen visar den.",
+                    "end_time": "När den slutar – på slutdatumet om det finns ett, annars samma dag. Kräver en starttid; lämnad tom är kalenderposten en timme lång."
+                }
+            },
+            "edit_custom": {
+                "title": "Redigera anpassad händelse",
+                "description": "Ändra valfritt fält nedan och skicka in för att uppdatera händelsen.\n\nDet kan följa en **regel** i stället för en bestämd dag – *den andra söndagen i maj*. Fyll i de två fälten längst ned; **Månad** ovanför anger vilken månad regeln gäller, och **Dag** används då inte. Tömmer du dem infaller händelsen åter på den dagen.",
+                "data": {
+                    "name": "Namn",
+                    "last_name": "Efternamn (valfritt)",
+                    "type": "Händelsetyp",
+                    "day": "Dag",
+                    "month": "Månad",
+                    "year": "År",
+                    "icon": "Åsidosätt ikon (valfritt)",
+                    "vip": "VIP Annual",
+                    "interval": "Upprepas var",
+                    "interval_unit": "…månad eller år",
+                    "nth": "Placering i månaden",
+                    "weekday": "Veckodag"
+                },
+                "data_description": {
+                    "interval": "Tillsammans med enheten bredvid – var 6:e månad, vartannat år. Räknas från datumet ovan, som då behöver sitt år. Lämna båda tomma för en gång om året.",
+                    "nth": "Första, andra, tredje, fjärde eller den sista i månaden.",
+                    "weekday": "Ange tillsammans med fältet ovanför – eller lämna båda tomma."
+                }
+            }
+        },
+        "error": {
+            "name_required": "Ange ett namn.",
+            "end_date_one_time_only": "Ett slutdatum kan bara anges för en engångshändelse.",
+            "end_date_before_start": "Slutdatumet måste vara efter startdatumet.",
+            "invalid_date": "Den här kombinationen av dag/månad/år är inte ett giltigt datum.",
+            "year_required": "Engångshändelser kräver ett år.",
+            "invalid_csv": "Kunde inte läsa den här filen som CSV. Kontrollera kodning och format.",
+            "no_valid_rows": "Inga giltiga rader hittades i den här filen. Se loggen för detaljer om överhoppade rader.",
+            "invalid_ics": "Kunde inte läsa den här filen som en ICS-kalender. Kontrollera formatet.",
+            "no_valid_entries": "Inga användbara heldagsposter hittades i den här filen. Se loggen för detaljer om överhoppade poster.",
+            "invalid_vcard": "Kunde inte läsa den här filen som en vCard. Kontrollera formatet.",
+            "no_valid_vcard_entries": "Inga kontakter med en användbar födelsedag hittades i den här filen. Se loggen för detaljer om överhoppade poster.",
+            "no_valid_vcard_dates": "Inga årsdagar eller övriga datum (förutom födelsedagar) hittades i den här filen. Se loggen för detaljer om överhoppade poster.",
+            "no_batch_selected": "Markera \"Ta bort alla importerade helgdagar\", eller välj en grupp.",
+            "rule_needs_both": "En upprepningsregel kräver båda fälten – eller inget av dem.",
+            "interval_needs_both": "Ett upprepningsintervall kräver båda fälten, eller inget.",
+            "interval_needs_year": "Ett upprepningsintervall räknas från datumet ovan, så året behövs.",
+            "interval_no_rule": "Ett upprepningsintervall kan inte kombineras med en veckodagsregel.",
+            "end_time_needs_time": "En sluttid kräver en starttid.",
+            "end_time_before_start": "Sluttiden måste vara efter starttiden.",
+            "no_holiday_selected": "Markera minst en helgdag.",
+            "category_needs_region": "{category} har inga helgdagar för {where} {year} - bara dessa regioner har några: {regions}. Välj en av dem under \"Delregion\", eller utelämna {category}.",
+            "category_empty": "{category} har inga helgdagar för {where} {year}. Utelämna den för att importera de andra.",
+            "no_market_day_selected": "Markera minst en dag.",
+            "market_category_empty": "{category} har inga dagar för {where} {year}. Utelämna den för att importera de andra.",
+            "no_market_batch_selected": "Markera \"Ta bort alla importerade börsdagar\", eller välj en börs att ta bort."
+        },
+        "abort": {
+            "translations_exported": "{count} översättning(ar) exporterade. [Ladda ner annuals_holiday_translations.csv]({url}) (Ctrl/Cmd+klick för att ladda ner - ett vanligt klick fungerar inte här)\n\nEller kopiera CSV:n nedan:\n\n```\n{csv}\n```",
+            "translations_imported": "{updated} helgdag(ar) uppdaterade, {skipped} rad(er) överhoppade.",
+            "no_translations_to_export": "Inga helgdagsnamn har skrivits ännu – det finns inget att exportera.",
+            "hub_not_configurable": "Annuals-huben har inga egna inställningar - den innehåller bara de delade kalendrarna.",
+            "import_started": "Import startad: {created} händelse(r) i kö, {skipped} rad(er) överhoppade (se loggen för detaljer).",
+            "ics_import_started": "Import startad: {created} händelse(r) skapade, {updated} uppdaterade, {skipped} post(er) överhoppade eller uteslutna.",
+            "csv_exported": "{count} händelse(r) exporterade. [Ladda ner annuals_export.csv]({url}) (Ctrl/Cmd+klick för att ladda ner - ett vanligt klick fungerar inte här)\n\nEller kopiera CSV:n nedan:\n\n```\n{csv}\n```",
+            "no_events_to_export": "Det finns inga händelser att exportera ännu.",
+            "deleted_all": "Alla Annuals-händelser, kalendrar och huben har tagits bort.",
+            "holiday_import_started": "Import startad: {count} helgdagshändelse(r) i kö för {country} ({new} nya, {updated} uppdaterade).",
+            "no_holidays_imported": "Inga helgdagar har importerats än.",
+            "holidays_removed": "{count} helgdag(ar) borttagna.",
+            "no_ics_imports": "Inga händelser skapade av en ICS-import hittades.",
+            "ics_imports_removed": "{count} ICS-importerad(e) händelse(r) borttagna.",
+            "no_vcard_imports": "Inga händelser skapade av en vCard-import hittades.",
+            "vcard_imports_removed": "{count} vCard-importerad(e) händelse(r) borttagna.",
+            "market_import_started": "Import startad: {count} dag(ar) i kö för {country} ({new} nya, {updated} uppdaterade).",
+            "no_markets_imported": "Inga börsdagar har importerats än.",
+            "markets_removed": "{count} börsdag(ar) borttagna."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "birthday": {
+                "name": "{name}s födelsedag",
+                "unit_of_measurement": "dagar"
+            },
+            "anniversary": {
+                "name": "{name}s årsdag",
+                "unit_of_measurement": "dagar"
+            },
+            "name_day": {
+                "name": "{name}s namnsdag",
+                "unit_of_measurement": "dagar"
+            },
+            "wedding_anniversary": {
+                "name": "{name}s bröllopsdag",
+                "unit_of_measurement": "dagar"
+            },
+            "memorial": {
+                "name": "{name}s dödsdag",
+                "unit_of_measurement": "dagar"
+            },
+            "pet_birthday": {
+                "name": "{name}s födelsedag",
+                "unit_of_measurement": "dagar"
+            },
+            "work_anniversary": {
+                "name": "{name}s arbetsjubileum",
+                "unit_of_measurement": "dagar"
+            },
+            "custom": {
+                "name": "{name}",
+                "unit_of_measurement": "dagar"
+            },
+            "one_time": {
+                "name": "{name}",
+                "unit_of_measurement": "dagar"
+            },
+            "holiday": {
+                "name": "{name}",
+                "unit_of_measurement": "dagar"
+            },
+            "market": {
+                "name": "{name}",
+                "unit_of_measurement": "dagar"
+            }
+        },
+        "calendar": {
+            "homeworking": {
+                "name": "Arbete hemifrån"
+            },
+            "birthday": {
+                "name": "Födelsedagar"
+            },
+            "anniversary": {
+                "name": "Årsdagar"
+            },
+            "name_day": {
+                "name": "Namnsdagar"
+            },
+            "wedding_anniversary": {
+                "name": "Bröllopsdagar"
+            },
+            "memorial": {
+                "name": "Dödsdagar"
+            },
+            "pet_birthday": {
+                "name": "Husdjurs födelsedagar"
+            },
+            "work_anniversary": {
+                "name": "Arbetsjubileer"
+            },
+            "custom": {
+                "name": "Anpassade händelser"
+            },
+            "one_time": {
+                "name": "Engångshändelser"
+            },
+            "holiday": {
+                "name": "Helgdagar"
+            },
+            "market": {
+                "name": "Börser"
+            }
+        }
+    }
+}

@@ -1,0 +1,388 @@
+from __future__ import annotations
+
+from datetime import date, datetime, time, timedelta
+import logging
+
+from homeassistant.components.calendar import CalendarEntity, CalendarEvent
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.util import dt as dt_util
+
+from .const import (
+    ALL_EVENT_TYPES,
+    CONF_CATEGORY,
+    CONF_COUNTRY,
+    CONF_DAY,
+    CONF_END_DATE,
+    CONF_END_TIME,
+    CONF_EVENT_TYPE,
+    CONF_HOLIDAY_KEY,
+    CONF_HOLIDAY_OBSERVED,
+    CONF_MONTH,
+    CONF_SUBDIVISION,
+    CONF_TIME,
+    CONF_YEAR,
+    CONF_TELEWORK,
+    CONF_TELEWORK_END_DATE,
+    CONF_TELEWORK_START_DATE,
+    CONF_TELEWORK_USER,
+    CONF_TELEWORK_WEEKDAYS,
+    DOMAIN,
+    TYPE_CUSTOM,
+    CONF_MARKET_STATUS,
+    LIBRARY_TYPES,
+    TYPE_MARKET,
+    TYPE_ICONS,
+    TYPE_ONE_TIME,
+)
+from .dates import (
+    market_reason,
+    event_occurrence_in_year,
+    holiday_occurrence_in_year,
+    holiday_span_kwargs,
+    interval_occurrence,
+    interval_occurrences_between,
+    interval_rule,
+    next_event_occurrence,
+    next_holiday_occurrence,
+    occurrence_number,
+    one_time_date,
+    one_time_span,
+    parse_time,
+)
+from .helpers import async_event_type_labels, async_telework_label, full_name
+
+_LOGGER = logging.getLogger(__name__)
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up the six shared per-type calendars.
+
+    This platform is only ever forwarded for the single hub entry (see
+    __init__.py), so these aren't tied to any one event's lifecycle - each
+    aggregates every event of its type across all event entries.
+    """
+    labels = await async_event_type_labels(hass)
+    async_add_entities(
+        [
+            *(AnnualsTypeCalendar(hass, event_type, labels[event_type]) for event_type in ALL_EVENT_TYPES),
+            AnnualsTeleworkCalendar(hass, await async_telework_label(hass)),
+        ]
+    )
+
+
+def _entries_for_type(hass: HomeAssistant, event_type: str) -> list[ConfigEntry]:
+    return [
+        entry
+        for entry in hass.config_entries.async_entries(DOMAIN)
+        if entry.data.get(CONF_EVENT_TYPE) == event_type
+    ]
+
+
+class AnnualsTypeCalendar(CalendarEntity):
+    """Aggregates every event of one type into a single calendar entity."""
+
+    _attr_should_poll = True
+    _attr_has_entity_name = True
+
+    def __init__(self, hass: HomeAssistant, event_type: str, type_label: str) -> None:
+        self.hass = hass
+        self._event_type = event_type
+        self._type_label = type_label
+        self._attr_unique_id = f"{DOMAIN}-calendar-{event_type}"
+        # Plural, translated calendar name ("Geburtstage"/"Birthdays") via the
+        # per-type translation_key under entity.calendar.
+        self._attr_translation_key = event_type
+        self._attr_icon = TYPE_ICONS.get(event_type, "mdi:calendar-star")
+        # Language-independent entity_id, e.g. calendar.annuals_birthday.
+        # Setting entity_id directly - unlike a "suggested_object_id"
+        # attribute, this is actually honoured by the entity platform when
+        # the entity is first registered.
+        self.entity_id = f"calendar.annuals_{event_type}"
+        # Only populated (and only needed) for the holiday calendar - see
+        # async_update/event below.
+        self._cached_event: CalendarEvent | None = None
+
+    def _summary(self, entry: ConfigEntry, occurrence: date) -> str:
+        name = full_name(entry.data)
+        # Holidays (like Custom) have no type label worth stating - "New
+        # Year's Day - Holiday" would just repeat what the calendar itself
+        # (its plural type name) already says, and they have no occurrence
+        # number (see dates.py). Every other type still gets "name - type".
+        # A stock exchange's day says what it is and what for - "New York
+        # Stock Exchange closed (Thanksgiving Day)" - since a market's days
+        # would otherwise all read alike (see CONF_MARKET_STATUS).
+        if self._event_type == TYPE_MARKET and entry.data.get(CONF_MARKET_STATUS):
+            return f"{entry.data[CONF_MARKET_STATUS]} ({market_reason(name)})"
+        if self._event_type in (TYPE_CUSTOM, TYPE_ONE_TIME, *LIBRARY_TYPES):
+            return name
+        # An interval event numbers its steps from the stored date (see
+        # interval_occurrence); everything else counts years.
+        if interval_rule(entry.data) is not None:
+            number = interval_occurrence(entry.data, occurrence)[1]
+        else:
+            number = occurrence_number(entry.data.get(CONF_YEAR), occurrence)
+        suffix = f" ({number})" if number is not None else ""
+        return f"{name} - {self._type_label}{suffix}"
+
+    def _calendar_event(self, entry: ConfigEntry, occurrence: date) -> CalendarEvent:
+        # A multi-day one-time event (a holiday trip, see CONF_END_DATE)
+        # becomes one all-day event spanning the whole range, which is what
+        # a calendar is for - not a single day at its start. `end` is
+        # exclusive in an all-day event, hence the extra day either way.
+        last_day = occurrence
+        if entry.data[CONF_EVENT_TYPE] == TYPE_ONE_TIME:
+            _, last_day = one_time_span(
+                entry.data[CONF_YEAR],
+                entry.data[CONF_MONTH],
+                entry.data[CONF_DAY],
+                entry.data.get(CONF_END_DATE),
+            )
+            # With a time of day (see CONF_TIME) it is a timed entry rather
+            # than an all-day one: from that time on the first day to the
+            # end time on the last, or an hour long where no end was given
+            # - the length every calendar app assumes for an appointment.
+            start_time = parse_time(entry.data.get(CONF_TIME))
+            if start_time is not None:
+                zone = dt_util.get_default_time_zone()
+                start = datetime.combine(occurrence, start_time, tzinfo=zone)
+                end_time = parse_time(entry.data.get(CONF_END_TIME))
+                if end_time is not None:
+                    end = datetime.combine(last_day, end_time, tzinfo=zone)
+                elif last_day != occurrence:
+                    # A multi-day event with a start time and no end time
+                    # runs to the end of its last day - an hour from its
+                    # start would cut a week's trip down to a morning.
+                    end = datetime.combine(last_day + timedelta(days=1), time.min, tzinfo=zone)
+                else:
+                    end = start + timedelta(hours=1)
+                if end <= start:
+                    end = start + timedelta(hours=1)
+                return CalendarEvent(
+                    start=start,
+                    end=end,
+                    summary=self._summary(entry, occurrence),
+                    uid=f"{DOMAIN}-{entry.entry_id}-{occurrence.isoformat()}",
+                )
+        return CalendarEvent(
+            start=occurrence,
+            end=last_day + timedelta(days=1),
+            summary=self._summary(entry, occurrence),
+            uid=f"{DOMAIN}-{entry.entry_id}-{occurrence.isoformat()}",
+        )
+
+    @staticmethod
+    def _next_occurrence_for_entry(entry: ConfigEntry, today: date) -> date | None:
+        data = entry.data
+        if data[CONF_EVENT_TYPE] in LIBRARY_TYPES:
+            return next_holiday_occurrence(
+                data[CONF_COUNTRY],
+                data.get(CONF_SUBDIVISION),
+                data[CONF_CATEGORY],
+                data[CONF_HOLIDAY_KEY],
+                today,
+                data.get(CONF_HOLIDAY_OBSERVED, False),
+                **holiday_span_kwargs(data),
+            )
+        if data[CONF_EVENT_TYPE] == TYPE_ONE_TIME:
+            # Never wraps to "next year" like next_event_occurrence() does
+            # below - a one-time event simply has no next year. None once
+            # it's in the past, same as a holiday with no more occurrences;
+            # in practice this entry is removed entirely by the midnight
+            # purge (see __init__.py) before that ever shows up here.
+            # Judged on the last day, not the first: an event that is
+            # currently running (see CONF_END_DATE) has not passed, and must
+            # keep showing on the calendar for the rest of its span rather
+            # than vanishing the morning after it began.
+            occurrence, last_day = one_time_span(
+                data[CONF_YEAR], data[CONF_MONTH], data[CONF_DAY], data.get(CONF_END_DATE)
+            )
+            return occurrence if last_day >= today else None
+        # Every N months or years from its stored date (see CONF_INTERVAL).
+        if interval_rule(data) is not None:
+            return interval_occurrence(data, today)[0]
+        # Its stored day/month, or the rule a custom event can carry
+        # instead (see CONF_WEEKDAY in const.py) - dates.py decides which.
+        return next_event_occurrence(data, today)
+
+    @staticmethod
+    def _occurrence_in_year_for_entry(entry: ConfigEntry, year: int) -> date | None:
+        data = entry.data
+        if data[CONF_EVENT_TYPE] in LIBRARY_TYPES:
+            return holiday_occurrence_in_year(
+                data[CONF_COUNTRY],
+                data.get(CONF_SUBDIVISION),
+                data[CONF_CATEGORY],
+                data[CONF_HOLIDAY_KEY],
+                year,
+                data.get(CONF_HOLIDAY_OBSERVED, False),
+                **holiday_span_kwargs(data),
+            )
+        if data[CONF_EVENT_TYPE] == TYPE_ONE_TIME:
+            # Only ever occurs in its own stored year, unlike every other
+            # type which repeats in every year of a multi-year range query.
+            return one_time_date(data[CONF_YEAR], data[CONF_MONTH], data[CONF_DAY]) if data[CONF_YEAR] == year else None
+        return event_occurrence_in_year(data, year)
+
+    def _compute_event(self) -> CalendarEvent | None:
+        """The soonest upcoming occurrence across all events of this type -
+        the actual (potentially blocking, for holidays) computation, always
+        called off the event loop - see async_update/event below.
+        """
+        today = dt_util.now().date()
+        upcoming = [
+            self._calendar_event(entry, occurrence)
+            for entry in _entries_for_type(self.hass, self._event_type)
+            for occurrence in [self._next_occurrence_for_entry(entry, today)]
+            if occurrence is not None
+        ]
+        if not upcoming:
+            return None
+        # Compared as local datetimes: a timed one-time event's start is a
+        # datetime (see _calendar_event) and an all-day event's a date, and
+        # Python refuses to order the two against each other.
+        return min(upcoming, key=lambda e: e.start_datetime_local)
+
+    @property
+    def event(self) -> CalendarEvent | None:
+        # For every type except holiday this is pure date arithmetic (no I/O)
+        # and cheap enough to just compute on read. Holidays go through
+        # async_update instead (see there) - the `holidays` library can do
+        # blocking file I/O the first time a language's translations load,
+        # which must never happen synchronously here, on the event loop.
+        if self._event_type in LIBRARY_TYPES:
+            return self._cached_event
+        return self._compute_event()
+
+    async def async_update(self) -> None:
+        if self._event_type in LIBRARY_TYPES:
+            self._cached_event = await self.hass.async_add_executor_job(self._compute_event)
+
+    async def async_get_events(
+        self, hass: HomeAssistant, start_date: datetime, end_date: datetime
+    ) -> list[CalendarEvent]:
+        """Every occurrence of this type's events within the given range."""
+
+        def _collect() -> list[CalendarEvent]:
+            events: list[CalendarEvent] = []
+            start = start_date.date()
+            end = end_date.date()
+            for entry in _entries_for_type(hass, self._event_type):
+                # An interval event is not one per year - a six-monthly
+                # one falls twice in a year, a five-yearly one mostly not
+                # at all - so it is asked for the range as a whole.
+                if interval_rule(entry.data) is not None:
+                    for occurrence, _step in interval_occurrences_between(entry.data, start, end):
+                        events.append(self._calendar_event(entry, occurrence))
+                    continue
+                for year in range(start.year, end.year + 1):
+                    occurrence = self._occurrence_in_year_for_entry(entry, year)
+                    if occurrence is not None and start <= occurrence <= end:
+                        events.append(self._calendar_event(entry, occurrence))
+            # See _compute_event: date and datetime starts do not compare.
+            return sorted(events, key=lambda e: e.start_datetime_local)
+
+        # Same blocking-I/O concern as event/async_update above for holidays;
+        # negligible overhead either way for the other types.
+        return await hass.async_add_executor_job(_collect)
+
+
+class AnnualsTeleworkCalendar(CalendarEntity):
+    """One shared calendar for individual and weekly telework schedules."""
+
+    _attr_should_poll = True
+    _attr_has_entity_name = True
+    _attr_translation_key = "homeworking"
+    _attr_icon = "mdi:home-city"
+    _attr_unique_id = f"{DOMAIN}-calendar-homeworking"
+    entity_id = "calendar.annuals_homeworking"
+
+    def __init__(self, hass: HomeAssistant, telework_label: str) -> None:
+        self.hass = hass
+        self._telework_label = telework_label
+
+    @staticmethod
+    def _occurrences(entry: ConfigEntry, start: date, end: date):
+        data = entry.data
+        schedule_start = date.fromisoformat(data[CONF_TELEWORK_START_DATE])
+        weekdays = data.get(CONF_TELEWORK_WEEKDAYS, [])
+        if not weekdays:
+            if start <= schedule_start <= end:
+                yield schedule_start
+            return
+
+        first = max(start, schedule_start)
+        last = min(
+            end,
+            date.fromisoformat(data[CONF_TELEWORK_END_DATE])
+            if data.get(CONF_TELEWORK_END_DATE)
+            else end,
+        )
+        if first > last:
+            return
+        for weekday in weekdays:
+            occurrence = first + timedelta(days=(int(weekday) - first.weekday()) % 7)
+            while occurrence <= last:
+                yield occurrence
+                occurrence += timedelta(days=7)
+
+    @staticmethod
+    def _next_occurrence(entry: ConfigEntry, today: date) -> date | None:
+        data = entry.data
+        schedule_start = date.fromisoformat(data[CONF_TELEWORK_START_DATE])
+        first = max(today, schedule_start)
+        last = (
+            date.fromisoformat(data[CONF_TELEWORK_END_DATE])
+            if data.get(CONF_TELEWORK_END_DATE)
+            else date.max
+        )
+        if first > last:
+            return None
+        weekdays = data.get(CONF_TELEWORK_WEEKDAYS, [])
+        if not weekdays:
+            return first if first == schedule_start else None
+        return min(
+            (
+                first + timedelta(days=(int(weekday) - first.weekday()) % 7)
+                for weekday in weekdays
+                if first + timedelta(days=(int(weekday) - first.weekday()) % 7) <= last
+            ),
+            default=None,
+        )
+
+    def _calendar_event(self, entry: ConfigEntry, occurrence: date) -> CalendarEvent:
+        return CalendarEvent(
+            start=occurrence,
+            end=occurrence + timedelta(days=1),
+            summary=f"{entry.data[CONF_TELEWORK_USER]} - {self._telework_label}",
+            uid=f"{DOMAIN}-telework-{entry.entry_id}-{occurrence.isoformat()}",
+        )
+
+    @property
+    def event(self) -> CalendarEvent | None:
+        today = dt_util.now().date()
+        upcoming = [
+            self._calendar_event(entry, occurrence)
+            for entry in self.hass.config_entries.async_entries(DOMAIN)
+            if entry.data.get(CONF_TELEWORK)
+            for occurrence in [self._next_occurrence(entry, today)]
+            if occurrence is not None
+        ]
+        return min(upcoming, key=lambda event: event.start_datetime_local) if upcoming else None
+
+    async def async_get_events(
+        self, hass: HomeAssistant, start_date: datetime, end_date: datetime
+    ) -> list[CalendarEvent]:
+        start, end = start_date.date(), end_date.date()
+        events = [
+            self._calendar_event(entry, occurrence)
+            for entry in hass.config_entries.async_entries(DOMAIN)
+            if entry.data.get(CONF_TELEWORK)
+            for occurrence in self._occurrences(entry, start, end)
+        ]
+        return sorted(events, key=lambda event: event.start_datetime_local)

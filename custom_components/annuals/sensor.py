@@ -1,0 +1,524 @@
+from __future__ import annotations
+
+from datetime import date, timedelta
+import logging
+from typing import Any
+
+from homeassistant.components.sensor import SensorEntity
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.util import dt as dt_util
+from homeassistant.util import slugify
+
+from .const import (
+    CATEGORY_ICONS,
+    CONF_CATEGORY,
+    CONF_COUNTRY,
+    CONF_DAY,
+    CONF_EVENT_NAME,
+    CONF_END_DATE,
+    CONF_END_TIME,
+    CONF_EVENT_TYPE,
+    CONF_HOLIDAY_KEY,
+    CONF_HOLIDAY_OBSERVED,
+    CONF_HOLIDAY_SPAN,
+    CONF_HOLIDAY_SUFFIX,
+    CONF_HUB,
+    CONF_ICON,
+    CONF_IMPORTANT_THRESHOLDS,
+    CONF_INTERVAL,
+    CONF_INTERVAL_UNIT,
+    CONF_LANGUAGE,
+    CONF_LAST_NAME,
+    CONF_MONTH,
+    CONF_NAME_TRANSLATIONS,
+    CONF_PERSON,
+    CONF_SUBDIVISION,
+    CONF_TIME,
+    CONF_DECEASED,
+    CONF_VIP,
+    CONF_YEAR,
+    DATA_REMINDER_STRINGS,
+    DATA_SENSORS,
+    DATA_TODO_MATCHES,
+    DATA_TYPE_LABELS,
+    DEFAULT_IMPORTANT_THRESHOLDS,
+    DOMAIN,
+    SCAN_INTERVAL_HOURS,
+    CONF_MARKET_STATUS,
+    CONF_STATUS_TRANSLATIONS,
+    LIBRARY_TYPES,
+    MARKET_CATEGORY_ICONS,
+    TYPE_MARKET,
+    TYPE_ICONS,
+    TYPE_ONE_TIME,
+)
+from .dates import (
+    market_reason,
+    days_until,
+    holiday_break_display_name,
+    holiday_display_name,
+    holiday_key_from_name,
+    holiday_label,
+    holiday_span_kwargs,
+    interval_occurrence,
+    interval_rule,
+    is_important,
+    next_event_occurrence,
+    next_holiday_occurrence,
+    occurrence_number,
+    one_time_span,
+    parse_thresholds,
+    subdivision_name,
+    weekday_rule,
+)
+from .helpers import holiday_span_suffix, ui_language
+
+_LOGGER = logging.getLogger(__name__)
+
+SCAN_INTERVAL = timedelta(hours=SCAN_INTERVAL_HOURS)
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    async_add_entities([AnnualEventSensor(hass, config_entry)])
+
+
+class AnnualEventSensor(SensorEntity):
+    """One yearly-recurring event. State is days until its next occurrence."""
+
+    _attr_should_poll = True
+    _attr_has_entity_name = True
+
+    def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:
+        self._hass_ref = hass
+        self._config_entry = config_entry
+        data = config_entry.data
+        event_type: str = data[CONF_EVENT_TYPE]
+        name: str = data[CONF_EVENT_NAME]
+        if event_type in LIBRARY_TYPES:
+            # A holiday's static, never-changing identity label - always
+            # holiday_key_from_name(name) (so any accidental "(observed)"/
+            # "(estimated)" suffix baked into an older import self-heals),
+            # with " (observed)" appended back on only for entries that
+            # deliberately track the shifted date (see CONF_HOLIDAY_OBSERVED
+            # and dates.holiday_occurrence_in_year) - never left to whatever
+            # suffix happened to be present in the import year, which would
+            # drift year to year for a plain-date entry and stay permanently
+            # wrong either way once frozen into config_entry.data.
+            #
+            # A break entry's stored name is used exactly as it is: its
+            # "(Beginn)"/"(Tag 3)" suffix was rendered in the server's
+            # language when it was imported (see CONF_HOLIDAY_SUFFIX), and
+            # taking it apart and back together here would only risk
+            # doubling it or silently rewording it later.
+            if not data.get(CONF_HOLIDAY_SPAN):
+                base_name = holiday_key_from_name(name)
+                name = (
+                    f"{base_name} (observed)"
+                    if data.get(CONF_HOLIDAY_OBSERVED, False)
+                    else base_name
+                )
+        self._name = name
+        # Empty for TYPE_HOLIDAY (never offered on that form) and for any
+        # event added before this field existed - never touches
+        # self._name/entity_id/translation placeholders below, which must
+        # stay exactly as before for existing entries; only the "last_name"/
+        # "full_name" attributes (see _update_state) are new.
+        self._last_name: str = data.get(CONF_LAST_NAME) or ""
+
+        # A stock exchange's day is named for what it is to the market (see
+        # CONF_MARKET_STATUS) - "New York Stock Exchange closed" - and the
+        # holiday it falls on becomes its reason. The entity's own name carries
+        # both, since a market's days are otherwise all "closed".
+        self._reason: str | None = None
+        display = name
+        object_name = name
+        if event_type == TYPE_MARKET:
+            self._reason = market_reason(name)
+            display = f"{data.get(CONF_MARKET_STATUS) or data[CONF_COUNTRY]} ({self._reason})"
+            object_name = f"{data[CONF_COUNTRY]} {self._reason}"
+
+        self._attr_unique_id = f"{DOMAIN}-{config_entry.entry_id}"
+        # translation_key per type gives the entity a type-prefixed, translated
+        # name ("Geburtstag {name}") and a translated unit ("Tage"/"days"),
+        # both in the server's language.
+        self._attr_translation_key = event_type
+        self._attr_translation_placeholders = {"name": display}
+        # Explicit, language-independent entity_id (the translated name would
+        # otherwise drive it and change with the server language, and two
+        # events sharing a name would collide without the type prefix).
+        # Setting entity_id directly - unlike a "suggested_object_id"
+        # attribute, this is actually honoured by the entity platform when
+        # the entity is first registered.
+        self.entity_id = f"sensor.annuals_{event_type}_{slugify(object_name)}"
+        category_icons = MARKET_CATEGORY_ICONS if event_type == TYPE_MARKET else CATEGORY_ICONS
+        self._attr_icon = data.get(CONF_ICON) or (
+            category_icons.get(data.get(CONF_CATEGORY), TYPE_ICONS.get(event_type, "mdi:calendar-star"))
+            if event_type in LIBRARY_TYPES
+            else TYPE_ICONS.get(event_type, "mdi:calendar-star")
+        )
+        # Holiday state is computed in async_added_to_hass/async_update instead
+        # (see there) - the `holidays` library does blocking file I/O the
+        # first time a given language's translations are loaded, which must
+        # never happen synchronously here in __init__, on the event loop.
+        if event_type not in LIBRARY_TYPES:
+            self._update_state()
+
+    def _update_state(self) -> None:
+        data = self._config_entry.data
+        event_type: str = data[CONF_EVENT_TYPE]
+        # Home Assistant's own configured time zone, not the OS's. The two
+        # are usually the same and then this changes nothing - but they do
+        # not have to be, and the midnight refresh that drives this is
+        # scheduled in HA's zone (see async_track_time_change in
+        # __init__.py). Reading the day from the OS instead left every
+        # countdown a day out for the offset between them, right after the
+        # refresh that was supposed to roll it over. The calendar entity has
+        # always used this (see calendar.py); now the sensor agrees with it.
+        today = dt_util.now().date()
+
+        if event_type in LIBRARY_TYPES:
+            self._update_holiday_state(data, today)
+            return
+
+        day: int = data[CONF_DAY]
+        month: int = data[CONF_MONTH]
+        year: int | None = data.get(CONF_YEAR)
+
+        # A one-time event (see TYPE_ONE_TIME in const.py) never recurs - its
+        # "occurrence" is just the literal stored date, not the next yearly
+        # repeat next_event_occurrence() would compute, and occurrence_number/
+        # "important" (which both describe *which* repeat this is) simply
+        # don't apply. year is always set for this type (enforced in
+        # config_flow._validate_and_normalise), so the plain int() is safe.
+        end_day: date | None = None
+        in_progress = False
+        if event_type == TYPE_ONE_TIME:
+            occurrence, last_day = one_time_span(int(year), month, day, data.get(CONF_END_DATE))
+            # Only reported for events that actually span several days, so a
+            # plain one-time event's attributes stay exactly as they were.
+            end_day = last_day if last_day != occurrence else None
+            in_progress = occurrence <= today <= last_day
+            occurrence_num = None
+            important = False
+        elif interval_rule(data) is not None:
+            # A custom event repeating every N months or years from its
+            # stored date (see CONF_INTERVAL in const.py): the next step on
+            # or after today, and the occurrence number counts those steps
+            # - the stored date is 0, one interval later is 1.
+            occurrence, occurrence_num = interval_occurrence(data, today)
+            important = is_important(occurrence_num, self._important_thresholds(event_type))
+        else:
+            # A custom event can carry a rule - "the first Sunday in
+            # September" - instead of using its stored day; dates.py is
+            # where the two are told apart. Every other type, and every
+            # custom event without one, is the stored day/month as before.
+            occurrence = next_event_occurrence(data, today)
+            occurrence_num = occurrence_number(year, occurrence)
+            important = is_important(occurrence_num, self._important_thresholds(event_type))
+
+        # Never negative: a multi-day event that has already begun still has
+        # days to run, and "-3 days until" would be read as an error by
+        # everything downstream (the card's countdown, the blueprint's
+        # "remind at 7, 1, 0"). It counts down to the start, hits 0 on the
+        # first day, and stays there until the event is over - which the
+        # "in_progress" attribute below is what distinguishes.
+        days = max(days_until(occurrence, today), 0) if in_progress else days_until(occurrence, today)
+        self._attr_native_value = days
+        self._attr_extra_state_attributes: dict[str, Any] = {
+            "type": event_type,
+            "type_label": self._type_label(event_type),
+            "name": self._name,
+            "last_name": self._last_name,
+            "full_name": f"{self._name} {self._last_name}".strip() if self._last_name else self._name,
+            "next_date": occurrence.isoformat(),
+            "occurrence_number": occurrence_num,
+            # What the event is stored on. On a custom event with a rule
+            # this is not what next_date was computed from and nothing
+            # reads it - it is the date the event goes back to if the rule
+            # is cleared. The rule itself is reported below.
+            "day": day,
+            "month": month,
+            "year": year,
+            "vip": bool(data.get(CONF_VIP, False)),
+            # A day of someone who has died - see CONF_DECEASED. False on
+            # every other event, so a template can read it blindly.
+            "deceased": bool(data.get(CONF_DECEASED, False)),
+            "important": important,
+            "reminder_message": self._reminder_message(days, bool(data.get(CONF_DECEASED, False))),
+            "todo": self._has_open_todo(),
+        }
+        # The person whose picture stands for this event (see CONF_PERSON):
+        # the entity id as an attribute, and their picture as this sensor's
+        # own entity_picture, which is what the card and the blueprint's
+        # notification show. Read live from the person's state, so a new
+        # photo on the person is a new photo here at the next update.
+        person = data.get(CONF_PERSON) or None
+        if person:
+            self._attr_extra_state_attributes["person"] = person
+        self._attr_entity_picture = self._person_picture(person)
+        # A repeat interval (see CONF_INTERVAL), only where there is one.
+        interval = interval_rule(data)
+        if interval is not None:
+            self._attr_extra_state_attributes["interval"] = interval[0]
+            self._attr_extra_state_attributes["interval_unit"] = interval[1]
+        # A one-time event's time of day (see CONF_TIME), only where set -
+        # the countdown above stays a count of days either way.
+        if event_type == TYPE_ONE_TIME and data.get(CONF_TIME):
+            self._attr_extra_state_attributes["time"] = data[CONF_TIME]
+            if data.get(CONF_END_TIME):
+                self._attr_extra_state_attributes["end_time"] = data[CONF_END_TIME]
+        rule = weekday_rule(data)
+        if rule is not None:
+            # Only on an event that actually has one (see CONF_WEEKDAY in
+            # const.py), so anything reading these can take their presence
+            # as "this date is a rule" without a second check - the same
+            # way the multi-day attributes below work. weekday is
+            # Monday=0..Sunday=6, nth is 1..4 or -1 for the last one.
+            self._attr_extra_state_attributes.update(
+                {"weekday": rule[0], "nth": rule[1]}
+            )
+        if end_day is not None:
+            # Only present on a one-time event that spans several days (see
+            # CONF_END_DATE) - absent everywhere else, so anything reading
+            # these can use their mere presence as "this is a multi-day
+            # event" without a second check.
+            self._attr_extra_state_attributes.update(
+                {
+                    "end_date": end_day.isoformat(),
+                    "days_until_end": days_until(end_day, today),
+                    "duration_days": (end_day - occurrence).days + 1,
+                    "in_progress": in_progress,
+                    # The same translated countdown phrase as
+                    # "reminder_message", but for the day the event ends -
+                    # so an automation reminding before the return flight
+                    # can say "in 3 days" about the return flight rather
+                    # than about a departure that already happened.
+                    "reminder_message_end": self._reminder_message(
+                        days_until(end_day, today)
+                    ),
+                }
+            )
+
+    def _update_holiday_state(self, data: dict, today: date) -> None:
+        """Holiday events have no stored day/month/year (see dates.py) - the
+        occurrence, and even the display name (some names carry a year-
+        specific "(observed)"/"(estimated)" suffix), are resolved live here
+        instead, every update, so there's nothing that can go stale.
+        """
+        country: str = data[CONF_COUNTRY]
+        subdivision: str | None = data.get(CONF_SUBDIVISION)
+        category: str = data[CONF_CATEGORY]
+        holiday_key: str = data[CONF_HOLIDAY_KEY]
+        language: str | None = data.get(CONF_LANGUAGE)
+        observed: bool = data.get(CONF_HOLIDAY_OBSERVED, False)
+
+        spans = holiday_span_kwargs(data)
+
+        occurrence = next_holiday_occurrence(
+            country, subdivision, category, holiday_key, today, observed, **spans
+        )
+        name = self._name
+        if occurrence is not None:
+            resolved = None
+            if spans["span"]:
+                # A composite name split back into one name per break, where
+                # that's possible (see dates.holiday_break_names) - resolved
+                # against the year the block belongs to, which for a break
+                # running across New Year is not the year its end falls in.
+                for block_year in (occurrence.year, occurrence.year - 1):
+                    resolved = holiday_break_display_name(
+                        country, subdivision, category, holiday_key, block_year,
+                        language, spans["block"],
+                    )
+                    if resolved is not None:
+                        break
+            if resolved is None:
+                resolved = holiday_display_name(
+                    country, subdivision, category, language, occurrence.year, occurrence, holiday_key
+                )
+            if resolved is not None:
+                # Re-suffixed for breaks only, with the wording stored when
+                # the entry was created: every part of one break shares the
+                # library's single name, so without this the start, the end
+                # and each individual day would all render identically.
+                # `observed` is deliberately left off - that variant has
+                # always displayed under the plain name and changing it here
+                # would rename existing entities.
+                suffix = data.get(CONF_HOLIDAY_SUFFIX) or ""
+                if not suffix and spans["span"]:
+                    # Imported before the suffix was stored: fall back to the
+                    # untranslated wording rather than dropping it, which
+                    # would make a break's start, end and days indistinguishable
+                    # until it's imported again.
+                    suffix = holiday_span_suffix({}, spans["span"], 0, spans["day"])
+                name = holiday_label(resolved, suffix=suffix)
+        # The user's own wording wins over the library's for the language this
+        # entry was imported in (see CONF_NAME_TRANSLATIONS). Every other
+        # language they filled in rides along as an attribute instead: the
+        # dashboard card renders in the *viewer's* language, which needn't be
+        # the one this entity's own name is resolved in, so it has to be able
+        # to pick for itself.
+        # Keyed by this integration's own language codes, not the library's -
+        # the entry's stored language is something like "en_US" (see
+        # helpers.ui_language for why the two differ).
+        translations: dict[str, str] = data.get(CONF_NAME_TRANSLATIONS) or {}
+        own_language = ui_language(language)
+        if own_language and translations.get(own_language):
+            name = translations[own_language]
+
+        days = days_until(occurrence, today) if occurrence is not None else None
+        self._attr_native_value = days
+        self._attr_extra_state_attributes: dict[str, Any] = {
+            "type": data[CONF_EVENT_TYPE],
+            "type_label": self._type_label(data[CONF_EVENT_TYPE]),
+            # A stock exchange's day: its name is what it is for the market,
+            # its reason the holiday it falls on (see CONF_MARKET_STATUS).
+            "name": (
+                self._market_status(data, name)
+                if data[CONF_EVENT_TYPE] == TYPE_MARKET
+                else name
+            ),
+            "reason": market_reason(name) if data[CONF_EVENT_TYPE] == TYPE_MARKET else None,
+            "next_date": occurrence.isoformat() if occurrence is not None else None,
+            "occurrence_number": None,
+            "country": country,
+            "subdivision": subdivision,
+            # "California" for "CA" - the dashboard card's Region format option
+            # renders one or the other (see subdivision_name). None for a
+            # country-wide entry, and for a country whose subdivisions the
+            # library has no long names for.
+            "subdivision_name": subdivision_name(country, subdivision),
+            "category": category,
+            # Which part of a multi-day break this entry is - "start", "end"
+            # or "day" (see CONF_HOLIDAY_SPAN), None for every single-day
+            # holiday. Exposed so automations and the card can tell them
+            # apart, e.g. to remind only when a school break begins rather
+            # than on all forty-five of its days.
+            "break_part": spans["span"],
+            "holiday_key": holiday_key,
+            "vip": bool(data.get(CONF_VIP, False)),
+            "important": False,
+            "observed": observed,
+            "name_translations": translations,
+            # A market day's own name in other languages - its reason's are
+            # name_translations (see CONF_STATUS_TRANSLATIONS).
+            "status_translations": (
+                data.get(CONF_STATUS_TRANSLATIONS) or {}
+                if data[CONF_EVENT_TYPE] == TYPE_MARKET
+                else None
+            ),
+            "reminder_message": self._reminder_message(days),
+            "todo": self._has_open_todo(),
+        }
+
+    def _market_status(self, data: dict, name: str) -> str:
+        """A market day's name: the user's own wording for the server's
+        language if they wrote one (see CONF_STATUS_TRANSLATIONS), otherwise
+        the status rendered at import."""
+        own = (data.get(CONF_STATUS_TRANSLATIONS) or {}).get(self._hass_ref.config.language or "")
+        return own or data.get(CONF_MARKET_STATUS) or name
+
+    def _person_picture(self, person: str | None) -> str | None:
+        """The linked person's picture (see CONF_PERSON), or None without
+        one - or while that person has no picture, or is not loaded yet,
+        which the state-change listener in async_added_to_hass catches up
+        with the moment it is.
+        """
+        if not person:
+            return None
+        state = self._hass_ref.states.get(person)
+        return state.attributes.get("entity_picture") if state else None
+
+    @callback
+    def _person_changed(self, _event) -> None:
+        """The linked person's state changed - a new picture, or the person
+        arriving after this sensor did at startup.
+        """
+        self.async_schedule_update_ha_state(True)
+
+    def _type_label(self, event_type: str) -> str:
+        """This event type's translated label - see DATA_TYPE_LABELS/
+        helpers.async_event_type_labels, cached at integration setup since
+        the lookup itself is async and this method isn't.
+        """
+        labels: dict[str, str] = self._hass_ref.data.get(DOMAIN, {}).get(DATA_TYPE_LABELS, {})
+        return labels.get(event_type, event_type.replace("_", " ").title())
+
+    def _reminder_message(self, days: int | None, deceased: bool = False) -> str | None:
+        """A translated "days until" countdown phrase (see DATA_REMINDER_STRINGS/
+        helpers.async_reminder_strings) - None only when there's no
+        occurrence to count down to at all (a holiday that didn't resolve
+        this update, see _update_holiday_state). For a day of someone who
+        has died the phrase says what the day would have been - "Would
+        have been today" - so the blueprint's notification and anything
+        else reading it speaks of the day the way one does.
+        """
+        if days is None:
+            return None
+        strings: dict[str, str] = self._hass_ref.data.get(DOMAIN, {}).get(DATA_REMINDER_STRINGS, {})
+        suffix = "_deceased" if deceased else ""
+        if days == 0:
+            return strings.get("today" + suffix, strings.get("today", "Today"))
+        if days == 1:
+            return strings.get("tomorrow" + suffix, strings.get("tomorrow", "Tomorrow"))
+        return strings.get("in_days" + suffix, strings.get("in_days", "in {days} days")).format(days=days)
+
+    def _has_open_todo(self) -> bool:
+        """Whether an open to-do item is currently matched to this event.
+
+        A plain lookup into the map todo_match.async_refresh_todo_matches
+        leaves behind, for the same reason as _type_label above: the matching
+        itself needs an async service call, this attribute build doesn't.
+        Always False while no to-do lists are configured in Annuals Settings
+        (see CONF_TODO_LISTS), which is also the state before the first
+        refresh has run.
+        """
+        matched: set[str] = self._hass_ref.data.get(DOMAIN, {}).get(DATA_TODO_MATCHES) or set()
+        return self.entity_id in matched
+
+    def _important_thresholds(self, event_type: str) -> set[int]:
+        """The "Annual Settings" milestone list for this event's type, read
+        from the shared hub entry's options (falling back to the built-in
+        defaults if the hub hasn't been configured yet).
+        """
+        for entry in self._hass_ref.config_entries.async_entries(DOMAIN):
+            if entry.data.get(CONF_HUB):
+                text = entry.options.get(
+                    f"{CONF_IMPORTANT_THRESHOLDS}_{event_type}",
+                    DEFAULT_IMPORTANT_THRESHOLDS.get(event_type, ""),
+                )
+                return parse_thresholds(text)
+        return parse_thresholds(DEFAULT_IMPORTANT_THRESHOLDS.get(event_type, ""))
+
+    async def async_update(self) -> None:
+        if self._config_entry.data[CONF_EVENT_TYPE] in LIBRARY_TYPES:
+            # Off the event loop - see the comment in __init__ on why.
+            await self._hass_ref.async_add_executor_job(self._update_state)
+        else:
+            self._update_state()
+
+    async def async_added_to_hass(self) -> None:
+        """Register with the domain-wide midnight refresh (see __init__.py),
+        and compute the initial state for holiday events (skipped in
+        __init__ - see the comment there).
+        """
+        self._hass_ref.data.setdefault(DOMAIN, {}).setdefault(DATA_SENSORS, set()).add(self)
+        person = self._config_entry.data.get(CONF_PERSON)
+        if person:
+            self.async_on_remove(
+                async_track_state_change_event(self._hass_ref, [person], self._person_changed)
+            )
+        if self._config_entry.data[CONF_EVENT_TYPE] in LIBRARY_TYPES:
+            await self._hass_ref.async_add_executor_job(self._update_state)
+
+    async def async_will_remove_from_hass(self) -> None:
+        sensors = self._hass_ref.data.get(DOMAIN, {}).get(DATA_SENSORS)
+        if sensors is not None:
+            sensors.discard(self)

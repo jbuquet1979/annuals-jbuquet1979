@@ -1,0 +1,754 @@
+{
+    "title": "Annuals",
+    "selector": {
+        "holiday_span": {
+            "options": {
+                "start": "początek",
+                "end": "koniec",
+                "day": "dzień {day}"
+            }
+        },
+        "holiday_breaks": {
+            "options": {
+                "note": "Wielodniowe ferie, takie jak ferie szkolne, są z powrotem łączone w całe ferie - poniżej można wybrać, które ich części zaimportować."
+            }
+        },
+        "event_type": {
+            "options": {
+                "birthday": "Urodziny",
+                "anniversary": "Rocznica",
+                "name_day": "Imieniny",
+                "wedding_anniversary": "Rocznica ślubu",
+                "memorial": "Rocznica śmierci",
+                "pet_birthday": "Urodziny zwierzaka",
+                "work_anniversary": "Jubileusz pracy",
+                "custom": "Inne",
+                "one_time": "Wydarzenie jednorazowe",
+                "holiday": "Święto",
+                "market": "Giełda"
+            }
+        },
+        "month": {
+            "options": {
+                "1": "styczeń",
+                "2": "luty",
+                "3": "marzec",
+                "4": "kwiecień",
+                "5": "maj",
+                "6": "czerwiec",
+                "7": "lipiec",
+                "8": "sierpień",
+                "9": "wrzesień",
+                "10": "październik",
+                "11": "listopad",
+                "12": "grudzień"
+            }
+        },
+        "holiday_category": {
+            "options": {
+                "public": "Państwowe",
+                "bank": "Bankowe",
+                "government": "Urzędowe",
+                "school": "Ferie szkolne",
+                "optional": "Opcjonalne",
+                "optional_women": "Opcjonalne (dla kobiet)",
+                "unofficial": "Nieoficjalne",
+                "half_day": "Pół dnia",
+                "armed_forces": "Siły zbrojne",
+                "workday": "Dzień roboczy",
+                "catholic": "Katolickie",
+                "christian": "Chrześcijańskie",
+                "orthodox": "Prawosławne",
+                "hebrew": "Żydowskie",
+                "islamic": "Islamskie",
+                "hindu": "Hinduskie",
+                "buddhist": "Buddyjskie",
+                "de_facto": "De facto",
+                "protestant": "Protestanckie",
+                "sabian": "Sabejskie",
+                "yazidi": "Jazydzkie",
+                "albanian": "Albańskie",
+                "armenian": "Ormiańskie",
+                "bosnian": "Bośniackie",
+                "roma": "Romskie",
+                "serbian": "Serbskie",
+                "turkish": "Tureckie",
+                "vlach": "Wołoskie"
+            }
+        },
+        "nth": {
+            "options": {
+                "1": "Pierwszy",
+                "2": "Drugi",
+                "3": "Trzeci",
+                "4": "Czwarty",
+                "last": "Ostatni"
+            }
+        },
+        "weekday": {
+            "options": {
+                "0": "Poniedziałek",
+                "1": "Wtorek",
+                "2": "Środa",
+                "3": "Czwartek",
+                "4": "Piątek",
+                "5": "Sobota",
+                "6": "Niedziela"
+            }
+        },
+        "interval_unit": {
+            "options": {
+                "months": "miesięcy",
+                "years": "lat"
+            }
+        },
+        "market_category": {
+            "options": {
+                "public": "Zamknięta",
+                "half_day": "Skrócona sesja",
+                "restricted_settlement": "Bez rozliczenia"
+            }
+        },
+        "market_status": {
+            "options": {
+                "closed": "{market} zamknięta",
+                "closes_at": "{market} zamknięta od {time}",
+                "closes_early": "{market} zamyka się wcześniej",
+                "no_settlement": "{market} bez rozliczenia"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "telework": {
+                "title": "Dodaj harmonogram pracy z domu",
+                "description": "Dodaj pojedynczy dzień pracy z domu lub harmonogram tygodniowy. Wybierz dni tygodnia, aby powtarzać go co tydzień; pozostaw puste, aby zapisać jeden dzień. Data końcowa ogranicza harmonogram tygodniowy; pozostaw ją pustą, aby powtarzać bezterminowo.",
+                "data": {
+                    "telework_user": "Użytkownik",
+                    "telework_start_date": "Data początkowa",
+                    "telework_weekdays": "Dni tygodnia",
+                    "telework_end_date": "Data końcowa"
+                },
+                "data_description": {
+                    "telework_weekdays": "Wybierz jeden lub więcej dni dla tygodniowego harmonogramu pracy z domu. Pozostaw puste, aby zapisać tylko datę początkową.",
+                    "telework_end_date": "Dotyczy tylko tygodniowych harmonogramów pracy z domu. Pozostaw puste, aby nie ustawiać daty końcowej."
+                }
+            },
+            "user": {
+                "title": "Dodaj wydarzenie",
+                "description": "Jakiego rodzaju jest to wydarzenie?\n\n**Coroczne** obejmuje urodziny, rocznicę, imieniny, rocznicę ślubu, rocznicę śmierci, urodziny zwierzaka i jubileusz pracy. **Jednorazowe** to pojedyncza data, która usuwa się sama po upływie. **Inne** to twoja własna coroczna data – w konkretnym dniu albo według reguły.",
+                "menu_options": {
+                    "telework": "{icon_telework} Harmonogram pracy z domu",
+                    "recurring": "{icon_recurring} Coroczna data dla kogoś",
+                    "one_time": "{icon_one_time} Wydarzenie jednorazowe",
+                    "custom": "{icon_custom} Inne wydarzenie"
+                }
+            },
+            "recurring": {
+                "title": "Dodaj coroczne wydarzenie",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "person": "Osoba (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok (pozostaw puste, jeśli nieznany)",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual",
+                    "deceased": "Nie żyje"
+                },
+                "description": "Każde wydarzenie otrzymuje własny wpis, który później znajdziesz i edytujesz w Ustawienia → Urządzenia i usługi → Annuals, wyszukując po nazwie.",
+                "data_description": {
+                    "person": "Osoba w Home Assistant, której zdjęcie reprezentuje to wydarzenie – na karcie panelu i w powiadomieniu przypomnienia.",
+                    "deceased": "Osoba nie żyje: dzień zostaje i jest oznaczony, karta mówi, czym by był, a automatyzacje mogą go odróżnić."
+                }
+            },
+            "one_time": {
+                "title": "Dodaj wydarzenie jednorazowe",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok",
+                    "end_date": "Data zakończenia (opcjonalnie – zmienia je w wydarzenie wielodniowe)",
+                    "time": "Godzina (opcjonalnie)",
+                    "end_time": "Godzina zakończenia (opcjonalnie)",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual"
+                },
+                "description": "Pojedyncza data, do której trwa odliczanie. Nigdy się nie powtarza, dlatego rok jest wymagany, a wpis usuwa się automatycznie o północy po jej upływie.\n\nZ datą zakończenia staje się wydarzeniem wielodniowym – podróż, konferencja, pobyt.",
+                "data_description": {
+                    "time": "O której zaczyna się tego dnia. Wpis w kalendarzu ma wtedy godzinę, a karta panelu ją pokazuje.",
+                    "end_time": "O której się kończy – w dniu zakończenia, jeśli jest, w przeciwnym razie tego samego dnia. Wymaga godziny rozpoczęcia; pozostawiony pusty wpis w kalendarzu trwa godzinę."
+                }
+            },
+            "custom": {
+                "title": "Dodaj inne wydarzenie",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual",
+                    "interval": "Powtarza się co",
+                    "interval_unit": "…miesięcy lub lat",
+                    "nth": "Pozycja w miesiącu",
+                    "weekday": "Dzień tygodnia"
+                },
+                "description": "Twoja własna coroczna data, na wszystko, czego nie opisują pozostałe typy.\n\nZamiast na konkretnym dniu może opierać się na **regule**: Dzień Matki wypada w drugą niedzielę maja, a Dzień Ojca w Australii w pierwszą niedzielę września. Wypełnij dwa pola poniżej – **Miesiąc** powyżej wskazuje, którego miesiąca dotyczy reguła, a **Dzień** nie jest wtedy używany. Zostaw je puste, aby data była stała.",
+                "data_description": {
+                    "interval": "Razem z jednostką obok – co 6 miesięcy, co 2 lata. Liczone od daty powyżej, która wtedy potrzebuje roku. Zostaw oba puste dla raz w roku.",
+                    "nth": "Pierwszy, drugi, trzeci, czwarty albo ostatni w miesiącu.",
+                    "weekday": "Ustaw razem z polem powyżej albo zostaw oba puste."
+                }
+            },
+            "reconfigure_recurring": {
+                "title": "Edytuj wydarzenie",
+                "description": "Zmień dowolne pole poniżej i zatwierdź, aby zaktualizować to wydarzenie.",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "person": "Osoba (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok (pozostaw puste, jeśli nieznany)",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual",
+                    "deceased": "Nie żyje"
+                },
+                "data_description": {
+                    "person": "Osoba w Home Assistant, której zdjęcie reprezentuje to wydarzenie – na karcie panelu i w powiadomieniu przypomnienia.",
+                    "deceased": "Osoba nie żyje: dzień zostaje i jest oznaczony, karta mówi, czym by był, a automatyzacje mogą go odróżnić."
+                }
+            },
+            "reconfigure_one_time": {
+                "title": "Edytuj wydarzenie jednorazowe",
+                "description": "Zmień dowolne pole poniżej i zatwierdź, aby zaktualizować to wydarzenie.\n\nData zakończenia zmienia je w wydarzenie wielodniowe; po jej wyczyszczeniu znów trwa jeden dzień.",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok",
+                    "end_date": "Data zakończenia (opcjonalnie – zmienia je w wydarzenie wielodniowe)",
+                    "time": "Godzina (opcjonalnie)",
+                    "end_time": "Godzina zakończenia (opcjonalnie)",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "O której zaczyna się tego dnia. Wpis w kalendarzu ma wtedy godzinę, a karta panelu ją pokazuje.",
+                    "end_time": "O której się kończy – w dniu zakończenia, jeśli jest, w przeciwnym razie tego samego dnia. Wymaga godziny rozpoczęcia; pozostawiony pusty wpis w kalendarzu trwa godzinę."
+                }
+            },
+            "reconfigure_custom": {
+                "title": "Edytuj inne wydarzenie",
+                "description": "Zmień dowolne pole poniżej i zatwierdź, aby zaktualizować to wydarzenie.\n\nZamiast na konkretnym dniu może opierać się na **regule** – *druga niedziela maja*. Wypełnij dwa pola poniżej; **Miesiąc** powyżej wskazuje, którego miesiąca dotyczy reguła, a **Dzień** nie jest wtedy używany. Po ich wyczyszczeniu wydarzenie wraca na ten dzień.",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual",
+                    "interval": "Powtarza się co",
+                    "interval_unit": "…miesięcy lub lat",
+                    "nth": "Pozycja w miesiącu",
+                    "weekday": "Dzień tygodnia"
+                },
+                "data_description": {
+                    "interval": "Razem z jednostką obok – co 6 miesięcy, co 2 lata. Liczone od daty powyżej, która wtedy potrzebuje roku. Zostaw oba puste dla raz w roku.",
+                    "nth": "Pierwszy, drugi, trzeci, czwarty albo ostatni w miesiącu.",
+                    "weekday": "Ustaw razem z polem powyżej albo zostaw oba puste."
+                }
+            }
+        },
+        "error": {
+            "telework_user_required": "Wpisz nazwę użytkownika.",
+            "invalid_weekday": "Wybierz prawidłowe dni tygodnia.",
+            "telework_end_before_start": "Data końcowa musi przypadać w dniu początkowym lub później.",
+            "telework_end_requires_weekdays": "Daty końcowej można użyć tylko z harmonogramem tygodniowym.",
+            "name_required": "Podaj nazwę.",
+            "end_date_one_time_only": "Datę zakończenia można ustawić tylko dla wydarzenia jednorazowego.",
+            "end_date_before_start": "Data zakończenia musi być późniejsza niż data rozpoczęcia.",
+            "invalid_date": "Ta kombinacja dzień/miesiąc/rok nie jest prawidłową datą.",
+            "year_required": "Wydarzenia jednorazowe wymagają podania roku.",
+            "rule_needs_both": "Reguła powtarzania wymaga obu pól albo żadnego.",
+            "interval_needs_both": "Odstęp powtarzania wymaga obu pól albo żadnego.",
+            "interval_needs_year": "Odstęp powtarzania jest liczony od daty powyżej, więc rok jest wymagany.",
+            "interval_no_rule": "Odstępu powtarzania nie można łączyć z regułą dnia tygodnia.",
+            "end_time_needs_time": "Godzina zakończenia wymaga godziny rozpoczęcia.",
+            "end_time_before_start": "Godzina zakończenia musi być późniejsza niż godzina rozpoczęcia."
+        },
+        "abort": {
+            "hub_not_configurable": "Centrum Annuals nie ma własnych ustawień – zawiera tylko wspólne kalendarze.",
+            "already_configured": "Centrum Annuals już istnieje.",
+            "invalid_import_row": "Tego wiersza nie udało się zaimportować."
+        }
+    },
+    "options": {
+        "step": {
+            "telework": {
+                "title": "Edytuj harmonogram pracy z domu",
+                "description": "Edytuj dzień lub harmonogram tygodniowy pracy z domu tego użytkownika.",
+                "data": {
+                    "telework_user": "Użytkownik",
+                    "telework_start_date": "Data początkowa",
+                    "telework_weekdays": "Dni tygodnia",
+                    "telework_end_date": "Data końcowa"
+                },
+                "data_description": {
+                    "telework_weekdays": "Wybierz jeden lub więcej dni dla tygodniowego harmonogramu pracy z domu. Pozostaw puste, aby zapisać tylko datę początkową.",
+                    "telework_end_date": "Dotyczy tylko tygodniowych harmonogramów pracy z domu. Pozostaw puste, aby nie ustawiać daty końcowej."
+                }
+            },
+            "import_csv": {
+                "title": "Importuj wydarzenia z pliku CSV",
+                "description": "Kolumny: name, type, day, month, year (opcjonalnie, wymagane dla one_time), icon (opcjonalnie), vip (opcjonalnie), last_name (opcjonalnie). „type” musi być jednym z następujących angielskich kluczy: birthday, anniversary, name_day, wedding_anniversary, memorial, pet_birthday, work_anniversary, custom, one_time (zawsze po angielsku, niezależnie od ustawień języka). „vip” akceptuje 1/true/yes/y/x (wielkość liter nie ma znaczenia); pozostaw puste lub pomiń kolumnę dla wydarzenia bez statusu VIP. Zachowaj każdą kolumnę, nawet jeśli wartość jest pusta – wiersz bez przecinka na końcu przesuwa kolejne wartości w lewo. Nieprawidłowe wiersze są pomijane i zapisywane w dzienniku.\n\nPrzykład:\n```\nname,type,day,month,year,icon,vip,last_name\nAnna,birthday,12,4,1988,,,Miller\nMax,pet_birthday,3,9,2020,mdi:dog,,\nTest Custom,custom,1,1,,mdi:test-tube,1,\nWakacje rodzinne,one_time,15,7,2026,mdi:airplane,,\n```",
+                "data": {
+                    "csv_file": "Plik CSV"
+                }
+            },
+            "import_ics": {
+                "title": "Importuj wydarzenia z kalendarza ICS",
+                "description": "Prześlij plik kalendarza .ics – zwykle wyeksportowany kalendarz. Odczytywane są tylko wpisy całodniowe, bez nadpisań cykliczności; wydarzenia z określoną godziną są pomijane. Kolejne kroki pozwalają sprawdzić i poprawić proponowany podział na imię i nazwisko (oraz zamienić miejscami imię i nazwisko dla wszystkich naraz), zanim cokolwiek zostanie zaimportowane.",
+                "data": {
+                    "ics_file": "Plik ICS"
+                }
+            },
+            "import_vcard_menu": {
+                "title": "Importuj wydarzenia z vCard",
+                "description": "Urodziny kontaktu i jego pozostałe daty (rocznice, daty niestandardowe) przechodzą osobnymi ścieżkami, ponieważ tylko urodziny mają wspólny typ wydarzenia dla całej partii – każda inna data otrzymuje własny typ podczas przeglądu.",
+                "menu_options": {
+                    "import_vcard": "Importuj urodziny",
+                    "import_vcard_other_dates": "Importuj inne daty (rocznice, ...)"
+                }
+            },
+            "import_vcard": {
+                "title": "Importuj urodziny z vCard",
+                "description": "Prześlij plik .vcf – zwykle wyeksportowane kontakty. Odczytywane są tylko wpisy z ustawioną datą urodzin. Imię i nazwisko pochodzą ze strukturalnych pól nazwy kontaktu, a nie z domysłu, a urodziny bez podanego roku (własny sposób vCard na wyrażenie tego) są zachowywane jako nieznane, zamiast być zmyślane. Kolejne kroki pozwalają sprawdzić i poprawić wszystko (oraz zamienić miejscami imię i nazwisko dla wszystkich naraz), zanim cokolwiek zostanie zaimportowane.",
+                "data": {
+                    "vcard_file": "Plik vCard"
+                }
+            },
+            "import_vcard_other_dates": {
+                "title": "Importuj inne daty z vCard",
+                "description": "Prześlij plik .vcf. Odczytywane są wszystkie daty oprócz urodzin: standardowe pole „Rocznica” oraz każda data z niestandardową etykietą, którą twoja aplikacja kontaktów pozwala dodać do kontaktu (np. „Rocznica”, „Inne” lub etykieta wpisana samodzielnie). W przeciwieństwie do urodzin, nie są to wydarzenia jednego rodzaju – kolejne kroki pozwalają przejrzeć każdą datę osobno, z wykrytą etykietą pokazaną dla kontekstu, i przypisać jej właściwy typ wydarzenia indywidualnie.",
+                "data": {
+                    "vcard_file": "Plik vCard"
+                }
+            },
+            "import_options": {
+                "title": "Import z {source_label} – ustawienia",
+                "description": "Dotyczą każdego wpisu znalezionego w pliku. W następnym kroku będzie można przejrzeć i edytować poszczególne wpisy.",
+                "data": {
+                    "swap_names": "Zamień miejscami imię i nazwisko we wszystkich wpisach",
+                    "use_description_year": "Użyj roku znalezionego w opisie każdego wpisu zamiast jego daty początkowej, jeśli taki występuje (np. „geb. 1985”)",
+                    "type": "Typ wydarzenia"
+                }
+            },
+            "import_review": {
+                "title": "Import z {source_label} – przegląd ({page}/{total_pages})",
+                "description": "{legend}\n\nSprawdź poniżej proponowany podział na imię i nazwisko i popraw wszystko, co jest błędne – sama data urodzin również jest edytowalna – lub odznacz wpis, aby całkowicie go pominąć. Możliwy duplikat jest oznaczony nazwą istniejącego wpisu; pozostaw „utwórz jako nowy” odznaczone, aby zaktualizować ten wpis zamiast dodawać drugi. Etykiety pól są tu pokazane wyłącznie po angielsku, niezależnie od ustawień języka.",
+                "data": {
+                    "go_back": "Wróć do poprzedniej strony"
+                }
+            },
+            "remove_ics_imports": {
+                "title": "Usuń wydarzenia zaimportowane z ICS",
+                "description": "{count} wydarzenie(a) zostało utworzonych przez wcześniejszy import ICS. Kliknij OK, aby usunąć je wszystkie – wpisy, które import ICS tylko zaktualizował (a nie utworzył), nigdy nie są objęte, podobnie jak wydarzenia dodane ręcznie oraz zaimportowane z CSV lub vCard."
+            },
+            "remove_vcard_imports": {
+                "title": "Usuń wydarzenia zaimportowane z vCard",
+                "description": "{count} wydarzenie(a) zostało utworzonych przez wcześniejszy import vCard. Kliknij OK, aby usunąć je wszystkie – wpisy, które import vCard tylko zaktualizował (a nie utworzył), nigdy nie są objęte, podobnie jak wydarzenia dodane ręcznie oraz zaimportowane z CSV lub ICS."
+            },
+            "holiday_menu": {
+                "title": "Święto",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}",
+                "menu_options": {
+                    "holiday_settings": "⚙️ Ustawienia",
+                    "holiday_names": "🌐 Nazwa i tłumaczenia"
+                }
+            },
+            "holiday_settings": {
+                "title": "Ustawienia święta",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nData, typ i region pochodzą z bazy świąt i nie można ich tu zmienić.",
+                "data": {
+                    "icon": "Ikona"
+                }
+            },
+            "holiday_names": {
+                "title": "Nazwa i tłumaczenia",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nWybierz język, w którym chcesz wpisać nazwę tego święta.",
+                "data": {
+                    "language": "Język"
+                }
+            },
+            "holiday_name_edit": {
+                "title": "Nazwa święta",
+                "description": "{language}\n\n**{name}**\n\n{type} · {date} · {region} · {category}\n\nWstępnie wypełnione tym, co jest teraz wyświetlane. Pozostaw puste, aby wrócić do bazy świąt.",
+                "data": {
+                    "name": "Nazwa",
+                    "reason": "Powód"
+                }
+            },
+            "holiday_translations": {
+                "title": "🌐 Tłumaczenia świąt",
+                "description": "Eksportuj i importuj nazwy świąt, które sam(a) napisałeś/napisałaś.",
+                "menu_options": {
+                    "export_translations": "📤 Eksportuj tłumaczenia",
+                    "import_translations": "📥 Importuj tłumaczenia"
+                }
+            },
+            "import_translations": {
+                "title": "Import tłumaczeń",
+                "description": "Prześlij plik CSV z tłumaczeniami. Kolumny: `country,subdivision,category,holiday_key,observed,language,name,status`. Wiersze są dopasowywane do świąt po kraju, regionie, kategorii, kluczu święta i fladze observed – a nie po identyfikatorze wpisu, więc plik wyeksportowany przed ponownym importem kraju nadal działa. Wiersze, których święta nie ma, są pomijane i zliczane. Dla dnia giełdowego `name` to powód, a `status` jego własna nazwa; dla świąt pozostaw `status` puste.",
+                "data": {
+                    "csv_file": "CSV"
+                }
+            },
+            "hub_menu": {
+                "title": "Annuals Ustawienia",
+                "menu_options": {
+                    "annual_settings": "{icon_annual_settings} Annual Ustawienia",
+                    "import_events": "{icon_import_events} Importuj wydarzenia",
+                    "export_csv": "{icon_export_csv} Eksportuj wydarzenia do CSV",
+                    "holiday_translations": "{icon_holiday_translations} Tłumaczenia świąt",
+                    "remove_events": "{icon_remove_events} Usuń wydarzenia",
+                    "delete_all": "{icon_delete_all} Usuń wszystkie dane Annuals"
+                }
+            },
+            "import_events": {
+                "title": "Importuj wydarzenia",
+                "description": "Wybierz źródło importu.",
+                "menu_options": {
+                    "import_csv": "CSV",
+                    "import_ics": "Kalendarz ICS",
+                    "import_vcard_menu": "vCard",
+                    "import_holidays": "Święta",
+                    "import_markets": "Giełdy"
+                }
+            },
+            "remove_events": {
+                "title": "Usuń wydarzenia",
+                "description": "Wybierz, które wcześniej zaimportowane wydarzenia usunąć.",
+                "menu_options": {
+                    "remove_ics_imports": "Zaimportowane z ICS",
+                    "remove_vcard_imports": "Zaimportowane z vCard",
+                    "remove_holidays": "Święta",
+                    "remove_markets": "Giełdy"
+                }
+            },
+            "import_holidays": {
+                "title": "Importuj święta",
+                "description": "Wybierz kraj, aby zaimportować jego święta jako wydarzenia. Ponowne uruchomienie tego później dla tego samego kraju (i regionu) aktualizuje istniejące wpisy zamiast je duplikować - przed importem zobaczysz wszystkie święta i wybierzesz te, które chcesz.",
+                "data": {
+                    "country": "Kraj"
+                }
+            },
+            "import_markets": {
+                "title": "Importuj dni wolne giełdy",
+                "description": "Wybierz giełdę, aby zaimportować dni, w które jest zamknięta - a tam, gdzie dane je zawierają, także dni ze skróconą sesją. Przed importem zobaczysz wszystkie dni i wybierzesz te, które chcesz.",
+                "data": {
+                    "market": "Giełda"
+                }
+            },
+            "import_markets_options": {
+                "title": "Importuj dni giełdowe - {country}",
+                "description": "Jakie rodzaje dni zaimportować i w jakim języku mają być ich nazwy.",
+                "data": {
+                    "categories": "Dni",
+                    "language": "Język nazw"
+                }
+            },
+            "import_markets_select": {
+                "title": "Importuj dni giełdowe - {country}: wybór",
+                "description": "Znaleziono dni: {count}, każdy z najbliższą datą. Importowane są tylko zaznaczone.\n\nOdznaczenie dnia, który już jest w Annuals, pozostawia go bez zmian - dni usuniesz w **Usuń wydarzenia → Giełdy**.",
+                "data": {
+                    "holidays": "Dni"
+                }
+            },
+            "import_holidays_options": {
+                "title": "Importuj święta - {country}",
+                "description": "Pozostaw region pusty, aby uwzględnić tylko święta ogólnokrajowe - region dodaje własne święta regionalne. Kategorie i język zależą od tego, co udostępniają dane o świętach danego kraju.{breaks}",
+                "data": {
+                    "include_actual": "Importuj rzeczywistą datę",
+                    "include_observed": "Importuj przeniesioną (zastępczą) datę",
+                    "break_start": "Importuj pierwszy dzień ferii",
+                    "break_end": "Importuj ostatni dzień ferii",
+                    "break_days": "Importuj każdy dzień ferii",
+                    "subdivision": "Region (województwo/prowincja, opcjonalnie)",
+                    "categories": "Kategorie",
+                    "language": "Język nazw świąt"
+                },
+                "data_description": {
+                    "break_start": "Ferie szkolne zawierają tylko dni nauki, więc zaczynają się wcześniej - liczenie cofa się przez weekend i sąsiednie święta do pierwszego naprawdę wolnego dnia.",
+                    "break_end": "To samo w drugą stronę: ostatni wolny dzień, a nie ostatni wymieniony.",
+                    "break_days": "Jedno wydarzenie na każdy dzień ferii. Same wakacje letnie dają ich ponad czterdzieści.",
+                    "include_observed": "Święta tego kraju są czasem przenoszone na najbliższy dzień roboczy, gdy wypadają w weekend (np. na poprzedzający piątek lub następny poniedziałek) - zaimportuj też tę przeniesioną datę jako osobne wydarzenie."
+                }
+            },
+            "import_holidays_select": {
+                "title": "Importuj święta - {country}: wybór",
+                "description": "Znaleziono świąt: {count}, każde z najbliższą datą. Importowane są tylko zaznaczone.\n\nOdznaczenie święta, które już jest w Annuals, pozostawia je bez zmian - święta usuniesz w **Usuń wydarzenia → Święta**.",
+                "data": {
+                    "holidays": "Święta"
+                }
+            },
+            "remove_holidays": {
+                "title": "Usuń zaimportowane święta",
+                "description": "Obecnie zaimportowano {total} święto(a). Zaznacz pole poniżej, aby usunąć wszystkie, lub pozostaw je odznaczone i wybierz zamiast tego jedną partię. Ręcznie dodane wydarzenia nigdy nie są tym objęte.",
+                "data": {
+                    "remove_all": "Usuń wszystkie zaimportowane święta",
+                    "batch": "Partia do usunięcia"
+                }
+            },
+            "remove_markets": {
+                "title": "Usuń zaimportowane dni giełdowe",
+                "description": "Zaimportowane dni giełdowe: {total}. Zaznacz pole poniżej, aby usunąć wszystkie, albo zostaw je puste i wybierz jedną lub kilka giełd. Nic innego się nie zmienia.",
+                "data": {
+                    "remove_all": "Usuń wszystkie zaimportowane dni giełdowe",
+                    "batch": "Giełdy do usunięcia"
+                }
+            },
+            "annual_settings": {
+                "title": "Annual Ustawienia",
+                "sections": {
+                    "important_events": {
+                        "name": "❗ Wydarzenia ważne",
+                        "description": "Rozdzielone przecinkami numery rocznic, przy których wydarzenie tego typu zostanie automatycznie oznaczone jako „Important”, np. „18,21,30,40,50”. Pozostaw pole puste, aby wyłączyć to dla danego typu.",
+                        "data": {
+                            "important_thresholds_birthday": "Urodziny",
+                            "important_thresholds_anniversary": "Rocznica",
+                            "important_thresholds_name_day": "Imieniny",
+                            "important_thresholds_wedding_anniversary": "Rocznica ślubu",
+                            "important_thresholds_memorial": "Rocznica śmierci",
+                            "important_thresholds_pet_birthday": "Urodziny zwierzaka",
+                            "important_thresholds_work_anniversary": "Jubileusz pracy",
+                            "important_thresholds_custom": "Inne"
+                        }
+                    },
+                    "todo": {
+                        "name": "📍 Listy zadań",
+                        "description": "Otwarte pozycje na tych listach oznaczają wydarzenie: każdy sensor wydarzenia otrzyma wtedy atrybut „todo” - true, dopóki przypisana jest do niego co najmniej jedna wciąż otwarta pozycja, w przeciwnym razie false - do własnych automatyzacji, szablonów i pulpitów. Dopasowanie następuje najpierw po terminie, a potem po tym, czy treść zadania wymienia wydarzenie (pełne imię, imię, typ, numer wystąpienia); zadanie pasujące równie dobrze do dwóch wydarzeń pozostaje nieprzypisane. Pozostaw puste, aby wyłączyć. Niezależne od ustawienia o tej samej nazwie w karcie pulpitu.",
+                        "data": {
+                            "todo_lists": "Listy zadań"
+                        }
+                    }
+                }
+            },
+            "delete_all": {
+                "title": "Usuń wszystkie dane Annuals",
+                "description": "To trwale usuwa wszystkie {count} wydarzenie(a), wspólne kalendarze i samo centrum Annuals – całą integrację i wszystko, co utworzyła. Tej operacji nie można cofnąć. Kliknij „OK”, aby potwierdzić."
+            },
+            "edit_recurring": {
+                "title": "Edytuj wydarzenie",
+                "description": "Zmień dowolne pole poniżej i zatwierdź, aby zaktualizować to wydarzenie.",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "person": "Osoba (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok (pozostaw puste, jeśli nieznany)",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual",
+                    "deceased": "Nie żyje"
+                },
+                "data_description": {
+                    "person": "Osoba w Home Assistant, której zdjęcie reprezentuje to wydarzenie – na karcie panelu i w powiadomieniu przypomnienia.",
+                    "deceased": "Osoba nie żyje: dzień zostaje i jest oznaczony, karta mówi, czym by był, a automatyzacje mogą go odróżnić."
+                }
+            },
+            "edit_one_time": {
+                "title": "Edytuj wydarzenie jednorazowe",
+                "description": "Zmień dowolne pole poniżej i zatwierdź, aby zaktualizować to wydarzenie.\n\nData zakończenia zmienia je w wydarzenie wielodniowe; po jej wyczyszczeniu znów trwa jeden dzień.",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok",
+                    "end_date": "Data zakończenia (opcjonalnie – zmienia je w wydarzenie wielodniowe)",
+                    "time": "Godzina (opcjonalnie)",
+                    "end_time": "Godzina zakończenia (opcjonalnie)",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "O której zaczyna się tego dnia. Wpis w kalendarzu ma wtedy godzinę, a karta panelu ją pokazuje.",
+                    "end_time": "O której się kończy – w dniu zakończenia, jeśli jest, w przeciwnym razie tego samego dnia. Wymaga godziny rozpoczęcia; pozostawiony pusty wpis w kalendarzu trwa godzinę."
+                }
+            },
+            "edit_custom": {
+                "title": "Edytuj inne wydarzenie",
+                "description": "Zmień dowolne pole poniżej i zatwierdź, aby zaktualizować to wydarzenie.\n\nZamiast na konkretnym dniu może opierać się na **regule** – *druga niedziela maja*. Wypełnij dwa pola poniżej; **Miesiąc** powyżej wskazuje, którego miesiąca dotyczy reguła, a **Dzień** nie jest wtedy używany. Po ich wyczyszczeniu wydarzenie wraca na ten dzień.",
+                "data": {
+                    "name": "Nazwa",
+                    "last_name": "Nazwisko (opcjonalnie)",
+                    "type": "Typ wydarzenia",
+                    "day": "Dzień",
+                    "month": "Miesiąc",
+                    "year": "Rok",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual",
+                    "interval": "Powtarza się co",
+                    "interval_unit": "…miesięcy lub lat",
+                    "nth": "Pozycja w miesiącu",
+                    "weekday": "Dzień tygodnia"
+                },
+                "data_description": {
+                    "interval": "Razem z jednostką obok – co 6 miesięcy, co 2 lata. Liczone od daty powyżej, która wtedy potrzebuje roku. Zostaw oba puste dla raz w roku.",
+                    "nth": "Pierwszy, drugi, trzeci, czwarty albo ostatni w miesiącu.",
+                    "weekday": "Ustaw razem z polem powyżej albo zostaw oba puste."
+                }
+            }
+        },
+        "error": {
+            "name_required": "Podaj nazwę.",
+            "end_date_one_time_only": "Datę zakończenia można ustawić tylko dla wydarzenia jednorazowego.",
+            "end_date_before_start": "Data zakończenia musi być późniejsza niż data rozpoczęcia.",
+            "invalid_date": "Ta kombinacja dzień/miesiąc/rok nie jest prawidłową datą.",
+            "year_required": "Wydarzenia jednorazowe wymagają podania roku.",
+            "invalid_csv": "Nie udało się odczytać tego pliku jako CSV. Sprawdź kodowanie i format.",
+            "no_valid_rows": "Nie znaleziono prawidłowych wierszy w tym pliku. Sprawdź dziennik, aby zobaczyć szczegóły pominiętych wierszy.",
+            "invalid_ics": "Nie udało się odczytać tego pliku jako kalendarza ICS. Sprawdź format.",
+            "no_valid_entries": "Nie znaleziono żadnych przydatnych wpisów całodniowych w tym pliku. Sprawdź dziennik, aby zobaczyć szczegóły pominiętych wpisów.",
+            "invalid_vcard": "Nie udało się odczytać tego pliku jako vCard. Sprawdź format.",
+            "no_valid_vcard_entries": "Nie znaleziono kontaktów z przydatną datą urodzin w tym pliku. Sprawdź dziennik, aby zobaczyć szczegóły pominiętych wpisów.",
+            "no_valid_vcard_dates": "Nie znaleziono rocznic ani innych dat (oprócz urodzin) w tym pliku. Sprawdź dziennik, aby zobaczyć szczegóły pominiętych wpisów.",
+            "no_batch_selected": "Zaznacz „Usuń wszystkie zaimportowane święta” lub wybierz partię.",
+            "rule_needs_both": "Reguła powtarzania wymaga obu pól albo żadnego.",
+            "interval_needs_both": "Odstęp powtarzania wymaga obu pól albo żadnego.",
+            "interval_needs_year": "Odstęp powtarzania jest liczony od daty powyżej, więc rok jest wymagany.",
+            "interval_no_rule": "Odstępu powtarzania nie można łączyć z regułą dnia tygodnia.",
+            "end_time_needs_time": "Godzina zakończenia wymaga godziny rozpoczęcia.",
+            "end_time_before_start": "Godzina zakończenia musi być późniejsza niż godzina rozpoczęcia.",
+            "no_holiday_selected": "Zaznacz co najmniej jedno święto.",
+            "category_needs_region": "{category} nie ma świąt dla {where} w roku {year} - mają je tylko te regiony: {regions}. Wybierz jeden z nich w polu „Region” albo pomiń {category}.",
+            "category_empty": "{category} nie ma świąt dla {where} w roku {year}. Pomiń tę kategorię, aby zaimportować pozostałe.",
+            "no_market_day_selected": "Zaznacz co najmniej jeden dzień.",
+            "market_category_empty": "{category} nie ma dni dla {where} w roku {year}. Pomiń tę kategorię, aby zaimportować pozostałe.",
+            "no_market_batch_selected": "Zaznacz „Usuń wszystkie zaimportowane dni giełdowe” lub wybierz giełdę do usunięcia."
+        },
+        "abort": {
+            "translations_exported": "Wyeksportowano {count} tłumaczeń. [Pobierz annuals_holiday_translations.csv]({url}) (Ctrl/Cmd+klik, aby pobrać - zwykłe kliknięcie tu nie zadziała)\n\nLub skopiuj poniższy CSV:\n\n```\n{csv}\n```",
+            "translations_imported": "Zaktualizowano świąt: {updated}, pominięto wierszy: {skipped}.",
+            "no_translations_to_export": "Nie zapisano jeszcze żadnych nazw świąt – nie ma czego eksportować.",
+            "hub_not_configurable": "Centrum Annuals nie ma własnych ustawień – zawiera tylko wspólne kalendarze.",
+            "import_started": "Import rozpoczęty: {created} wydarzenie(a) w kolejce, {skipped} wiersz(y) pominięto (szczegóły w dzienniku).",
+            "ics_import_started": "Import rozpoczęty: {created} wydarzenie(a) utworzono, {updated} zaktualizowano, {skipped} wpis(y) pominięto lub wykluczono.",
+            "csv_exported": "Wyeksportowano {count} wydarzeń. [Pobierz annuals_export.csv]({url}) (Ctrl/Cmd+klik, aby pobrać - zwykłe kliknięcie tu nie zadziała)\n\nLub skopiuj poniższy CSV:\n\n```\n{csv}\n```",
+            "no_events_to_export": "Nie ma jeszcze żadnych wydarzeń do wyeksportowania.",
+            "deleted_all": "Wszystkie wydarzenia, kalendarze i centrum Annuals zostały usunięte.",
+            "holiday_import_started": "Rozpoczęto import: {count} wydarzeń świątecznych w kolejce dla {country} ({new} nowych, {updated} zaktualizowanych).",
+            "no_holidays_imported": "Nie zaimportowano jeszcze żadnych świąt.",
+            "holidays_removed": "{count} święto(a) usunięto.",
+            "no_ics_imports": "Nie znaleziono żadnych wydarzeń utworzonych przez import ICS.",
+            "ics_imports_removed": "{count} wydarzenie(a) zaimportowane z ICS usunięto.",
+            "no_vcard_imports": "Nie znaleziono żadnych wydarzeń utworzonych przez import vCard.",
+            "vcard_imports_removed": "{count} wydarzenie(a) zaimportowane z vCard usunięto.",
+            "market_import_started": "Import rozpoczęty: {count} dni w kolejce dla {country} ({new} nowych, {updated} zaktualizowanych).",
+            "no_markets_imported": "Nie zaimportowano jeszcze żadnych dni giełdowych.",
+            "markets_removed": "Usunięto dni giełdowe: {count}."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "birthday": {
+                "name": "Urodziny {name}",
+                "unit_of_measurement": "dni"
+            },
+            "anniversary": {
+                "name": "Rocznica {name}",
+                "unit_of_measurement": "dni"
+            },
+            "name_day": {
+                "name": "Imieniny {name}",
+                "unit_of_measurement": "dni"
+            },
+            "wedding_anniversary": {
+                "name": "Rocznica ślubu {name}",
+                "unit_of_measurement": "dni"
+            },
+            "memorial": {
+                "name": "Rocznica śmierci {name}",
+                "unit_of_measurement": "dni"
+            },
+            "pet_birthday": {
+                "name": "Urodziny zwierzaka {name}",
+                "unit_of_measurement": "dni"
+            },
+            "work_anniversary": {
+                "name": "Jubileusz pracy {name}",
+                "unit_of_measurement": "dni"
+            },
+            "custom": {
+                "name": "{name}",
+                "unit_of_measurement": "dni"
+            },
+            "one_time": {
+                "name": "{name}",
+                "unit_of_measurement": "dni"
+            },
+            "holiday": {
+                "name": "{name}",
+                "unit_of_measurement": "dni"
+            },
+            "market": {
+                "name": "{name}",
+                "unit_of_measurement": "dni"
+            }
+        },
+        "calendar": {
+            "homeworking": {
+                "name": "Praca z domu"
+            },
+            "birthday": {
+                "name": "Urodziny"
+            },
+            "anniversary": {
+                "name": "Rocznice"
+            },
+            "name_day": {
+                "name": "Imieniny"
+            },
+            "wedding_anniversary": {
+                "name": "Rocznice ślubu"
+            },
+            "memorial": {
+                "name": "Rocznice śmierci"
+            },
+            "pet_birthday": {
+                "name": "Urodziny zwierzaków"
+            },
+            "work_anniversary": {
+                "name": "Jubileusze pracy"
+            },
+            "custom": {
+                "name": "Wydarzenia niestandardowe"
+            },
+            "one_time": {
+                "name": "Wydarzenia jednorazowe"
+            },
+            "holiday": {
+                "name": "Święta"
+            },
+            "market": {
+                "name": "Giełdy"
+            }
+        }
+    }
+}

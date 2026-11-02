@@ -1,0 +1,754 @@
+{
+    "title": "Annuals",
+    "selector": {
+        "holiday_span": {
+            "options": {
+                "start": "début",
+                "end": "fin",
+                "day": "jour {day}"
+            }
+        },
+        "holiday_breaks": {
+            "options": {
+                "note": "Les périodes de plusieurs jours, comme les vacances scolaires, sont reconstituées en vacances entières - choisissez ci-dessous quelles parties importer."
+            }
+        },
+        "event_type": {
+            "options": {
+                "birthday": "Anniversaire",
+                "anniversary": "Date commémorative",
+                "name_day": "Fête",
+                "wedding_anniversary": "Anniversaire de mariage",
+                "memorial": "Commémoration",
+                "pet_birthday": "Anniversaire d'animal",
+                "work_anniversary": "Anniversaire professionnel",
+                "custom": "Personnalisé",
+                "one_time": "Événement ponctuel",
+                "holiday": "Jour férié",
+                "market": "Bourse"
+            }
+        },
+        "month": {
+            "options": {
+                "1": "janvier",
+                "2": "février",
+                "3": "mars",
+                "4": "avril",
+                "5": "mai",
+                "6": "juin",
+                "7": "juillet",
+                "8": "août",
+                "9": "septembre",
+                "10": "octobre",
+                "11": "novembre",
+                "12": "décembre"
+            }
+        },
+        "holiday_category": {
+            "options": {
+                "public": "Officiel",
+                "bank": "Bancaire",
+                "government": "Administration",
+                "school": "Vacances scolaires",
+                "optional": "Optionnel",
+                "optional_women": "Optionnel (femmes)",
+                "unofficial": "Non officiel",
+                "half_day": "Demi-journée",
+                "armed_forces": "Forces armées",
+                "workday": "Jour ouvré",
+                "catholic": "Catholique",
+                "christian": "Chrétien",
+                "orthodox": "Orthodoxe",
+                "hebrew": "Juif",
+                "islamic": "Islamique",
+                "hindu": "Hindou",
+                "buddhist": "Bouddhiste",
+                "de_facto": "De facto",
+                "protestant": "Protestant",
+                "sabian": "Sabéenne",
+                "yazidi": "Yézidie",
+                "albanian": "Albanaise",
+                "armenian": "Arménienne",
+                "bosnian": "Bosniaque",
+                "roma": "Rom",
+                "serbian": "Serbe",
+                "turkish": "Turque",
+                "vlach": "Valaque"
+            }
+        },
+        "nth": {
+            "options": {
+                "1": "Premier",
+                "2": "Deuxième",
+                "3": "Troisième",
+                "4": "Quatrième",
+                "last": "Dernier"
+            }
+        },
+        "weekday": {
+            "options": {
+                "0": "Lundi",
+                "1": "Mardi",
+                "2": "Mercredi",
+                "3": "Jeudi",
+                "4": "Vendredi",
+                "5": "Samedi",
+                "6": "Dimanche"
+            }
+        },
+        "interval_unit": {
+            "options": {
+                "months": "mois",
+                "years": "années"
+            }
+        },
+        "market_category": {
+            "options": {
+                "public": "Fermée",
+                "half_day": "Séance écourtée",
+                "restricted_settlement": "Sans règlement"
+            }
+        },
+        "market_status": {
+            "options": {
+                "closed": "{market} fermée",
+                "closes_at": "{market} fermée à partir de {time}",
+                "closes_early": "{market} ferme plus tôt",
+                "no_settlement": "{market} sans règlement"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "telework": {
+                "title": "Ajouter un planning de télétravail à domicile",
+                "description": "Ajoutez une journée ponctuelle de travail à domicile ou un planning hebdomadaire. Choisissez des jours pour répéter chaque semaine ; laissez-les vides pour une seule journée. Une date de fin limite le planning ; laissez-la vide pour une répétition sans fin.",
+                "data": {
+                    "telework_user": "Utilisateur",
+                    "telework_start_date": "Date de début",
+                    "telework_weekdays": "Jours de la semaine",
+                    "telework_end_date": "Date de fin"
+                },
+                "data_description": {
+                    "telework_weekdays": "Choisissez un ou plusieurs jours pour le planning hebdomadaire de travail à domicile. Laissez vide pour enregistrer uniquement la date de début.",
+                    "telework_end_date": "S'applique uniquement aux plannings hebdomadaires de travail à domicile. Laissez vide pour ne pas définir de fin."
+                }
+            },
+            "user": {
+                "title": "Ajouter un événement",
+                "description": "De quel type d'événement s'agit-il ?\n\n**Annuel** couvre anniversaire, date commémorative, fête, anniversaire de mariage, commémoration, anniversaire d'animal et anniversaire professionnel. **Ponctuel** est une date unique, qui se supprime d'elle-même une fois passée. **Personnalisé** est votre propre date annuelle, à un jour donné ou selon une règle.",
+                "menu_options": {
+                    "recurring": "{icon_recurring} Une date annuelle pour quelqu'un",
+                    "one_time": "{icon_one_time} Un événement ponctuel",
+                    "custom": "{icon_custom} Un événement personnalisé",
+                    "telework": "{icon_telework} Un planning de télétravail à domicile"
+                }
+            },
+            "recurring": {
+                "title": "Ajouter un événement annuel",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "person": "Personne (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année (laisser vide si inconnue)",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual",
+                    "deceased": "Décédé(e)"
+                },
+                "description": "Chaque événement obtient sa propre entrée, que vous pouvez retrouver et modifier plus tard depuis Paramètres → Appareils et services → Annuals en recherchant son nom.",
+                "data_description": {
+                    "person": "Une personne dans Home Assistant dont la photo représente cet événement – sur la carte du tableau de bord et dans la notification du rappel.",
+                    "deceased": "La personne est décédée : le jour est conservé et marqué, la carte indique ce qu'il aurait été et vos automatisations peuvent le distinguer."
+                }
+            },
+            "one_time": {
+                "title": "Ajouter un événement ponctuel",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année",
+                    "end_date": "Date de fin (facultatif – en fait un événement sur plusieurs jours)",
+                    "time": "Heure (optionnel)",
+                    "end_time": "Heure de fin (optionnel)",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual"
+                },
+                "description": "Une date unique jusqu'à laquelle décompter. Elle ne se répète jamais, l'année est donc obligatoire, et l'entrée est supprimée automatiquement à minuit après son terme.\n\nAjoutez une date de fin pour en faire un événement sur plusieurs jours : un voyage, une conférence, un séjour.",
+                "data_description": {
+                    "time": "L'heure à laquelle il commence ce jour-là. L'entrée du calendrier a alors une heure, et la carte du tableau de bord l'affiche.",
+                    "end_time": "L'heure à laquelle il se termine – à la date de fin s'il y en a une, sinon le même jour. Nécessite une heure de début ; laissée vide, l'entrée du calendrier dure une heure."
+                }
+            },
+            "custom": {
+                "title": "Ajouter un événement personnalisé",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual",
+                    "interval": "Se répète tous les",
+                    "interval_unit": "…mois ou années",
+                    "nth": "Position dans le mois",
+                    "weekday": "Jour de la semaine"
+                },
+                "description": "Votre propre date annuelle, pour tout ce que les autres types ne décrivent pas.\n\nElle peut suivre une **règle** au lieu d'un jour donné : la fête des Mères est le deuxième dimanche de mai, la fête des Pères en Australie le premier dimanche de septembre. Renseignez les deux champs en bas ; le **Mois** ci-dessus indique le mois auquel la règle s'applique, et le **Jour** n'est alors plus utilisé. Laissez-les vides pour une date fixe.",
+                "data_description": {
+                    "interval": "Avec l'unité à côté : tous les 6 mois, tous les 2 ans. Compté à partir de la date ci-dessus, qui a alors besoin de son année. Laissez les deux vides pour une fois par an.",
+                    "nth": "Premier, deuxième, troisième, quatrième ou le dernier du mois.",
+                    "weekday": "À renseigner avec le champ ci-dessus, ou laisser les deux vides."
+                }
+            },
+            "reconfigure_recurring": {
+                "title": "Modifier l'événement",
+                "description": "Modifiez n'importe quel champ ci-dessous et validez pour mettre à jour cet événement.",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "person": "Personne (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année (laisser vide si inconnue)",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual",
+                    "deceased": "Décédé(e)"
+                },
+                "data_description": {
+                    "person": "Une personne dans Home Assistant dont la photo représente cet événement – sur la carte du tableau de bord et dans la notification du rappel.",
+                    "deceased": "La personne est décédée : le jour est conservé et marqué, la carte indique ce qu'il aurait été et vos automatisations peuvent le distinguer."
+                }
+            },
+            "reconfigure_one_time": {
+                "title": "Modifier l'événement ponctuel",
+                "description": "Modifiez n'importe quel champ ci-dessous et validez pour mettre à jour cet événement.\n\nUne date de fin en fait un événement sur plusieurs jours ; en l'effaçant, il redevient d'un seul jour.",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année",
+                    "end_date": "Date de fin (facultatif – en fait un événement sur plusieurs jours)",
+                    "time": "Heure (optionnel)",
+                    "end_time": "Heure de fin (optionnel)",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "L'heure à laquelle il commence ce jour-là. L'entrée du calendrier a alors une heure, et la carte du tableau de bord l'affiche.",
+                    "end_time": "L'heure à laquelle il se termine – à la date de fin s'il y en a une, sinon le même jour. Nécessite une heure de début ; laissée vide, l'entrée du calendrier dure une heure."
+                }
+            },
+            "reconfigure_custom": {
+                "title": "Modifier l'événement personnalisé",
+                "description": "Modifiez n'importe quel champ ci-dessous et validez pour mettre à jour cet événement.\n\nElle peut suivre une **règle** au lieu d'un jour donné – *le deuxième dimanche de mai*. Renseignez les deux champs en bas ; le **Mois** ci-dessus indique le mois auquel la règle s'applique, et le **Jour** n'est alors plus utilisé. En les effaçant, l'événement retombe sur ce jour.",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual",
+                    "interval": "Se répète tous les",
+                    "interval_unit": "…mois ou années",
+                    "nth": "Position dans le mois",
+                    "weekday": "Jour de la semaine"
+                },
+                "data_description": {
+                    "interval": "Avec l'unité à côté : tous les 6 mois, tous les 2 ans. Compté à partir de la date ci-dessus, qui a alors besoin de son année. Laissez les deux vides pour une fois par an.",
+                    "nth": "Premier, deuxième, troisième, quatrième ou le dernier du mois.",
+                    "weekday": "À renseigner avec le champ ci-dessus, ou laisser les deux vides."
+                }
+            }
+        },
+        "error": {
+            "telework_user_required": "Veuillez saisir un nom d'utilisateur.",
+            "invalid_weekday": "Choisissez des jours de la semaine valides.",
+            "telework_end_before_start": "La date de fin doit être égale ou postérieure à la date de début.",
+            "telework_end_requires_weekdays": "Une date de fin ne peut être utilisée qu'avec un planning hebdomadaire.",
+            "name_required": "Veuillez saisir un nom.",
+            "end_date_one_time_only": "Une date de fin ne peut être définie que sur un événement unique.",
+            "end_date_before_start": "La date de fin doit être postérieure à la date de début.",
+            "invalid_date": "Cette combinaison jour/mois/année n'est pas une date valide.",
+            "year_required": "Les événements ponctuels nécessitent une année.",
+            "rule_needs_both": "Une règle de répétition nécessite les deux champs, ou aucun.",
+            "interval_needs_both": "Un intervalle de répétition nécessite les deux champs, ou aucun.",
+            "interval_needs_year": "Un intervalle de répétition est compté à partir de la date ci-dessus, l'année est donc nécessaire.",
+            "interval_no_rule": "Un intervalle de répétition ne peut pas être combiné avec une règle de jour de la semaine.",
+            "end_time_needs_time": "Une heure de fin nécessite une heure de début.",
+            "end_time_before_start": "L'heure de fin doit être postérieure à l'heure de début."
+        },
+        "abort": {
+            "hub_not_configurable": "Le hub Annuals n'a pas de paramètres propres - il contient uniquement les calendriers partagés.",
+            "already_configured": "Le hub Annuals existe déjà.",
+            "invalid_import_row": "Cette ligne n'a pas pu être importée."
+        }
+    },
+    "options": {
+        "step": {
+            "telework": {
+                "title": "Modifier le planning de télétravail à domicile",
+                "description": "Modifiez la journée ou le planning hebdomadaire de travail à domicile de cet utilisateur.",
+                "data": {
+                    "telework_user": "Utilisateur",
+                    "telework_start_date": "Date de début",
+                    "telework_weekdays": "Jours de la semaine",
+                    "telework_end_date": "Date de fin"
+                },
+                "data_description": {
+                    "telework_weekdays": "Choisissez un ou plusieurs jours pour le planning hebdomadaire de travail à domicile. Laissez vide pour enregistrer uniquement la date de début.",
+                    "telework_end_date": "S'applique uniquement aux plannings hebdomadaires de travail à domicile. Laissez vide pour ne pas définir de fin."
+                }
+            },
+            "import_csv": {
+                "title": "Importer des événements depuis un CSV",
+                "description": "Colonnes : name, type, day, month, year (optionnel, obligatoire pour one_time), icon (optionnel), vip (optionnel), last_name (optionnel). « type » doit être l'une des clés anglaises suivantes : birthday, anniversary, name_day, wedding_anniversary, memorial, pet_birthday, work_anniversary, custom, one_time (toujours en anglais, quel que soit votre paramètre de langue). « vip » accepte 1/true/yes/y/x (peu importe la casse) ; laissez vide ou omettez la colonne pour un événement non-VIP. Conservez toutes les colonnes même si une valeur est vide - une ligne sans virgule finale décale les valeurs suivantes vers la gauche. Les lignes invalides sont ignorées et journalisées.\n\nExemple :\n```\nname,type,day,month,year,icon,vip,last_name\nAnna,birthday,12,4,1988,,,Miller\nMax,pet_birthday,3,9,2020,mdi:dog,,\nTest Custom,custom,1,1,,mdi:test-tube,1,\nVacances en famille,one_time,15,7,2026,mdi:airplane,,\n```",
+                "data": {
+                    "csv_file": "Fichier CSV"
+                }
+            },
+            "import_ics": {
+                "title": "Importer des événements depuis un calendrier ICS",
+                "description": "Envoyez un fichier de calendrier .ics - généralement un calendrier exporté. Seules les entrées sur la journée entière et sans override de récurrence sont lues ; les entrées avec horaire sont ignorées. Les étapes suivantes vous permettent de vérifier et de corriger la séparation prénom/nom proposée (et d'inverser prénom/nom pour tout le monde en une fois) avant tout import.",
+                "data": {
+                    "ics_file": "Fichier ICS"
+                }
+            },
+            "import_vcard_menu": {
+                "title": "Importer des événements depuis une vCard",
+                "description": "L'anniversaire d'un contact et ses autres dates (dates commémoratives, dates personnalisées) suivent des parcours séparés, car seuls les anniversaires partagent un seul et même type d'événement pour tout le lot - chaque autre date se voit attribuer son propre type lors de la vérification.",
+                "menu_options": {
+                    "import_vcard": "Importer les anniversaires",
+                    "import_vcard_other_dates": "Importer d'autres dates (dates commémoratives, ...)"
+                }
+            },
+            "import_vcard": {
+                "title": "Importer des anniversaires depuis une vCard",
+                "description": "Envoyez un fichier .vcf - généralement des contacts exportés. Seules les entrées avec un anniversaire renseigné sont lues. Le prénom/nom provient des champs de nom structurés du contact, pas d'une supposition, et un anniversaire sans année renseignée (façon propre à vCard de l'exprimer) est conservé comme inconnu plutôt qu'inventé. Les étapes suivantes vous permettent de vérifier et de corriger chaque entrée (et d'inverser prénom/nom pour tout le monde en une fois) avant tout import.",
+                "data": {
+                    "vcard_file": "Fichier vCard"
+                }
+            },
+            "import_vcard_other_dates": {
+                "title": "Importer d'autres dates depuis une vCard",
+                "description": "Envoyez un fichier .vcf. Toutes les dates autres que l'anniversaire sont lues : le champ standard « Date commémorative », ainsi que toute date à étiquette personnalisée que votre application de contacts permet d'ajouter par contact (par ex. « Anniversaire de mariage », « Autre », ou une étiquette saisie par vous-même). Contrairement aux anniversaires, ces dates ne sont pas toutes du même type d'événement - les étapes suivantes vous permettent de vérifier chacune d'elles, avec son étiquette détectée affichée pour contexte, et de lui attribuer individuellement le bon type d'événement.",
+                "data": {
+                    "vcard_file": "Fichier vCard"
+                }
+            },
+            "import_options": {
+                "title": "Import depuis {source_label} - paramètres",
+                "description": "Ces réglages s'appliquent à toutes les entrées trouvées dans le fichier. Vous pourrez vérifier et modifier chaque entrée individuellement à l'étape suivante.",
+                "data": {
+                    "swap_names": "Inverser prénom/nom pour toutes les entrées",
+                    "use_description_year": "Utiliser l'année trouvée dans la description de chaque entrée plutôt que sa date de début, lorsqu'elle est présente (par ex. « geb. 1985 »)",
+                    "type": "Type d'événement"
+                }
+            },
+            "import_review": {
+                "title": "Import depuis {source_label} - vérification ({page}/{total_pages})",
+                "description": "{legend}\n\nVérifiez la séparation prénom/nom proposée ci-dessous et corrigez ce qui ne va pas - l'anniversaire lui-même est également modifiable - ou décochez une entrée pour l'exclure entièrement. Un doublon potentiel est signalé avec le nom de l'entrée existante correspondante ; laissez « créer comme nouvelle entrée » décoché pour mettre à jour cette entrée plutôt que d'en ajouter une seconde. Les libellés des champs sont affichés uniquement en anglais ici, quel que soit votre paramètre de langue.",
+                "data": {
+                    "go_back": "Revenir à la page précédente"
+                }
+            },
+            "remove_ics_imports": {
+                "title": "Supprimer les événements importés depuis ICS",
+                "description": "{count} événement(s) ont été créés par un précédent import ICS. Cliquez sur « OK » pour tous les supprimer - les entrées qu'un import ICS a seulement mises à jour (plutôt que créées) ne sont jamais concernées, pas plus que les événements ajoutés manuellement ou importés depuis un CSV ou une vCard."
+            },
+            "remove_vcard_imports": {
+                "title": "Supprimer les événements importés depuis vCard",
+                "description": "{count} événement(s) ont été créés par un précédent import vCard. Cliquez sur « OK » pour tous les supprimer - les entrées qu'un import vCard a seulement mises à jour (plutôt que créées) ne sont jamais concernées, pas plus que les événements ajoutés manuellement ou importés depuis un CSV ou un calendrier ICS."
+            },
+            "holiday_menu": {
+                "title": "Jour férié",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}",
+                "menu_options": {
+                    "holiday_settings": "⚙️ Paramètres",
+                    "holiday_names": "🌐 Nom et traductions"
+                }
+            },
+            "holiday_settings": {
+                "title": "Paramètres du jour férié",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nLa date, le type et la région proviennent de la base des jours fériés et ne sont pas modifiables ici.",
+                "data": {
+                    "icon": "Icône"
+                }
+            },
+            "holiday_names": {
+                "title": "Nom et traductions",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nChoisissez la langue dans laquelle saisir le nom de ce jour férié.",
+                "data": {
+                    "language": "Langue"
+                }
+            },
+            "holiday_name_edit": {
+                "title": "Nom du jour férié",
+                "description": "{language}\n\n**{name}**\n\n{type} · {date} · {region} · {category}\n\nPré-rempli avec ce qui est affiché actuellement. Laissez vide pour revenir à la base des jours fériés.",
+                "data": {
+                    "name": "Nom",
+                    "reason": "Motif"
+                }
+            },
+            "holiday_translations": {
+                "title": "🌐 Traductions des jours fériés",
+                "description": "Exportez et importez les noms de jours fériés que vous avez écrits vous-même.",
+                "menu_options": {
+                    "export_translations": "📤 Exporter les traductions",
+                    "import_translations": "📥 Importer les traductions"
+                }
+            },
+            "import_translations": {
+                "title": "Importer les traductions",
+                "description": "Téléversez un CSV de traductions. Colonnes : `country,subdivision,category,holiday_key,observed,language,name,status`. Les lignes sont associées aux jours fériés par pays, subdivision, catégorie, clé de jour férié et indicateur observed – et non par identifiant d'entrée, de sorte qu'un fichier exporté avant de réimporter un pays reste valable. Les lignes dont le jour férié est absent sont ignorées et comptées. Pour un jour de bourse, `name` est son motif et `status` son propre nom ; laissez `status` vide pour les jours fériés.",
+                "data": {
+                    "csv_file": "CSV"
+                }
+            },
+            "hub_menu": {
+                "title": "Annuals Paramètres",
+                "menu_options": {
+                    "annual_settings": "{icon_annual_settings} Annual Paramètres",
+                    "import_events": "{icon_import_events} Importer des événements",
+                    "export_csv": "{icon_export_csv} Exporter les événements en CSV",
+                    "holiday_translations": "{icon_holiday_translations} Traductions des jours fériés",
+                    "remove_events": "{icon_remove_events} Supprimer des événements",
+                    "delete_all": "{icon_delete_all} Supprimer toutes les données Annuals"
+                }
+            },
+            "import_events": {
+                "title": "Importer des événements",
+                "description": "Choisissez une source à importer.",
+                "menu_options": {
+                    "import_csv": "CSV",
+                    "import_ics": "Calendrier ICS",
+                    "import_vcard_menu": "vCard",
+                    "import_holidays": "Jours fériés",
+                    "import_markets": "Bourses"
+                }
+            },
+            "remove_events": {
+                "title": "Supprimer des événements",
+                "description": "Choisissez quels événements précédemment importés supprimer.",
+                "menu_options": {
+                    "remove_ics_imports": "Importés depuis ICS",
+                    "remove_vcard_imports": "Importés depuis vCard",
+                    "remove_holidays": "Jours fériés",
+                    "remove_markets": "Bourses"
+                }
+            },
+            "import_holidays": {
+                "title": "Importer des jours fériés",
+                "description": "Choisissez un pays pour importer ses jours fériés en tant qu'événements. Relancer cette opération plus tard pour le même pays (et la même subdivision) met à jour les entrées existantes au lieu de les dupliquer - avant toute importation, vous voyez tous les jours fériés et choisissez ceux que vous voulez.",
+                "data": {
+                    "country": "Pays"
+                }
+            },
+            "import_markets": {
+                "title": "Importer les jours fériés boursiers",
+                "description": "Choisissez une bourse pour importer les jours où elle est fermée - et, quand ses données les contiennent, les jours de séance écourtée. Avant toute importation, vous voyez tous les jours et choisissez ceux que vous voulez.",
+                "data": {
+                    "market": "Bourse"
+                }
+            },
+            "import_markets_options": {
+                "title": "Importer des jours de bourse - {country}",
+                "description": "Quels types de jours importer, et dans quelle langue sont leurs noms.",
+                "data": {
+                    "categories": "Jours",
+                    "language": "Langue des noms"
+                }
+            },
+            "import_markets_select": {
+                "title": "Importer des jours de bourse - {country} : choisir",
+                "description": "{count} jour(s) trouvé(s), chacun avec sa prochaine date. Seuls ceux cochés sont importés.\n\nDécocher un jour déjà présent dans Annuals le laisse tel quel - pour supprimer des jours, utilisez **Supprimer des événements → Bourses**.",
+                "data": {
+                    "holidays": "Jours"
+                }
+            },
+            "import_holidays_options": {
+                "title": "Importer des jours fériés - {country}",
+                "description": "Laissez la subdivision vide pour les jours fériés nationaux uniquement - une région/province ajoute ses propres jours fériés régionaux. Les catégories et la langue dépendent de ce que fournissent les données de ce pays.{breaks}",
+                "data": {
+                    "include_actual": "Importer la date réelle",
+                    "include_observed": "Importer la date observée (décalée)",
+                    "break_start": "Importer le premier jour des vacances",
+                    "break_end": "Importer le dernier jour des vacances",
+                    "break_days": "Importer chaque jour des vacances",
+                    "subdivision": "Subdivision (région/province, optionnel)",
+                    "categories": "Catégories",
+                    "language": "Langue des noms de jours fériés"
+                },
+                "data_description": {
+                    "break_start": "Les vacances scolaires ne recensent que les jours d'école, elles commencent donc plus tôt - le calcul remonte le week-end et les jours fériés voisins jusqu'au premier jour réellement libre.",
+                    "break_end": "La même chose dans l'autre sens : le dernier jour libre, et non le dernier jour recensé.",
+                    "break_days": "Un événement par jour de vacances. Les seules vacances d'été en produisent plus de quarante.",
+                    "include_observed": "Les jours fériés de ce pays sont parfois décalés vers un jour ouvré proche lorsqu'ils tombent un week-end (ex. observé le vendredi précédent ou le lundi suivant) - importez aussi cette date décalée comme événement distinct."
+                }
+            },
+            "import_holidays_select": {
+                "title": "Importer des jours fériés - {country} : choisir",
+                "description": "{count} jour(s) férié(s) trouvé(s), chacun avec sa prochaine date. Seuls ceux cochés sont importés.\n\nDécocher un jour férié déjà présent dans Annuals le laisse tel quel - pour supprimer des jours fériés, utilisez **Supprimer des événements → Jours fériés**.",
+                "data": {
+                    "holidays": "Jours fériés"
+                }
+            },
+            "remove_holidays": {
+                "title": "Supprimer les jours fériés importés",
+                "description": "{total} jour(s) férié(s) actuellement importé(s). Cochez la case ci-dessous pour tous les supprimer, ou laissez-la décochée et choisissez plutôt un lot. Les événements ajoutés manuellement ne sont jamais concernés.",
+                "data": {
+                    "remove_all": "Supprimer tous les jours fériés importés",
+                    "batch": "Lot à supprimer"
+                }
+            },
+            "remove_markets": {
+                "title": "Supprimer les jours de bourse importés",
+                "description": "{total} jour(s) de bourse importé(s). Cochez la case ci-dessous pour tous les supprimer, ou laissez-la décochée et choisissez une ou plusieurs bourses. Rien d'autre n'est touché.",
+                "data": {
+                    "remove_all": "Supprimer tous les jours de bourse importés",
+                    "batch": "Bourses à supprimer"
+                }
+            },
+            "annual_settings": {
+                "title": "Annual Paramètres",
+                "sections": {
+                    "important_events": {
+                        "name": "❗ Événements importants",
+                        "description": "Numéros d'occurrence séparés par des virgules qui marquent automatiquement un événement comme « Important » pour ce type, par ex. « 18,21,30,40,50 ». Laissez un champ vide pour désactiver cela pour ce type.",
+                        "data": {
+                            "important_thresholds_birthday": "Anniversaire",
+                            "important_thresholds_anniversary": "Date commémorative",
+                            "important_thresholds_name_day": "Fête",
+                            "important_thresholds_wedding_anniversary": "Anniversaire de mariage",
+                            "important_thresholds_memorial": "Commémoration",
+                            "important_thresholds_pet_birthday": "Anniversaire d'animal",
+                            "important_thresholds_work_anniversary": "Anniversaire professionnel",
+                            "important_thresholds_custom": "Personnalisé"
+                        }
+                    },
+                    "todo": {
+                        "name": "📍 Listes de tâches",
+                        "description": "Les tâches ouvertes de ces listes marquent un événement : chaque capteur d'événement porte alors un attribut « todo » - vrai tant qu'au moins une tâche encore ouverte lui est associée, faux sinon - pour vos propres automatisations, modèles et tableaux de bord. L'association se fait d'abord par la date d'échéance, puis selon que le texte de la tâche nomme l'événement (nom complet, nom, type, numéro d'occurrence) ; une tâche convenant aussi bien à deux événements reste non associée. Laissez vide pour désactiver. Indépendant du réglage du même nom de la carte de tableau de bord.",
+                        "data": {
+                            "todo_lists": "Listes de tâches"
+                        }
+                    }
+                }
+            },
+            "delete_all": {
+                "title": "Supprimer toutes les données Annuals",
+                "description": "Cette action supprime définitivement les {count} événement(s), les calendriers partagés et le hub Annuals lui-même - toute l'intégration et tout ce qu'elle a créé. Cette action est irréversible. Cliquez sur « OK » pour confirmer."
+            },
+            "edit_recurring": {
+                "title": "Modifier l'événement",
+                "description": "Modifiez n'importe quel champ ci-dessous et validez pour mettre à jour cet événement.",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "person": "Personne (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année (laisser vide si inconnue)",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual",
+                    "deceased": "Décédé(e)"
+                },
+                "data_description": {
+                    "person": "Une personne dans Home Assistant dont la photo représente cet événement – sur la carte du tableau de bord et dans la notification du rappel.",
+                    "deceased": "La personne est décédée : le jour est conservé et marqué, la carte indique ce qu'il aurait été et vos automatisations peuvent le distinguer."
+                }
+            },
+            "edit_one_time": {
+                "title": "Modifier l'événement ponctuel",
+                "description": "Modifiez n'importe quel champ ci-dessous et validez pour mettre à jour cet événement.\n\nUne date de fin en fait un événement sur plusieurs jours ; en l'effaçant, il redevient d'un seul jour.",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année",
+                    "end_date": "Date de fin (facultatif – en fait un événement sur plusieurs jours)",
+                    "time": "Heure (optionnel)",
+                    "end_time": "Heure de fin (optionnel)",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "L'heure à laquelle il commence ce jour-là. L'entrée du calendrier a alors une heure, et la carte du tableau de bord l'affiche.",
+                    "end_time": "L'heure à laquelle il se termine – à la date de fin s'il y en a une, sinon le même jour. Nécessite une heure de début ; laissée vide, l'entrée du calendrier dure une heure."
+                }
+            },
+            "edit_custom": {
+                "title": "Modifier l'événement personnalisé",
+                "description": "Modifiez n'importe quel champ ci-dessous et validez pour mettre à jour cet événement.\n\nElle peut suivre une **règle** au lieu d'un jour donné – *le deuxième dimanche de mai*. Renseignez les deux champs en bas ; le **Mois** ci-dessus indique le mois auquel la règle s'applique, et le **Jour** n'est alors plus utilisé. En les effaçant, l'événement retombe sur ce jour.",
+                "data": {
+                    "name": "Nom",
+                    "last_name": "Nom de famille (optionnel)",
+                    "type": "Type d'événement",
+                    "day": "Jour",
+                    "month": "Mois",
+                    "year": "Année",
+                    "icon": "Icône personnalisée (optionnel)",
+                    "vip": "VIP Annual",
+                    "interval": "Se répète tous les",
+                    "interval_unit": "…mois ou années",
+                    "nth": "Position dans le mois",
+                    "weekday": "Jour de la semaine"
+                },
+                "data_description": {
+                    "interval": "Avec l'unité à côté : tous les 6 mois, tous les 2 ans. Compté à partir de la date ci-dessus, qui a alors besoin de son année. Laissez les deux vides pour une fois par an.",
+                    "nth": "Premier, deuxième, troisième, quatrième ou le dernier du mois.",
+                    "weekday": "À renseigner avec le champ ci-dessus, ou laisser les deux vides."
+                }
+            }
+        },
+        "error": {
+            "name_required": "Veuillez saisir un nom.",
+            "end_date_one_time_only": "Une date de fin ne peut être définie que sur un événement unique.",
+            "end_date_before_start": "La date de fin doit être postérieure à la date de début.",
+            "invalid_date": "Cette combinaison jour/mois/année n'est pas une date valide.",
+            "year_required": "Les événements ponctuels nécessitent une année.",
+            "invalid_csv": "Impossible de lire ce fichier en tant que CSV. Vérifiez l'encodage et le format.",
+            "no_valid_rows": "Aucune ligne valide trouvée dans ce fichier. Consultez le journal pour le détail des lignes ignorées.",
+            "invalid_ics": "Impossible de lire ce fichier en tant que calendrier ICS. Vérifiez le format.",
+            "no_valid_entries": "Aucune entrée sur la journée entière utilisable trouvée dans ce fichier. Consultez le journal pour le détail des entrées ignorées.",
+            "invalid_vcard": "Impossible de lire ce fichier en tant que vCard. Vérifiez le format.",
+            "no_valid_vcard_entries": "Aucun contact avec un anniversaire utilisable trouvé dans ce fichier. Consultez le journal pour le détail des entrées ignorées.",
+            "no_valid_vcard_dates": "Aucune date commémorative ou autre date (hormis les anniversaires) trouvée dans ce fichier. Consultez le journal pour le détail des entrées ignorées.",
+            "no_batch_selected": "Cochez « Supprimer tous les jours fériés importés », ou choisissez un lot.",
+            "rule_needs_both": "Une règle de répétition nécessite les deux champs, ou aucun.",
+            "interval_needs_both": "Un intervalle de répétition nécessite les deux champs, ou aucun.",
+            "interval_needs_year": "Un intervalle de répétition est compté à partir de la date ci-dessus, l'année est donc nécessaire.",
+            "interval_no_rule": "Un intervalle de répétition ne peut pas être combiné avec une règle de jour de la semaine.",
+            "end_time_needs_time": "Une heure de fin nécessite une heure de début.",
+            "end_time_before_start": "L'heure de fin doit être postérieure à l'heure de début.",
+            "no_holiday_selected": "Cochez au moins un jour férié.",
+            "category_needs_region": "{category} n'a aucun jour férié pour {where} en {year} - seules ces régions en ont : {regions}. Choisissez-en une sous « Subdivision », ou retirez {category}.",
+            "category_empty": "{category} n'a aucun jour férié pour {where} en {year}. Retirez-la pour importer les autres.",
+            "no_market_day_selected": "Cochez au moins un jour.",
+            "market_category_empty": "{category} n'a aucun jour pour {where} en {year}. Retirez-la pour importer les autres.",
+            "no_market_batch_selected": "Cochez « Supprimer tous les jours de bourse importés », ou choisissez une bourse à supprimer."
+        },
+        "abort": {
+            "translations_exported": "{count} traduction(s) exporté(s). [Télécharger annuals_holiday_translations.csv]({url}) (Ctrl/Cmd+clic pour télécharger - un simple clic ne fonctionne pas ici)\n\nOu copiez le CSV ci-dessous :\n\n```\n{csv}\n```",
+            "translations_imported": "{updated} jour(s) férié(s) mis à jour, {skipped} ligne(s) ignorée(s).",
+            "no_translations_to_export": "Aucun nom de jour férié n'a encore été écrit – il n'y a rien à exporter.",
+            "hub_not_configurable": "Le hub Annuals n'a pas de paramètres propres - il contient uniquement les calendriers partagés.",
+            "import_started": "Import démarré : {created} événement(s) en cours d'ajout, {skipped} ligne(s) ignorée(s) (voir le journal pour le détail).",
+            "ics_import_started": "Import démarré : {created} événement(s) créé(s), {updated} mis à jour, {skipped} entrée(s) ignorée(s) ou exclue(s).",
+            "csv_exported": "{count} événement(s) exporté(s). [Télécharger annuals_export.csv]({url}) (Ctrl/Cmd+clic pour télécharger - un simple clic ne fonctionne pas ici)\n\nOu copiez le CSV ci-dessous :\n\n```\n{csv}\n```",
+            "no_events_to_export": "Aucun événement à exporter pour le moment.",
+            "deleted_all": "Tous les événements, calendriers et le hub Annuals ont été supprimés.",
+            "holiday_import_started": "Importation démarrée : {count} événement(s) de jour férié en file d'attente pour {country} ({new} nouveaux, {updated} mis à jour).",
+            "no_holidays_imported": "Aucun jour férié n'a encore été importé.",
+            "holidays_removed": "{count} jour(s) férié(s) supprimé(s).",
+            "no_ics_imports": "Aucun événement importé depuis ICS n'a été trouvé.",
+            "ics_imports_removed": "{count} événement(s) importé(s) depuis ICS supprimé(s).",
+            "no_vcard_imports": "Aucun événement importé depuis vCard n'a été trouvé.",
+            "vcard_imports_removed": "{count} événement(s) importé(s) depuis vCard supprimé(s).",
+            "market_import_started": "Import lancé : {count} jour(s) en file pour {country} ({new} nouveau(x), {updated} mis à jour).",
+            "no_markets_imported": "Aucun jour de bourse n'a encore été importé.",
+            "markets_removed": "{count} jour(s) de bourse supprimé(s)."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "birthday": {
+                "name": "Anniversaire de {name}",
+                "unit_of_measurement": "jours"
+            },
+            "anniversary": {
+                "name": "Date commémorative de {name}",
+                "unit_of_measurement": "jours"
+            },
+            "name_day": {
+                "name": "Fête de {name}",
+                "unit_of_measurement": "jours"
+            },
+            "wedding_anniversary": {
+                "name": "Anniversaire de mariage de {name}",
+                "unit_of_measurement": "jours"
+            },
+            "memorial": {
+                "name": "Commémoration de {name}",
+                "unit_of_measurement": "jours"
+            },
+            "pet_birthday": {
+                "name": "Anniversaire de {name}",
+                "unit_of_measurement": "jours"
+            },
+            "work_anniversary": {
+                "name": "Anniversaire professionnel de {name}",
+                "unit_of_measurement": "jours"
+            },
+            "custom": {
+                "name": "{name}",
+                "unit_of_measurement": "jours"
+            },
+            "one_time": {
+                "name": "{name}",
+                "unit_of_measurement": "jours"
+            },
+            "holiday": {
+                "name": "{name}",
+                "unit_of_measurement": "jours"
+            },
+            "market": {
+                "name": "{name}",
+                "unit_of_measurement": "jours"
+            }
+        },
+        "calendar": {
+            "homeworking": {
+                "name": "Travail à domicile"
+            },
+            "birthday": {
+                "name": "Anniversaires"
+            },
+            "anniversary": {
+                "name": "Dates commémoratives"
+            },
+            "name_day": {
+                "name": "Fêtes"
+            },
+            "wedding_anniversary": {
+                "name": "Anniversaires de mariage"
+            },
+            "memorial": {
+                "name": "Commémorations"
+            },
+            "pet_birthday": {
+                "name": "Anniversaires d'animaux"
+            },
+            "work_anniversary": {
+                "name": "Anniversaires professionnels"
+            },
+            "custom": {
+                "name": "Événements personnalisés"
+            },
+            "one_time": {
+                "name": "Événements ponctuels"
+            },
+            "holiday": {
+                "name": "Jours fériés"
+            },
+            "market": {
+                "name": "Bourses"
+            }
+        }
+    }
+}

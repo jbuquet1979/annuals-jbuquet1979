@@ -1,0 +1,754 @@
+{
+    "title": "Annuals",
+    "selector": {
+        "holiday_span": {
+            "options": {
+                "start": "start",
+                "end": "slut",
+                "day": "dag {day}"
+            }
+        },
+        "holiday_breaks": {
+            "options": {
+                "note": "Flerdagsferier som skoleferier samles igen til hele ferier - vælg nedenfor, hvilke dele af dem der skal importeres."
+            }
+        },
+        "event_type": {
+            "options": {
+                "birthday": "Fødselsdag",
+                "anniversary": "Mærkedag",
+                "name_day": "Navnedag",
+                "wedding_anniversary": "Bryllupsdag",
+                "memorial": "Mindedag",
+                "pet_birthday": "Kæledyrs fødselsdag",
+                "work_anniversary": "Jubilæum på arbejdet",
+                "custom": "Tilpasset",
+                "one_time": "Engangsbegivenhed",
+                "holiday": "Helligdag",
+                "market": "Børs"
+            }
+        },
+        "month": {
+            "options": {
+                "1": "januar",
+                "2": "februar",
+                "3": "marts",
+                "4": "april",
+                "5": "maj",
+                "6": "juni",
+                "7": "juli",
+                "8": "august",
+                "9": "september",
+                "10": "oktober",
+                "11": "november",
+                "12": "december"
+            }
+        },
+        "holiday_category": {
+            "options": {
+                "public": "Offentlig",
+                "bank": "Bankfridag",
+                "government": "Myndigheder",
+                "school": "Skoleferie",
+                "optional": "Valgfri",
+                "optional_women": "Valgfri (kvinder)",
+                "unofficial": "Uofficiel",
+                "half_day": "Halv dag",
+                "armed_forces": "Forsvaret",
+                "workday": "Hverdag",
+                "catholic": "Katolsk",
+                "christian": "Kristen",
+                "orthodox": "Ortodoks",
+                "hebrew": "Jødisk",
+                "islamic": "Islamisk",
+                "hindu": "Hinduistisk",
+                "buddhist": "Buddhistisk",
+                "de_facto": "De facto",
+                "protestant": "Protestantisk",
+                "sabian": "Sabæisk",
+                "yazidi": "Jesidisk",
+                "albanian": "Albansk",
+                "armenian": "Armensk",
+                "bosnian": "Bosnisk",
+                "roma": "Romani",
+                "serbian": "Serbisk",
+                "turkish": "Tyrkisk",
+                "vlach": "Vlakisk"
+            }
+        },
+        "nth": {
+            "options": {
+                "1": "Første",
+                "2": "Anden",
+                "3": "Tredje",
+                "4": "Fjerde",
+                "last": "Sidste"
+            }
+        },
+        "weekday": {
+            "options": {
+                "0": "Mandag",
+                "1": "Tirsdag",
+                "2": "Onsdag",
+                "3": "Torsdag",
+                "4": "Fredag",
+                "5": "Lørdag",
+                "6": "Søndag"
+            }
+        },
+        "interval_unit": {
+            "options": {
+                "months": "måneder",
+                "years": "år"
+            }
+        },
+        "market_category": {
+            "options": {
+                "public": "Lukket",
+                "half_day": "Kortere handel",
+                "restricted_settlement": "Uden afvikling"
+            }
+        },
+        "market_status": {
+            "options": {
+                "closed": "{market} lukket",
+                "closes_at": "{market} lukket fra {time}",
+                "closes_early": "{market} lukker tidligere",
+                "no_settlement": "{market} uden afvikling"
+            }
+        }
+    },
+    "config": {
+        "step": {
+            "telework": {
+                "title": "Tilføj hjemmearbejdsplan",
+                "description": "Tilføj en enkelt hjemmearbejdsdag eller en ugentlig plan. Vælg ugedage for gentagelse hver uge; lad feltet stå tomt for én dag. En slutdato begrænser den ugentlige plan; lad den stå tom for ubegrænset gentagelse.",
+                "data": {
+                    "telework_user": "Bruger",
+                    "telework_start_date": "Startdato",
+                    "telework_weekdays": "Ugedage",
+                    "telework_end_date": "Slutdato"
+                },
+                "data_description": {
+                    "telework_weekdays": "Vælg en eller flere dage til en ugentlig plan. Lad feltet stå tomt for kun at registrere startdatoen.",
+                    "telework_end_date": "Gælder kun for ugentlige planer. Lad feltet stå tomt for ingen slutdato."
+                }
+            },
+            "user": {
+                "title": "Tilføj begivenhed",
+                "description": "Hvilken slags begivenhed er det?\n\n**Årlig** dækker fødselsdag, mærkedag, navnedag, bryllupsdag, mindedag, kæledyrs fødselsdag og jubilæum på arbejdet. **Engangs** er en enkelt dato, som sletter sig selv, når den er overstået. **Tilpasset** er din egen årlige dato – på en bestemt dag eller efter en regel.",
+                "menu_options": {
+                    "telework": "{icon_telework} Hjemmearbejdsplan",
+                    "recurring": "{icon_recurring} En årlig dato for nogen",
+                    "one_time": "{icon_one_time} En engangsbegivenhed",
+                    "custom": "{icon_custom} En tilpasset begivenhed"
+                }
+            },
+            "recurring": {
+                "title": "Tilføj en årlig begivenhed",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "person": "Person (valgfri)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År (lad stå tomt hvis ukendt)",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual",
+                    "deceased": "Afdød"
+                },
+                "description": "Hver begivenhed får sin egen post, som du senere kan finde og redigere under Indstillinger → Enheder og tjenester → Annuals ved at søge på navnet.",
+                "data_description": {
+                    "person": "En person i Home Assistant, hvis billede står for denne begivenhed – på dashboardkortet og i påmindelsens notifikation.",
+                    "deceased": "Personen er død: dagen beholdes og markeres, kortet siger, hvad den ville have været, og dine automatiseringer kan kende den fra andre."
+                }
+            },
+            "one_time": {
+                "title": "Tilføj en engangsbegivenhed",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År",
+                    "end_date": "Slutdato (valgfrit – gør den til en flerdagsbegivenhed)",
+                    "time": "Tidspunkt (valgfri)",
+                    "end_time": "Sluttidspunkt (valgfri)",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual"
+                },
+                "description": "En enkelt dato at tælle ned til. Den gentages aldrig, så året er påkrævet, og posten slettes automatisk ved midnat efter, den er overstået.\n\nGiv den en slutdato, så bliver det en flerdagsbegivenhed – en rejse, en konference, et ophold.",
+                "data_description": {
+                    "time": "Hvornår den begynder den dag. Kalenderposten får så et tidspunkt, og dashboardkortet viser det.",
+                    "end_time": "Hvornår den slutter – på slutdatoen, hvis der er en, ellers samme dag. Kræver et starttidspunkt; tom betyder, at kalenderposten varer en time."
+                }
+            },
+            "custom": {
+                "title": "Tilføj en tilpasset begivenhed",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual",
+                    "interval": "Gentages hver",
+                    "interval_unit": "…måneder eller år",
+                    "nth": "Placering i måneden",
+                    "weekday": "Ugedag"
+                },
+                "description": "Din egen årlige dato til alt det, de andre typer ikke dækker.\n\nDen kan følge en **regel** i stedet for en bestemt dag: mors dag er den anden søndag i maj, fars dag i Australien den første søndag i september. Udfyld de to felter nederst – **Måned** ovenfor angiver, hvilken måned reglen gælder for, og **Dag** bruges så ikke. Lad dem stå tomme for en fast dato.",
+                "data_description": {
+                    "interval": "Sammen med enheden ved siden af – hver 6. måned, hvert 2. år. Tælles fra datoen ovenfor, som så skal have sit år. Lad begge stå tomme for én gang om året.",
+                    "nth": "Første, anden, tredje, fjerde eller den sidste i måneden.",
+                    "weekday": "Sæt den sammen med feltet ovenfor – eller lad begge stå tomme."
+                }
+            },
+            "reconfigure_recurring": {
+                "title": "Rediger begivenhed",
+                "description": "Ændr et vilkårligt felt nedenfor, og indsend for at opdatere denne begivenhed.",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "person": "Person (valgfri)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År (lad stå tomt hvis ukendt)",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual",
+                    "deceased": "Afdød"
+                },
+                "data_description": {
+                    "person": "En person i Home Assistant, hvis billede står for denne begivenhed – på dashboardkortet og i påmindelsens notifikation.",
+                    "deceased": "Personen er død: dagen beholdes og markeres, kortet siger, hvad den ville have været, og dine automatiseringer kan kende den fra andre."
+                }
+            },
+            "reconfigure_one_time": {
+                "title": "Rediger engangsbegivenhed",
+                "description": "Ændr et vilkårligt felt nedenfor, og indsend for at opdatere denne begivenhed.\n\nEn slutdato gør den til en flerdagsbegivenhed; ryddes den, bliver det igen én dag.",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År",
+                    "end_date": "Slutdato (valgfrit – gør den til en flerdagsbegivenhed)",
+                    "time": "Tidspunkt (valgfri)",
+                    "end_time": "Sluttidspunkt (valgfri)",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "Hvornår den begynder den dag. Kalenderposten får så et tidspunkt, og dashboardkortet viser det.",
+                    "end_time": "Hvornår den slutter – på slutdatoen, hvis der er en, ellers samme dag. Kræver et starttidspunkt; tom betyder, at kalenderposten varer en time."
+                }
+            },
+            "reconfigure_custom": {
+                "title": "Rediger tilpasset begivenhed",
+                "description": "Ændr et vilkårligt felt nedenfor, og indsend for at opdatere denne begivenhed.\n\nDen kan følge en **regel** i stedet for en bestemt dag – *den anden søndag i maj*. Udfyld de to felter nederst; **Måned** ovenfor angiver, hvilken måned reglen gælder for, og **Dag** bruges så ikke. Ryddes de, falder begivenheden igen på den dag.",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual",
+                    "interval": "Gentages hver",
+                    "interval_unit": "…måneder eller år",
+                    "nth": "Placering i måneden",
+                    "weekday": "Ugedag"
+                },
+                "data_description": {
+                    "interval": "Sammen med enheden ved siden af – hver 6. måned, hvert 2. år. Tælles fra datoen ovenfor, som så skal have sit år. Lad begge stå tomme for én gang om året.",
+                    "nth": "Første, anden, tredje, fjerde eller den sidste i måneden.",
+                    "weekday": "Sæt den sammen med feltet ovenfor – eller lad begge stå tomme."
+                }
+            }
+        },
+        "error": {
+            "telework_user_required": "Angiv et brugernavn.",
+            "invalid_weekday": "Vælg gyldige ugedage.",
+            "telework_end_before_start": "Slutdatoen skal være på eller efter startdatoen.",
+            "telework_end_requires_weekdays": "En slutdato kan kun bruges med en ugentlig plan.",
+            "name_required": "Angiv et navn.",
+            "end_date_one_time_only": "En slutdato kan kun sættes på en engangsbegivenhed.",
+            "end_date_before_start": "Slutdatoen skal være efter startdatoen.",
+            "invalid_date": "Denne kombination af dag/måned/år er ikke en gyldig dato.",
+            "year_required": "Engangsbegivenheder kræver et år.",
+            "rule_needs_both": "En gentagelsesregel kræver begge felter – eller ingen af dem.",
+            "interval_needs_both": "Et gentagelsesinterval kræver begge felter, eller ingen.",
+            "interval_needs_year": "Et gentagelsesinterval tælles fra datoen ovenfor, så året er nødvendigt.",
+            "interval_no_rule": "Et gentagelsesinterval kan ikke kombineres med en ugedagsregel.",
+            "end_time_needs_time": "Et sluttidspunkt kræver et starttidspunkt.",
+            "end_time_before_start": "Sluttidspunktet skal ligge efter starttidspunktet."
+        },
+        "abort": {
+            "hub_not_configurable": "Annuals-hubben har ingen egne indstillinger - den indeholder kun de delte kalendere.",
+            "already_configured": "Annuals-hubben findes allerede.",
+            "invalid_import_row": "Denne række kunne ikke importeres."
+        }
+    },
+    "options": {
+        "step": {
+            "telework": {
+                "title": "Rediger hjemmearbejdsplan",
+                "description": "Rediger denne brugers hjemmearbejdsdag eller ugentlige plan.",
+                "data": {
+                    "telework_user": "Bruger",
+                    "telework_start_date": "Startdato",
+                    "telework_weekdays": "Ugedage",
+                    "telework_end_date": "Slutdato"
+                },
+                "data_description": {
+                    "telework_weekdays": "Vælg en eller flere dage til en ugentlig plan. Lad feltet stå tomt for kun at registrere startdatoen.",
+                    "telework_end_date": "Gælder kun for ugentlige planer. Lad feltet stå tomt for ingen slutdato."
+                }
+            },
+            "import_csv": {
+                "title": "Importer begivenheder fra CSV",
+                "description": "Kolonner: name, type, day, month, year (valgfrit, påkrævet for one_time), icon (valgfrit), vip (valgfrit), last_name (valgfrit). \"type\" skal være en af følgende engelske nøgler: birthday, anniversary, name_day, wedding_anniversary, memorial, pet_birthday, work_anniversary, custom, one_time (altid på engelsk, uanset dit sprogvalg). \"vip\" accepterer 1/true/yes/y/x (der skelnes ikke mellem store/små bogstaver); lad stå tomt eller undlad kolonnen for en ikke-VIP-begivenhed. Behold alle kolonner, selv når en værdi er tom - en række uden afsluttende komma rykker de følgende værdier et trin til venstre. Ugyldige rækker springes over og logges.\n\nEksempel:\n```\nname,type,day,month,year,icon,vip,last_name\nAnna,birthday,12,4,1988,,,Miller\nMax,pet_birthday,3,9,2020,mdi:dog,,\nTest Custom,custom,1,1,,mdi:test-tube,1,\nFamilieferie,one_time,15,7,2026,mdi:airplane,,\n```",
+                "data": {
+                    "csv_file": "CSV-fil"
+                }
+            },
+            "import_ics": {
+                "title": "Importer begivenheder fra ICS-kalender",
+                "description": "Upload en .ics-kalenderfil - typisk en eksporteret kalender. Kun heldags-poster uden gentagelses-tilsidesættelser læses; tidsangivne begivenheder springes over. De næste trin lader dig gennemgå og rette den foreslåede navnedeling (og bytte fornavn/efternavn for alle på én gang), før noget importeres.",
+                "data": {
+                    "ics_file": "ICS-fil"
+                }
+            },
+            "import_vcard_menu": {
+                "title": "Importer begivenheder fra vCard",
+                "description": "En kontakts fødselsdag og dennes øvrige datoer (mærkedage, tilpassede datoer) håndteres i separate forløb, da kun fødselsdage deler én fælles begivenhedstype for hele gruppen - enhver anden dato tildeles sin egen type under gennemgangen.",
+                "menu_options": {
+                    "import_vcard": "Importer fødselsdage",
+                    "import_vcard_other_dates": "Importer øvrige datoer (mærkedage m.m.)"
+                }
+            },
+            "import_vcard": {
+                "title": "Importer fødselsdage fra vCard",
+                "description": "Upload en .vcf-fil - typisk eksporterede kontakter. Kun poster med en angivet fødselsdag læses. Fornavn/efternavn hentes fra kontaktens strukturerede navnefelter, ikke et gæt, og en fødselsdag uden angivet år (vCard's egen måde at udtrykke dette på) bevares som ukendt i stedet for at blive opfundet. De næste trin lader dig gennemgå og rette alt (og bytte fornavn/efternavn for alle på én gang), før noget importeres.",
+                "data": {
+                    "vcard_file": "vCard-fil"
+                }
+            },
+            "import_vcard_other_dates": {
+                "title": "Importer øvrige datoer fra vCard",
+                "description": "Upload en .vcf-fil. Læser alle datoer ud over fødselsdagen: standardfeltet \"Jubilæum\", samt enhver tilpasset mærket dato, som din kontakt-app lader dig tilføje pr. kontakt (f.eks. \"Jubilæum\", \"Andet\" eller en selvvalgt mærkat). I modsætning til fødselsdage er disse ikke alle af samme type begivenhed - de næste trin lader dig gennemgå hver enkelt, med dens registrerede mærkat vist som kontekst, og tildele den korrekte begivenhedstype individuelt.",
+                "data": {
+                    "vcard_file": "vCard-fil"
+                }
+            },
+            "import_options": {
+                "title": "Importer fra {source_label} - indstillinger",
+                "description": "Disse gælder for alle poster fundet i filen. Du får mulighed for at gennemgå og redigere individuelle poster i næste trin.",
+                "data": {
+                    "swap_names": "Byt fornavn/efternavn for alle poster",
+                    "use_description_year": "Brug året fundet i hver posts beskrivelse i stedet for dens startdato, hvor et sådant findes (f.eks. \"geb. 1985\")",
+                    "type": "Begivenhedstype"
+                }
+            },
+            "import_review": {
+                "title": "Importer fra {source_label} - gennemgang ({page}/{total_pages})",
+                "description": "{legend}\n\nTjek den foreslåede opdeling af fornavn/efternavn nedenfor, og ret alt, der er forkert - selve fødselsdagen kan også redigeres - eller fjern markeringen for en post for at udelade den helt. En mulig dublet markeres med navnet på den eksisterende post; lad \"opret som ny\" være umarkeret for at opdatere denne post i stedet for at tilføje endnu en. Feltnavne her vises kun på engelsk, uanset dit sprogvalg.",
+                "data": {
+                    "go_back": "Gå tilbage til forrige side"
+                }
+            },
+            "remove_ics_imports": {
+                "title": "Fjern ICS-importerede begivenheder",
+                "description": "{count} begivenhed(er) blev oprettet af en tidligere ICS-import. Klik på OK for at fjerne dem alle - poster, som en ICS-import kun har opdateret (og ikke oprettet), påvirkes aldrig, og heller ikke manuelt tilføjede, CSV- eller vCard-importerede begivenheder."
+            },
+            "remove_vcard_imports": {
+                "title": "Fjern vCard-importerede begivenheder",
+                "description": "{count} begivenhed(er) blev oprettet af en tidligere vCard-import. Klik på OK for at fjerne dem alle - poster, som en vCard-import kun har opdateret (og ikke oprettet), påvirkes aldrig, og heller ikke manuelt tilføjede, CSV- eller ICS-importerede begivenheder."
+            },
+            "holiday_menu": {
+                "title": "Helligdag",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}",
+                "menu_options": {
+                    "holiday_settings": "⚙️ Indstillinger",
+                    "holiday_names": "🌐 Navn og oversættelser"
+                }
+            },
+            "holiday_settings": {
+                "title": "Indstillinger for helligdagen",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nDato, type og region kommer fra helligdagsdatabasen og kan ikke ændres her.",
+                "data": {
+                    "icon": "Ikon"
+                }
+            },
+            "holiday_names": {
+                "title": "Navn og oversættelser",
+                "description": "**{name}**\n\n{type} · {date} · {region} · {category}\n\nVælg det sprog, du vil skrive denne helligdags navn på.",
+                "data": {
+                    "language": "Sprog"
+                }
+            },
+            "holiday_name_edit": {
+                "title": "Helligdagens navn",
+                "description": "{language}\n\n**{name}**\n\n{type} · {date} · {region} · {category}\n\nForudfyldt med det, der vises i dag. Lad stå tomt for at falde tilbage til helligdagsdatabasen.",
+                "data": {
+                    "name": "Navn",
+                    "reason": "Anledning"
+                }
+            },
+            "holiday_translations": {
+                "title": "🌐 Oversættelser af helligdage",
+                "description": "Eksportér og importér de helligdagsnavne, du selv har skrevet.",
+                "menu_options": {
+                    "export_translations": "📤 Eksportér oversættelser",
+                    "import_translations": "📥 Importér oversættelser"
+                }
+            },
+            "import_translations": {
+                "title": "Importér oversættelser",
+                "description": "Upload en CSV med oversættelser. Kolonner: `country,subdivision,category,holiday_key,observed,language,name,status`. Rækker matches til helligdage på land, region, kategori, helligdagsnøgle og observed-flag – ikke på post-id, så en fil, der er eksporteret før et land genimporteres, gælder stadig. Rækker, hvis helligdag ikke findes, springes over og tælles. For en børsdag er `name` anledningen og `status` dens eget navn; lad `status` stå tomt for helligdage.",
+                "data": {
+                    "csv_file": "CSV"
+                }
+            },
+            "hub_menu": {
+                "title": "Annuals Indstillinger",
+                "menu_options": {
+                    "annual_settings": "{icon_annual_settings} Annual Indstillinger",
+                    "import_events": "{icon_import_events} Importer begivenheder",
+                    "export_csv": "{icon_export_csv} Eksporter begivenheder til CSV",
+                    "holiday_translations": "{icon_holiday_translations} Oversættelser af helligdage",
+                    "remove_events": "{icon_remove_events} Fjern begivenheder",
+                    "delete_all": "{icon_delete_all} Slet alle Annuals-data"
+                }
+            },
+            "import_events": {
+                "title": "Importer begivenheder",
+                "description": "Vælg en kilde at importere fra.",
+                "menu_options": {
+                    "import_csv": "CSV",
+                    "import_ics": "ICS-kalender",
+                    "import_vcard_menu": "vCard",
+                    "import_holidays": "Helligdage",
+                    "import_markets": "Børser"
+                }
+            },
+            "remove_events": {
+                "title": "Fjern begivenheder",
+                "description": "Vælg hvilke tidligere importerede begivenheder der skal fjernes.",
+                "menu_options": {
+                    "remove_ics_imports": "ICS-importerede",
+                    "remove_vcard_imports": "vCard-importerede",
+                    "remove_holidays": "Helligdage",
+                    "remove_markets": "Børser"
+                }
+            },
+            "import_holidays": {
+                "title": "Importer helligdage",
+                "description": "Vælg et land for at importere dets helligdage som begivenheder. At køre dette igen senere for samme land (og delregion) opdaterer eksisterende poster i stedet for at duplikere dem - før noget importeres, ser du alle helligdage og vælger dem, du vil have.",
+                "data": {
+                    "country": "Land"
+                }
+            },
+            "import_markets": {
+                "title": "Importer børsfridage",
+                "description": "Vælg en børs for at importere de dage, den er lukket - og, hvor dens data har dem, dagene med kortere handel. Før noget importeres, ser du alle dage og vælger dem, du vil have.",
+                "data": {
+                    "market": "Børs"
+                }
+            },
+            "import_markets_options": {
+                "title": "Importer børsdage - {country}",
+                "description": "Hvilke slags dage der importeres, og på hvilket sprog deres navne står.",
+                "data": {
+                    "categories": "Dage",
+                    "language": "Sprog for navnene"
+                }
+            },
+            "import_markets_select": {
+                "title": "Importer børsdage - {country}: vælg",
+                "description": "{count} dag(e) fundet, hver med sin næste dato. Kun de afkrydsede importeres.\n\nFjerner du krydset ved en dag, der allerede er i Annuals, forbliver den uændret - dage fjernes under **Fjern begivenheder → Børser**.",
+                "data": {
+                    "holidays": "Dage"
+                }
+            },
+            "import_holidays_options": {
+                "title": "Importer helligdage - {country}",
+                "description": "Lad delregionen stå tom for kun landsdækkende helligdage - en region/provins tilføjer sine egne regionale helligdage. Kategorier og sprog afhænger af, hvad dette lands helligdagsdata tilbyder.{breaks}",
+                "data": {
+                    "include_actual": "Importer den faktiske dato",
+                    "include_observed": "Importer den erstattede (flyttede) dato",
+                    "break_start": "Importer feriens første dag",
+                    "break_end": "Importer feriens sidste dag",
+                    "break_days": "Importer hver feriedag",
+                    "subdivision": "Delregion (region/provins, valgfrit)",
+                    "categories": "Kategorier",
+                    "language": "Sprog for helligdagsnavne"
+                },
+                "data_description": {
+                    "break_start": "Skoleferier er kun angivet med skoledage, så ferien begynder tidligere - her regnes der tilbage over weekenden og tilstødende helligdage til den første rigtigt frie dag.",
+                    "break_end": "Det samme den anden vej: den sidste frie dag, ikke den sidst angivne.",
+                    "break_days": "Én begivenhed per feriedag. Alene sommerferien giver over fyrre.",
+                    "include_observed": "Dette lands helligdage bliver nogle gange rykket til en nærliggende hverdag, hvis de falder i en weekend (f.eks. erstattet af fredagen før eller mandagen efter) - importer også denne erstattede dato som en separat begivenhed."
+                }
+            },
+            "import_holidays_select": {
+                "title": "Importer helligdage - {country}: vælg",
+                "description": "{count} helligdag(e) fundet, hver med sin næste dato. Kun de afkrydsede importeres.\n\nFjerner du krydset ved en helligdag, der allerede er i Annuals, forbliver den uændret - helligdage fjernes under **Fjern begivenheder → Helligdage**.",
+                "data": {
+                    "holidays": "Helligdage"
+                }
+            },
+            "remove_holidays": {
+                "title": "Fjern importerede helligdage",
+                "description": "{total} helligdag(e) er i øjeblikket importeret. Markér feltet nedenfor for at fjerne dem alle, eller lad det stå umarkeret og vælg i stedet en gruppe. Manuelt tilføjede begivenheder påvirkes aldrig.",
+                "data": {
+                    "remove_all": "Fjern alle importerede helligdage",
+                    "batch": "Gruppe der skal fjernes"
+                }
+            },
+            "remove_markets": {
+                "title": "Fjern importerede børsdage",
+                "description": "{total} børsdag(e) importeret. Markér feltet nedenfor for at fjerne dem alle, eller lad det være og vælg en eller flere børser. Intet andet berøres.",
+                "data": {
+                    "remove_all": "Fjern alle importerede børsdage",
+                    "batch": "Børser, der skal fjernes"
+                }
+            },
+            "annual_settings": {
+                "title": "Annual Indstillinger",
+                "sections": {
+                    "important_events": {
+                        "name": "❗ Vigtige begivenheder",
+                        "description": "Kommaseparerede jubilæumstal, som automatisk markerer en begivenhed af den type som \"Important\", f.eks. \"18,21,30,40,50\". Lad et felt stå tomt for at deaktivere dette for den type.",
+                        "data": {
+                            "important_thresholds_birthday": "Fødselsdag",
+                            "important_thresholds_anniversary": "Mærkedag",
+                            "important_thresholds_name_day": "Navnedag",
+                            "important_thresholds_wedding_anniversary": "Bryllupsdag",
+                            "important_thresholds_memorial": "Mindedag",
+                            "important_thresholds_pet_birthday": "Kæledyrs fødselsdag",
+                            "important_thresholds_work_anniversary": "Jubilæum på arbejdet",
+                            "important_thresholds_custom": "Tilpasset"
+                        }
+                    },
+                    "todo": {
+                        "name": "📍 Opgavelister",
+                        "description": "Åbne opgaver på disse lister markerer en begivenhed: hver begivenhedssensor får så et attribut «todo» - sandt så længe mindst én stadig åben opgave er tilknyttet den, ellers falsk - til dine egne automatiseringer, skabeloner og dashboards. Tilknytningen sker først via forfaldsdatoen og derefter via, om opgavens tekst nævner begivenheden (fulde navn, navn, type, nummer i rækken); en opgave, der passer lige godt til to begivenheder, forbliver utilknyttet. Lad stå tom for at slå fra. Uafhængigt af dashboardkortets egen indstilling af samme navn.",
+                        "data": {
+                            "todo_lists": "Opgavelister"
+                        }
+                    }
+                }
+            },
+            "delete_all": {
+                "title": "Slet alle Annuals-data",
+                "description": "Dette sletter permanent alle {count} begivenhed(er), de delte kalendere og selve Annuals-hubben - hele integrationen og alt, den har oprettet. Dette kan ikke fortrydes. Klik på \"OK\" for at bekræfte."
+            },
+            "edit_recurring": {
+                "title": "Rediger begivenhed",
+                "description": "Ændr et vilkårligt felt nedenfor, og indsend for at opdatere denne begivenhed.",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "person": "Person (valgfri)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År (lad stå tomt hvis ukendt)",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual",
+                    "deceased": "Afdød"
+                },
+                "data_description": {
+                    "person": "En person i Home Assistant, hvis billede står for denne begivenhed – på dashboardkortet og i påmindelsens notifikation.",
+                    "deceased": "Personen er død: dagen beholdes og markeres, kortet siger, hvad den ville have været, og dine automatiseringer kan kende den fra andre."
+                }
+            },
+            "edit_one_time": {
+                "title": "Rediger engangsbegivenhed",
+                "description": "Ændr et vilkårligt felt nedenfor, og indsend for at opdatere denne begivenhed.\n\nEn slutdato gør den til en flerdagsbegivenhed; ryddes den, bliver det igen én dag.",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År",
+                    "end_date": "Slutdato (valgfrit – gør den til en flerdagsbegivenhed)",
+                    "time": "Tidspunkt (valgfri)",
+                    "end_time": "Sluttidspunkt (valgfri)",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual"
+                },
+                "data_description": {
+                    "time": "Hvornår den begynder den dag. Kalenderposten får så et tidspunkt, og dashboardkortet viser det.",
+                    "end_time": "Hvornår den slutter – på slutdatoen, hvis der er en, ellers samme dag. Kræver et starttidspunkt; tom betyder, at kalenderposten varer en time."
+                }
+            },
+            "edit_custom": {
+                "title": "Rediger tilpasset begivenhed",
+                "description": "Ændr et vilkårligt felt nedenfor, og indsend for at opdatere denne begivenhed.\n\nDen kan følge en **regel** i stedet for en bestemt dag – *den anden søndag i maj*. Udfyld de to felter nederst; **Måned** ovenfor angiver, hvilken måned reglen gælder for, og **Dag** bruges så ikke. Ryddes de, falder begivenheden igen på den dag.",
+                "data": {
+                    "name": "Navn",
+                    "last_name": "Efternavn (valgfrit)",
+                    "type": "Begivenhedstype",
+                    "day": "Dag",
+                    "month": "Måned",
+                    "year": "År",
+                    "icon": "Tilsidesæt ikon (valgfrit)",
+                    "vip": "VIP Annual",
+                    "interval": "Gentages hver",
+                    "interval_unit": "…måneder eller år",
+                    "nth": "Placering i måneden",
+                    "weekday": "Ugedag"
+                },
+                "data_description": {
+                    "interval": "Sammen med enheden ved siden af – hver 6. måned, hvert 2. år. Tælles fra datoen ovenfor, som så skal have sit år. Lad begge stå tomme for én gang om året.",
+                    "nth": "Første, anden, tredje, fjerde eller den sidste i måneden.",
+                    "weekday": "Sæt den sammen med feltet ovenfor – eller lad begge stå tomme."
+                }
+            }
+        },
+        "error": {
+            "name_required": "Angiv et navn.",
+            "end_date_one_time_only": "En slutdato kan kun sættes på en engangsbegivenhed.",
+            "end_date_before_start": "Slutdatoen skal være efter startdatoen.",
+            "invalid_date": "Denne kombination af dag/måned/år er ikke en gyldig dato.",
+            "year_required": "Engangsbegivenheder kræver et år.",
+            "invalid_csv": "Kunne ikke læse denne fil som CSV. Tjek kodning og format.",
+            "no_valid_rows": "Ingen gyldige rækker fundet i denne fil. Se loggen for detaljer om sprungede rækker.",
+            "invalid_ics": "Kunne ikke læse denne fil som en ICS-kalender. Tjek formatet.",
+            "no_valid_entries": "Ingen brugbare heldags-poster fundet i denne fil. Se loggen for detaljer om sprungede poster.",
+            "invalid_vcard": "Kunne ikke læse denne fil som en vCard. Tjek formatet.",
+            "no_valid_vcard_entries": "Ingen kontakter med en brugbar fødselsdag fundet i denne fil. Se loggen for detaljer om sprungede poster.",
+            "no_valid_vcard_dates": "Ingen mærkedage eller øvrige datoer (ud over fødselsdage) fundet i denne fil. Se loggen for detaljer om sprungede poster.",
+            "no_batch_selected": "Markér \"Fjern alle importerede helligdage\", eller vælg en gruppe.",
+            "rule_needs_both": "En gentagelsesregel kræver begge felter – eller ingen af dem.",
+            "interval_needs_both": "Et gentagelsesinterval kræver begge felter, eller ingen.",
+            "interval_needs_year": "Et gentagelsesinterval tælles fra datoen ovenfor, så året er nødvendigt.",
+            "interval_no_rule": "Et gentagelsesinterval kan ikke kombineres med en ugedagsregel.",
+            "end_time_needs_time": "Et sluttidspunkt kræver et starttidspunkt.",
+            "end_time_before_start": "Sluttidspunktet skal ligge efter starttidspunktet.",
+            "no_holiday_selected": "Afkryds mindst én helligdag.",
+            "category_needs_region": "{category} har ingen helligdage for {where} i {year} - kun disse regioner har nogle: {regions}. Vælg en af dem under \"Delregion\", eller udelad {category}.",
+            "category_empty": "{category} har ingen helligdage for {where} i {year}. Udelad den for at importere de andre.",
+            "no_market_day_selected": "Afkryds mindst én dag.",
+            "market_category_empty": "{category} har ingen dage for {where} i {year}. Udelad den for at importere de andre.",
+            "no_market_batch_selected": "Markér \"Fjern alle importerede børsdage\", eller vælg en børs at fjerne."
+        },
+        "abort": {
+            "translations_exported": "{count} oversættelse(r) eksporteret. [Download annuals_holiday_translations.csv]({url}) (Ctrl/Cmd+klik for at downloade - et almindeligt klik virker ikke her)\n\nEller kopiér CSV'en herunder:\n\n```\n{csv}\n```",
+            "translations_imported": "{updated} helligdag(e) opdateret, {skipped} række(r) sprunget over.",
+            "no_translations_to_export": "Der er endnu ikke skrevet nogen helligdagsnavne – der er intet at eksportere.",
+            "hub_not_configurable": "Annuals-hubben har ingen egne indstillinger - den indeholder kun de delte kalendere.",
+            "import_started": "Import startet: {created} begivenhed(er) i kø, {skipped} række(r) sprunget over (se loggen for detaljer).",
+            "ics_import_started": "Import startet: {created} begivenhed(er) oprettet, {updated} opdateret, {skipped} post(er) sprunget over eller udeladt.",
+            "csv_exported": "{count} begivenhed(er) eksporteret. [Download annuals_export.csv]({url}) (Ctrl/Cmd+klik for at downloade - et almindeligt klik virker ikke her)\n\nEller kopiér CSV'en herunder:\n\n```\n{csv}\n```",
+            "no_events_to_export": "Der er endnu ingen begivenheder at eksportere.",
+            "deleted_all": "Alle Annuals-begivenheder, kalendere og hubben er fjernet.",
+            "holiday_import_started": "Import startet: {count} helligdagsbegivenhed(er) i kø for {country} ({new} nye, {updated} opdateret).",
+            "no_holidays_imported": "Der er endnu ikke importeret nogen helligdage.",
+            "holidays_removed": "{count} helligdag(e) fjernet.",
+            "no_ics_imports": "Der blev ikke fundet nogen begivenheder oprettet af en ICS-import.",
+            "ics_imports_removed": "{count} ICS-importeret(e) begivenhed(er) fjernet.",
+            "no_vcard_imports": "Der blev ikke fundet nogen begivenheder oprettet af en vCard-import.",
+            "vcard_imports_removed": "{count} vCard-importeret(e) begivenhed(er) fjernet.",
+            "market_import_started": "Import startet: {count} dag(e) sat i kø for {country} ({new} nye, {updated} opdateret).",
+            "no_markets_imported": "Der er endnu ikke importeret nogen børsdage.",
+            "markets_removed": "{count} børsdag(e) fjernet."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "birthday": {
+                "name": "{name}s fødselsdag",
+                "unit_of_measurement": "dage"
+            },
+            "anniversary": {
+                "name": "{name}s mærkedag",
+                "unit_of_measurement": "dage"
+            },
+            "name_day": {
+                "name": "{name}s navnedag",
+                "unit_of_measurement": "dage"
+            },
+            "wedding_anniversary": {
+                "name": "{name}s bryllupsdag",
+                "unit_of_measurement": "dage"
+            },
+            "memorial": {
+                "name": "{name}s mindedag",
+                "unit_of_measurement": "dage"
+            },
+            "pet_birthday": {
+                "name": "{name}s fødselsdag",
+                "unit_of_measurement": "dage"
+            },
+            "work_anniversary": {
+                "name": "{name}s jubilæum på arbejdet",
+                "unit_of_measurement": "dage"
+            },
+            "custom": {
+                "name": "{name}",
+                "unit_of_measurement": "dage"
+            },
+            "one_time": {
+                "name": "{name}",
+                "unit_of_measurement": "dage"
+            },
+            "holiday": {
+                "name": "{name}",
+                "unit_of_measurement": "dage"
+            },
+            "market": {
+                "name": "{name}",
+                "unit_of_measurement": "dage"
+            }
+        },
+        "calendar": {
+            "homeworking": {
+                "name": "Arbejde hjemmefra"
+            },
+            "birthday": {
+                "name": "Fødselsdage"
+            },
+            "anniversary": {
+                "name": "Mærkedage"
+            },
+            "name_day": {
+                "name": "Navnedage"
+            },
+            "wedding_anniversary": {
+                "name": "Bryllupsdage"
+            },
+            "memorial": {
+                "name": "Mindedage"
+            },
+            "pet_birthday": {
+                "name": "Kæledyrs fødselsdage"
+            },
+            "work_anniversary": {
+                "name": "Jubilæer på arbejdet"
+            },
+            "custom": {
+                "name": "Tilpassede begivenheder"
+            },
+            "one_time": {
+                "name": "Engangsbegivenheder"
+            },
+            "holiday": {
+                "name": "Helligdage"
+            },
+            "market": {
+                "name": "Børser"
+            }
+        }
+    }
+}
