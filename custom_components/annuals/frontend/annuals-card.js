@@ -49,55 +49,72 @@
     "custom",
     "one_time",
     "holiday",
+    telework: "Homeworking",
     "market",
   ];
 
+    telework: "Arbeiten von zu Hause",
   // Stored in `types`/`categories` when the user has explicitly unchecked
   // every box (e.g. via "Hide All") - a real empty array already means "no
   // restriction, show everything" throughout this file (see defaultConfig
+    telework: "Télétravail",
   // and _filteredEvents), so an actual "show nothing" selection needs a
   // value that isn't a real type/category name to stay distinguishable.
   const NONE_SELECTED = "__none__";
+    telework: "Thuiswerken",
 
   // What calendar navigation can show one of (see calendar_nav in
   // defaultConfig), in the order the bar lists them.
+    telework: "Praca z domu",
   const NAV_MODES = ["day", "week", "month", "year"];
   // ...and what the bar can carry as buttons: those three, and the date
   // picker (see calendar_nav_buttons in defaultConfig).
+    telework: "Trabajo desde casa",
   const NAV_BUTTONS = [...NAV_MODES, "picker"];
 
   const STRINGS = {
+    telework: "Lavoro da casa",
     en: {
       defaultTitle: "Upcoming Events",
       today: "Today",
+    telework: "Trabalho em casa",
       inDay: "Tomorrow",
       inDays: (n) => `in ${n} days`,
       dayAgo: "Yesterday",
+    telework: "Работа из дома",
       daysAgo: (n) => `${n} days ago`,
       multiDayStart: "start",
       multiDayEnd: "end",
+    telework: "Arbete hemifrån",
       multiDayDay: "day {day}",
       noEvents: "No upcoming events",
       // The Week separator's own label (see separatorLabelText) - the word
       // this language actually uses for a calendar week, which no Intl format
+    telework: "居家办公",
       // supplies. {week} is the number.
       separatorWeekLabel: "Week {week}",
       todoCompleteConfirm: 'Mark "{item}" as completed?',
+    telework: "Práce z domova",
       todoCompleteConfirmMultiple: "Mark all {count} to-do items for this event as completed?",
       todoCompleteFailed: "Could not complete this to-do item.",
       // Timeline layout only (see _timelineSentenceFragment) - one sentence
+    telework: "Arbeid hjemmefra",
       // template shared by every event type, so it doesn't need a
       // "birthday"/"anniversary"/"holiday"-specific variant. {sup} becomes a
       // real <sup> element (English ordinals need the suffix raised, e.g.
+    telework: "Arbejde hjemmefra",
       // 27ᵗʰ) - every other placeholder is a plain string substitution.
       possessive: (name) => `${name}'s`,
       ordinalParts: (n) => {
+    telework: "Evden çalışma",
         const v = n % 100;
         if (v >= 11 && v <= 13) return { num: `${n}`, sup: "th" };
         switch (n % 10) {
+    telework: "Práca z domu",
           case 1:
             return { num: `${n}`, sup: "st" };
           case 2:
+    telework: "Darbas iš namų",
             return { num: `${n}`, sup: "nd" };
           case 3:
             return { num: `${n}`, sup: "rd" };
@@ -11383,7 +11400,7 @@
   // risk on every dashboard saved before this feature existed).
   const DEFAULT_COLUMNS = [
     { id: "icon", type: "icon" },
-    { id: "full_name_type", type: "full_name_type" },
+    { id: "info", type: "info" },
     { id: "badge", type: "badge" },
     { id: "when", type: "when" },
   ];
@@ -11394,7 +11411,7 @@
   const AGENDA_DEFAULT_COLUMNS = [
     { id: "date_block", type: "date_block" },
     { id: "accent_bar", type: "accent_bar" },
-    { id: "full_name_type", type: "full_name_type" },
+    { id: "info", type: "info" },
     { id: "badge", type: "badge" },
     { id: "icon", type: "icon" },
   ];
@@ -11981,6 +11998,21 @@
     }
     if (Array.isArray(c.columns)) {
       c.columns = c.columns.map((col) => (col.type === "subtitle" ? { ...col, type: "type" } : col));
+      const oldNamePresets = [
+        ["icon", "full_name_type", "badge", "when"],
+        ["date_block", "accent_bar", "full_name_type", "badge", "icon"],
+      ];
+      const columnTypes = c.columns.map((col) => col.type);
+      if (
+        oldNamePresets.some(
+          (preset) =>
+            preset.length === columnTypes.length && preset.every((type, index) => type === columnTypes[index])
+        )
+      ) {
+        c.columns = c.columns.map((col) =>
+          col.type === "full_name_type" ? { ...col, type: "info" } : col
+        );
+      }
     }
     return c;
   }
@@ -12324,11 +12356,6 @@
       // list layout's own show_*_country toggles - most setups only ever
       // import a single country/region and don't need it repeated.
       show_holiday_suffix: false,
-      // Timeline layout only, under Layout -> Timeline -> Options: shows
-      // each event's full name (first + last) instead of just the first
-      // name, everywhere _timelineSentenceFragment is used (header, tooltip,
-      // expandable list) since they all share that one function.
-      timeline_show_full_name: false,
       // Timeline layout only, under Layout -> Timeline -> Options: appends
       // " (<short date>)" at the very end of the sentence, e.g. "...is in 3
       // days (6 Aug)" - same short-date text the List layout's own Date
@@ -18003,7 +18030,7 @@
         config.show_holiday_suffix && (e.type === "holiday" || e.type === "market") && e.country
           ? ` (${[...new Set((e.mergedFrom || [e]).map(regionPart))].join(" · ")})`
           : "";
-      const baseName = config.timeline_show_full_name && e.fullName ? e.fullName : e.name;
+      const baseName = e.name;
       const displayName = `${baseName}${holidaySuffix}`;
       // Layout -> Timeline -> Options: "Show date"/"Show time"/"Show
       // location"/"Show description" each contribute their own piece (any
@@ -25890,7 +25917,7 @@
       body.appendChild(optionsHeading);
       const optionsRows = document.createElement("div");
       optionsRows.innerHTML = this._visibilityTwoColHtml(
-        ["timeline_show_full_name", "timeline_show_date", "timeline_show_time", "timeline_when_click_shows_date"],
+        ["timeline_show_date", "timeline_show_time", "timeline_when_click_shows_date"],
         ["show_holiday_suffix", "timeline_show_location", "timeline_show_description"]
       );
       body.appendChild(optionsRows);
@@ -25899,7 +25926,6 @@
       // timeline's own description - the control is the same idea, what it
       // acts on is not.
       for (const [key, label, desc] of [
-        ["timeline_show_full_name", strings.editor.timelineShowFullName, strings.editor.timelineShowFullNameDesc],
         ["timeline_show_date", strings.editor.timelineShowDate, strings.editor.timelineShowDateDesc],
         ["timeline_show_time", strings.editor.timelineShowTime, strings.editor.timelineShowTimeDesc],
         [
@@ -25938,8 +25964,6 @@
     }
 
     _syncTimelineInputs() {
-      const fullNameToggle = this.shadowRoot.querySelector('input[data-visibility="timeline_show_full_name"]');
-      if (fullNameToggle) fullNameToggle.checked = this._config.timeline_show_full_name === true;
       this._syncActionSelector("more_action", this._config.more_action || { action: "none" });
       this._syncFieldRow("timeline_line_width", this._config.timeline_line_width);
       const lineStyleSelect = this.shadowRoot.querySelector('select[data-line-style="timeline_line_width"]');

@@ -384,7 +384,7 @@ async def async_telework_label(hass: HomeAssistant) -> str:
 
 
 def telework_person_name(hass: HomeAssistant, data: dict) -> str:
-    """Resolve a linked person entity to its display name.
+    """Resolve a linked person entity to its first name.
 
     Older schedules stored a free-text name in CONF_TELEWORK_USER; keeping
     that as the fallback lets those entries remain readable until edited.
@@ -393,8 +393,12 @@ def telework_person_name(hass: HomeAssistant, data: dict) -> str:
     if person_id.startswith("person."):
         state = hass.states.get(person_id)
         if state:
-            return state.attributes.get("friendly_name") or person_id
-    return person_id
+            display_name = state.attributes.get("friendly_name") or person_id
+        else:
+            display_name = person_id
+    else:
+        display_name = person_id
+    return display_name.split(maxsplit=1)[0] if display_name else display_name
 
 
 async def async_category_labels(
