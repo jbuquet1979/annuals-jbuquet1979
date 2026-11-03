@@ -49,72 +49,56 @@
     "custom",
     "one_time",
     "holiday",
-    telework: "Homeworking",
+    "telework",
     "market",
   ];
 
-    telework: "Arbeiten von zu Hause",
   // Stored in `types`/`categories` when the user has explicitly unchecked
   // every box (e.g. via "Hide All") - a real empty array already means "no
   // restriction, show everything" throughout this file (see defaultConfig
-    telework: "Télétravail",
   // and _filteredEvents), so an actual "show nothing" selection needs a
   // value that isn't a real type/category name to stay distinguishable.
   const NONE_SELECTED = "__none__";
-    telework: "Thuiswerken",
 
   // What calendar navigation can show one of (see calendar_nav in
   // defaultConfig), in the order the bar lists them.
-    telework: "Praca z domu",
   const NAV_MODES = ["day", "week", "month", "year"];
   // ...and what the bar can carry as buttons: those three, and the date
   // picker (see calendar_nav_buttons in defaultConfig).
-    telework: "Trabajo desde casa",
   const NAV_BUTTONS = [...NAV_MODES, "picker"];
 
   const STRINGS = {
-    telework: "Lavoro da casa",
     en: {
       defaultTitle: "Upcoming Events",
       today: "Today",
-    telework: "Trabalho em casa",
       inDay: "Tomorrow",
       inDays: (n) => `in ${n} days`,
       dayAgo: "Yesterday",
-    telework: "Работа из дома",
       daysAgo: (n) => `${n} days ago`,
       multiDayStart: "start",
       multiDayEnd: "end",
-    telework: "Arbete hemifrån",
       multiDayDay: "day {day}",
       noEvents: "No upcoming events",
       // The Week separator's own label (see separatorLabelText) - the word
       // this language actually uses for a calendar week, which no Intl format
-    telework: "居家办公",
       // supplies. {week} is the number.
       separatorWeekLabel: "Week {week}",
       todoCompleteConfirm: 'Mark "{item}" as completed?',
-    telework: "Práce z domova",
       todoCompleteConfirmMultiple: "Mark all {count} to-do items for this event as completed?",
       todoCompleteFailed: "Could not complete this to-do item.",
       // Timeline layout only (see _timelineSentenceFragment) - one sentence
-    telework: "Arbeid hjemmefra",
       // template shared by every event type, so it doesn't need a
       // "birthday"/"anniversary"/"holiday"-specific variant. {sup} becomes a
       // real <sup> element (English ordinals need the suffix raised, e.g.
-    telework: "Arbejde hjemmefra",
       // 27ᵗʰ) - every other placeholder is a plain string substitution.
       possessive: (name) => `${name}'s`,
       ordinalParts: (n) => {
-    telework: "Evden çalışma",
         const v = n % 100;
         if (v >= 11 && v <= 13) return { num: `${n}`, sup: "th" };
         switch (n % 10) {
-    telework: "Práca z domu",
           case 1:
             return { num: `${n}`, sup: "st" };
           case 2:
-    telework: "Darbas iš namų",
             return { num: `${n}`, sup: "nd" };
           case 3:
             return { num: `${n}`, sup: "rd" };
