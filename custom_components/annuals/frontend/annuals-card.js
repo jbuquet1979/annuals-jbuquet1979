@@ -18894,7 +18894,6 @@
       const badgeValue = e.occurrence == null ? null : e.occurrence + occurrenceShift;
       const badgeClass = config.colors.badge_background === false ? "badge no-background" : "badge";
 
-      const nameText = countrySuffix && config.show_name_country ? `${e.name} · ${countrySuffix}` : e.name;
       const fullNameSuffixedText =
         countrySuffix && config.show_full_name_country ? `${e.fullName} · ${countrySuffix}` : e.fullName;
 
