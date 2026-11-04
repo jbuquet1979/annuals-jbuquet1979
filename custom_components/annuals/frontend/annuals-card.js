@@ -25,6 +25,9 @@
     const words = String(value).split("_");
     return words[0].charAt(0).toUpperCase() + words[0].slice(1) + (words.length > 1 ? " " + words.slice(1).join(" ") : "");
   }
+  function _eventDisplayName(event, strings) {
+    return event.type === "telework" ? `${strings.types.telework} ${event.name}` : event.name;
+  }
 
   // How often AnnualsCard re-fetches embedded external calendars' own
   // events (see _startExternalEventsPolling) while it's on-screen, as a
@@ -18031,7 +18034,8 @@
         config.show_holiday_suffix && (e.type === "holiday" || e.type === "market") && e.country
           ? ` (${[...new Set((e.mergedFrom || [e]).map(regionPart))].join(" · ")})`
           : "";
-      const baseName = e.name;
+      const baseName = _eventDisplayName(e, strings);
+        .list.columns-compact .row.telework .icon-wrap { margin-right: 4px; }
       const displayName = `${baseName}${holidaySuffix}`;
       // Layout -> Timeline -> Options: "Show date"/"Show time"/"Show
       // location"/"Show description" each contribute their own piece (any
@@ -18800,7 +18804,10 @@
       const matchClass = rowPaint.text ? " match-row-text" : "";
       div.className =
         "row" + (highlightClass ? ` ${highlightClass}` : "") + matchClass + (iconVisible ? "" : " icon-hidden") +
+        (e.type === "telework" ? " telework" : "") +
         (e.deceased && config.deceased_style !== "normal" ? " is-deceased" : "");
+        const displayName = _eventDisplayName(e, strings);
+        const nameText = countrySuffix && config.show_name_country ? `${displayName} · ${countrySuffix}` : displayName;
       div.style.setProperty("--annuals-row-resolved-icon-color", rowPaint.icon);
       div.style.setProperty("--annuals-row-resolved-bar-color", rowPaint.bar);
       if (rowPaint.text) div.style.setProperty("--annuals-row-resolved-text-color", rowPaint.text);
