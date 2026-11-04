@@ -18035,7 +18035,6 @@
           ? ` (${[...new Set((e.mergedFrom || [e]).map(regionPart))].join(" · ")})`
           : "";
       const baseName = _eventDisplayName(e, strings);
-        .list.columns-compact .row.telework .icon-wrap { margin-right: 4px; }
       const displayName = `${baseName}${holidaySuffix}`;
       // Layout -> Timeline -> Options: "Show date"/"Show time"/"Show
       // location"/"Show description" each contribute their own piece (any
