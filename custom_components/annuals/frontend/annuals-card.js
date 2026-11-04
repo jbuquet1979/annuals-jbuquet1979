@@ -15215,6 +15215,7 @@
        the same 6px pull-up lands the icon within ~1px of the real baseline
        in both, so it's a genuine constant, not a per-font-size guess. */
     .list.columns-compact .icon-wrap { align-self: flex-end; margin-bottom: 6px; }
+    .list.columns-compact .row.telework .icon-wrap { margin-right: 4px; }
     .list.columns-compact .info,
     .list.columns-compact .text-col,
     .list.columns-compact .date-col,
@@ -15269,6 +15270,7 @@
       align-items: center;
       gap: 6px;
     }
+    .timeline-header-row.telework .timeline-header-icons { margin-right: 4px; }
     /* This event has no circle behind its icon at all - just the bare glyph,
        since the header line is a single description rather than one row
        among many that needs a strong visual anchor. position:relative is the
@@ -18032,7 +18034,11 @@
           ? ` (${[...new Set((e.mergedFrom || [e]).map(regionPart))].join(" · ")})`
           : "";
       const baseName = e.name;
-      const displayName = `${baseName}${holidaySuffix}`;
+      const hasOccurrence = config.show_badge !== false && occurrence != null;
+      const displayName =
+        e.type === "telework" && !hasOccurrence
+          ? `${strings.types[e.type] || e.type} ${baseName}`
+          : `${baseName}${holidaySuffix}`;
       // Layout -> Timeline -> Options: "Show date"/"Show time"/"Show
       // location"/"Show description" each contribute their own piece (any
       // combination of which can be on at once) to one shared trailing
@@ -18070,7 +18076,7 @@
       // A day of someone who has died (see `deceased` in buildEvent) is
       // worded as what it would have been, in either sentence -
       // the tense of "is"/"was" has no say in it.
-      if (!(config.show_badge !== false && occurrence != null)) {
+      if (!hasOccurrence) {
         const tmpl = e.deceased
           ? strings.timelineSentenceSimpleDeceased || "{possessive} {type} would have been {when}"
           : (readsAsPast ? strings.timelineSentenceSimplePast : strings.timelineSentenceSimple) || "{name} is {when}";
@@ -18170,7 +18176,7 @@
       nextGroup.forEach((ev) => {
         const badges = this._timelineBadges(ev, config);
         const row = document.createElement("div");
-        row.className = "timeline-header-row";
+        row.className = "timeline-header-row" + (ev.type === "telework" ? " telework" : "");
         // The header line is an entry for this event just as the list below
         // is, so it follows the same switch (see row_color_targets).
         const headerTargets = rowColorTargets(
@@ -18799,7 +18805,7 @@
       const rowPaint = rowColors(config, e, colorCategory, this._calendarColors);
       const matchClass = rowPaint.text ? " match-row-text" : "";
       div.className =
-        "row" + (highlightClass ? ` ${highlightClass}` : "") + matchClass + (iconVisible ? "" : " icon-hidden") +
+        "row" + (e.type === "telework" ? " telework" : "") + (highlightClass ? ` ${highlightClass}` : "") + matchClass + (iconVisible ? "" : " icon-hidden") +
         (e.deceased && config.deceased_style !== "normal" ? " is-deceased" : "");
       div.style.setProperty("--annuals-row-resolved-icon-color", rowPaint.icon);
       div.style.setProperty("--annuals-row-resolved-bar-color", rowPaint.bar);
