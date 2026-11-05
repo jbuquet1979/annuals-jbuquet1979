@@ -127,7 +127,9 @@
                     "telework_user": "Użytkownik",
                     "telework_start_date": "Data początkowa",
                     "telework_weekdays": "Dni tygodnia",
-                    "telework_end_date": "Data końcowa"
+                    "telework_end_date": "Data końcowa",
+                    "icon": "Zastąp ikonę (opcjonalnie)",
+                    "vip": "VIP Annual"
                 },
                 "data_description": {
                     "telework_weekdays": "Wybierz jeden lub więcej dni dla tygodniowego harmonogramu pracy z domu. Pozostaw puste, aby zapisać tylko datę początkową.",

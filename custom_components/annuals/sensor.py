@@ -107,11 +107,11 @@ class TeleworkSensor(SensorEntity):
     _attr_should_poll = True
     _attr_device_class = SensorDeviceClass.DURATION
     _attr_native_unit_of_measurement = UnitOfTime.DAYS
-    _attr_icon = "mdi:home-city"
 
     def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry, label: str) -> None:
         self._hass_ref = hass
         self._config_entry = config_entry
+        self._attr_icon = config_entry.data.get(CONF_ICON) or "mdi:home-city"
         self._label = label
         self._user = telework_person_name(hass, config_entry.data)
         self._attr_unique_id = f"{DOMAIN}-{config_entry.entry_id}"
@@ -130,6 +130,7 @@ class TeleworkSensor(SensorEntity):
             "type_label": self._label,
             "name": self._user,
             "next_date": occurrence.isoformat() if occurrence else None,
+            "vip": bool(self._config_entry.data.get(CONF_VIP, False)),
         }
 
     async def async_update(self) -> None:

@@ -127,7 +127,9 @@
                     "telework_user": "Používateľ",
                     "telework_start_date": "Dátum začiatku",
                     "telework_weekdays": "Dni v týždni",
-                    "telework_end_date": "Dátum ukončenia"
+                    "telework_end_date": "Dátum ukončenia",
+                    "icon": "Vlastná ikona (voliteľné)",
+                    "vip": "VIP Annual"
                 },
                 "data_description": {
                     "telework_weekdays": "Vyber jeden alebo viac dní pre týždenný plán. Nechaj prázdne, ak chceš zaznamenať iba dátum začiatku.",
