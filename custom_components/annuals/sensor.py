@@ -129,6 +129,7 @@ class TeleworkSensor(SensorEntity):
             "type": CONF_TELEWORK,
             "type_label": self._label,
             "name": self._user,
+            "full_name": f"{self._label} {self._user}".strip(),
             "next_date": occurrence.isoformat() if occurrence else None,
         }
 
